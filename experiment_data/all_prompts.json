@@ -1,0 +1,212 @@
+[
+  {
+    "task_id": "T01",
+    "task_name": "Todo App",
+    "group": "A",
+    "encoding": "英文自然语言",
+    "prompt": "Write a React component using TypeScript. It should be a single file component. Use Tailwind CSS for styling but no other external libraries. The layout should be mobile-first. Use mock data. Only output code, no explanations.\nBuild a todo page with add, delete, filter, and complete features."
+  },
+  {
+    "task_id": "T01",
+    "task_name": "Todo App",
+    "group": "D",
+    "encoding": "英文极简DSL",
+    "prompt": "[L]TS[S]React[F]SFC[Y]TW[D]NOX[M]MOB[DT]MOCK[O]CODE\nBuild a todo page with add, delete, filter, and complete features."
+  },
+  {
+    "task_id": "T01",
+    "task_name": "Todo App",
+    "group": "F",
+    "encoding": "极简古文",
+    "prompt": "[语]TS[架]React[式]单件[样]TW[依]无外库[排]移动[数]模拟[出]纯码\n作待办页，具增删筛毕之能。"
+  },
+  {
+    "task_id": "T02",
+    "task_name": "Login Form",
+    "group": "A",
+    "encoding": "英文自然语言",
+    "prompt": "Write a React component using TypeScript. It should be a single file component. Use Tailwind CSS for styling but no other external libraries. The layout should be mobile-first. Use mock data. Only output code, no explanations.\nBuild a login form with email and password fields, validation, and error messages."
+  },
+  {
+    "task_id": "T02",
+    "task_name": "Login Form",
+    "group": "D",
+    "encoding": "英文极简DSL",
+    "prompt": "[L]TS[S]React[F]SFC[Y]TW[D]NOX[M]MOB[DT]MOCK[O]CODE\nBuild a login form with email and password fields, validation, and error messages."
+  },
+  {
+    "task_id": "T02",
+    "task_name": "Login Form",
+    "group": "F",
+    "encoding": "极简古文",
+    "prompt": "[语]TS[架]React[式]单件[样]TW[依]无外库[排]移动[数]模拟[出]纯码\n作登入表，含邮密二栏、校验及误示。"
+  },
+  {
+    "task_id": "T03",
+    "task_name": "User Profile Card",
+    "group": "A",
+    "encoding": "英文自然语言",
+    "prompt": "Write a React component using TypeScript. It should be a single file component. Use Tailwind CSS for styling but no other external libraries. The layout should be mobile-first. Use mock data. Only output code, no explanations.\nBuild a user profile card showing avatar, name, bio, and a follow button."
+  },
+  {
+    "task_id": "T03",
+    "task_name": "User Profile Card",
+    "group": "D",
+    "encoding": "英文极简DSL",
+    "prompt": "[L]TS[S]React[F]SFC[Y]TW[D]NOX[M]MOB[DT]MOCK[O]CODE\nBuild a user profile card showing avatar, name, bio, and a follow button."
+  },
+  {
+    "task_id": "T03",
+    "task_name": "User Profile Card",
+    "group": "F",
+    "encoding": "极简古文",
+    "prompt": "[语]TS[架]React[式]单件[样]TW[依]无外库[排]移动[数]模拟[出]纯码\n作用户卡，示头像、名、简介与关注键。"
+  },
+  {
+    "task_id": "T04",
+    "task_name": "Shopping Cart",
+    "group": "A",
+    "encoding": "英文自然语言",
+    "prompt": "Write a React component using TypeScript. It should be a single file component. Use Tailwind CSS for styling but no other external libraries. The layout should be mobile-first. Use mock data. Only output code, no explanations.\nBuild a shopping cart page with item list, quantity adjustment, price calculation, and checkout button."
+  },
+  {
+    "task_id": "T04",
+    "task_name": "Shopping Cart",
+    "group": "D",
+    "encoding": "英文极简DSL",
+    "prompt": "[L]TS[S]React[F]SFC[Y]TW[D]NOX[M]MOB[DT]MOCK[O]CODE\nBuild a shopping cart page with item list, quantity adjustment, price calculation, and checkout button."
+  },
+  {
+    "task_id": "T04",
+    "task_name": "Shopping Cart",
+    "group": "F",
+    "encoding": "极简古文",
+    "prompt": "[语]TS[架]React[式]单件[样]TW[依]无外库[排]移动[数]模拟[出]纯码\n作购物车页，列商品、调数量、算价、具结算键。"
+  },
+  {
+    "task_id": "T05",
+    "task_name": "Weather Dashboard",
+    "group": "A",
+    "encoding": "英文自然语言",
+    "prompt": "Write a React component using TypeScript. It should be a single file component. Use Tailwind CSS for styling but no other external libraries. The layout should be responsive. Use mock data. Only output code, no explanations.\nBuild a weather dashboard showing current temperature, humidity, wind speed, and a 5-day forecast."
+  },
+  {
+    "task_id": "T05",
+    "task_name": "Weather Dashboard",
+    "group": "D",
+    "encoding": "英文极简DSL",
+    "prompt": "[L]TS[S]React[F]SFC[Y]TW[D]NOX[M]RSP[DT]MOCK[O]CODE\nBuild a weather dashboard showing current temperature, humidity, wind speed, and a 5-day forecast."
+  },
+  {
+    "task_id": "T05",
+    "task_name": "Weather Dashboard",
+    "group": "F",
+    "encoding": "极简古文",
+    "prompt": "[语]TS[架]React[式]单件[样]TW[依]无外库[排]适应[数]模拟[出]纯码\n作天气板，示温湿风速及五日之报。"
+  },
+  {
+    "task_id": "T06",
+    "task_name": "Markdown Editor",
+    "group": "A",
+    "encoding": "英文自然语言",
+    "prompt": "Write a React component using TypeScript. It should be a single file component. Use plain CSS for styling but no other external libraries. The layout should be desktop. Only output code, no explanations.\nBuild a split-pane markdown editor with live preview."
+  },
+  {
+    "task_id": "T06",
+    "task_name": "Markdown Editor",
+    "group": "D",
+    "encoding": "英文极简DSL",
+    "prompt": "[L]TS[S]React[F]SFC[Y]CSS[D]NOX[M]DSK[DT]NONE[O]CODE\nBuild a split-pane markdown editor with live preview."
+  },
+  {
+    "task_id": "T06",
+    "task_name": "Markdown Editor",
+    "group": "F",
+    "encoding": "极简古文",
+    "prompt": "[语]TS[架]React[式]单件[样]CSS[依]无外库[排]桌面[数]无[出]纯码\n作左右分栏之 Markdown 编辑器，实时预览。"
+  },
+  {
+    "task_id": "T07",
+    "task_name": "Image Gallery",
+    "group": "A",
+    "encoding": "英文自然语言",
+    "prompt": "Write a React component using TypeScript. It should be a single file component. Use Tailwind CSS for styling but no other external libraries. The layout should be responsive. Use mock data. Only output code, no explanations.\nBuild an image gallery with grid layout, lightbox preview, and lazy loading."
+  },
+  {
+    "task_id": "T07",
+    "task_name": "Image Gallery",
+    "group": "D",
+    "encoding": "英文极简DSL",
+    "prompt": "[L]TS[S]React[F]SFC[Y]TW[D]NOX[M]RSP[DT]MOCK[O]CODE\nBuild an image gallery with grid layout, lightbox preview, and lazy loading."
+  },
+  {
+    "task_id": "T07",
+    "task_name": "Image Gallery",
+    "group": "F",
+    "encoding": "极简古文",
+    "prompt": "[语]TS[架]React[式]单件[样]TW[依]无外库[排]适应[数]模拟[出]纯码\n作图廊，网格排列，点击可放大，惰加载。"
+  },
+  {
+    "task_id": "T08",
+    "task_name": "Chat Interface",
+    "group": "A",
+    "encoding": "英文自然语言",
+    "prompt": "Write a React component using TypeScript. It should be a single file component. Use Tailwind CSS for styling but no other external libraries. The layout should be mobile-first. Use mock data. Only output code, no explanations.\nBuild a chat interface with message bubbles, input box, send button, and auto-scroll to bottom."
+  },
+  {
+    "task_id": "T08",
+    "task_name": "Chat Interface",
+    "group": "D",
+    "encoding": "英文极简DSL",
+    "prompt": "[L]TS[S]React[F]SFC[Y]TW[D]NOX[M]MOB[DT]MOCK[O]CODE\nBuild a chat interface with message bubbles, input box, send button, and auto-scroll to bottom."
+  },
+  {
+    "task_id": "T08",
+    "task_name": "Chat Interface",
+    "group": "F",
+    "encoding": "极简古文",
+    "prompt": "[语]TS[架]React[式]单件[样]TW[依]无外库[排]移动[数]模拟[出]纯码\n作聊天界面，具消息泡、输入栏、发送键，自动滚至底。"
+  },
+  {
+    "task_id": "T09",
+    "task_name": "Data Table",
+    "group": "A",
+    "encoding": "英文自然语言",
+    "prompt": "Write a React component using TypeScript. It should be a single file component. Use Tailwind CSS for styling but no other external libraries. The layout should be desktop. Use mock data. Only output code, no explanations.\nBuild a data table with sorting, pagination, and search filtering."
+  },
+  {
+    "task_id": "T09",
+    "task_name": "Data Table",
+    "group": "D",
+    "encoding": "英文极简DSL",
+    "prompt": "[L]TS[S]React[F]SFC[Y]TW[D]NOX[M]DSK[DT]MOCK[O]CODE\nBuild a data table with sorting, pagination, and search filtering."
+  },
+  {
+    "task_id": "T09",
+    "task_name": "Data Table",
+    "group": "F",
+    "encoding": "极简古文",
+    "prompt": "[语]TS[架]React[式]单件[样]TW[依]无外库[排]桌面[数]模拟[出]纯码\n作数据表，可排序、分页、搜索筛选。"
+  },
+  {
+    "task_id": "T10",
+    "task_name": "Settings Panel",
+    "group": "A",
+    "encoding": "英文自然语言",
+    "prompt": "Write a React component using TypeScript. It should be a single file component. Use Tailwind CSS for styling but no other external libraries. The layout should be responsive. Use mock data. Only output code, no explanations.\nBuild a settings panel with toggle switches, dropdown selectors, and a save button."
+  },
+  {
+    "task_id": "T10",
+    "task_name": "Settings Panel",
+    "group": "D",
+    "encoding": "英文极简DSL",
+    "prompt": "[L]TS[S]React[F]SFC[Y]TW[D]NOX[M]RSP[DT]MOCK[O]CODE\nBuild a settings panel with toggle switches, dropdown selectors, and a save button."
+  },
+  {
+    "task_id": "T10",
+    "task_name": "Settings Panel",
+    "group": "F",
+    "encoding": "极简古文",
+    "prompt": "[语]TS[架]React[式]单件[样]TW[依]无外库[排]适应[数]模拟[出]纯码\n作设置板，具开关、下拉选与存储键。"
+  }
+]

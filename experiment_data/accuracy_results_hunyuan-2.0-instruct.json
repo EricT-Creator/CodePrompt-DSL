@@ -1,0 +1,302 @@
+[
+  {
+    "component": "T01_TodoApp",
+    "group": "A",
+    "techScore": 1,
+    "formatScore": 1,
+    "funcScore": 0,
+    "styleScore": 1,
+    "depsScore": 1,
+    "total": 4
+  },
+  {
+    "component": "T01_TodoApp",
+    "group": "D",
+    "techScore": 1,
+    "formatScore": 1,
+    "funcScore": 0,
+    "styleScore": 1,
+    "depsScore": 1,
+    "total": 4
+  },
+  {
+    "component": "T01_TodoApp",
+    "group": "F",
+    "techScore": 1,
+    "formatScore": 1,
+    "funcScore": 0,
+    "styleScore": 1,
+    "depsScore": 1,
+    "total": 4
+  },
+  {
+    "component": "T02_LoginForm",
+    "group": "A",
+    "techScore": 1,
+    "formatScore": 1,
+    "funcScore": 1,
+    "styleScore": 1,
+    "depsScore": 1,
+    "total": 5
+  },
+  {
+    "component": "T02_LoginForm",
+    "group": "D",
+    "techScore": 1,
+    "formatScore": 1,
+    "funcScore": 1,
+    "styleScore": 1,
+    "depsScore": 1,
+    "total": 5
+  },
+  {
+    "component": "T02_LoginForm",
+    "group": "F",
+    "techScore": 1,
+    "formatScore": 1,
+    "funcScore": 1,
+    "styleScore": 1,
+    "depsScore": 1,
+    "total": 5
+  },
+  {
+    "component": "T03_ProfileCard",
+    "group": "A",
+    "techScore": 1,
+    "formatScore": 1,
+    "funcScore": 1,
+    "styleScore": 1,
+    "depsScore": 1,
+    "total": 5
+  },
+  {
+    "component": "T03_ProfileCard",
+    "group": "D",
+    "techScore": 1,
+    "formatScore": 1,
+    "funcScore": 1,
+    "styleScore": 1,
+    "depsScore": 1,
+    "total": 5
+  },
+  {
+    "component": "T03_ProfileCard",
+    "group": "F",
+    "techScore": 1,
+    "formatScore": 1,
+    "funcScore": 1,
+    "styleScore": 1,
+    "depsScore": 1,
+    "total": 5
+  },
+  {
+    "component": "T04_ShoppingCart",
+    "group": "A",
+    "techScore": 1,
+    "formatScore": 1,
+    "funcScore": 1,
+    "styleScore": 1,
+    "depsScore": 1,
+    "total": 5
+  },
+  {
+    "component": "T04_ShoppingCart",
+    "group": "D",
+    "techScore": 1,
+    "formatScore": 1,
+    "funcScore": 1,
+    "styleScore": 1,
+    "depsScore": 1,
+    "total": 5
+  },
+  {
+    "component": "T04_ShoppingCart",
+    "group": "F",
+    "techScore": 1,
+    "formatScore": 1,
+    "funcScore": 0,
+    "styleScore": 1,
+    "depsScore": 1,
+    "total": 4
+  },
+  {
+    "component": "T05_WeatherDashboard",
+    "group": "A",
+    "techScore": 1,
+    "formatScore": 1,
+    "funcScore": 1,
+    "styleScore": 1,
+    "depsScore": 1,
+    "total": 5
+  },
+  {
+    "component": "T05_WeatherDashboard",
+    "group": "D",
+    "techScore": 1,
+    "formatScore": 1,
+    "funcScore": 1,
+    "styleScore": 1,
+    "depsScore": 1,
+    "total": 5
+  },
+  {
+    "component": "T05_WeatherDashboard",
+    "group": "F",
+    "techScore": 1,
+    "formatScore": 1,
+    "funcScore": 1,
+    "styleScore": 1,
+    "depsScore": 1,
+    "total": 5
+  },
+  {
+    "component": "T06_MarkdownEditor",
+    "group": "A",
+    "techScore": 1,
+    "formatScore": 1,
+    "funcScore": 1,
+    "styleScore": 1,
+    "depsScore": 1,
+    "total": 5
+  },
+  {
+    "component": "T06_MarkdownEditor",
+    "group": "D",
+    "techScore": 1,
+    "formatScore": 1,
+    "funcScore": 1,
+    "styleScore": 1,
+    "depsScore": 1,
+    "total": 5
+  },
+  {
+    "component": "T06_MarkdownEditor",
+    "group": "F",
+    "techScore": 1,
+    "formatScore": 1,
+    "funcScore": 0,
+    "styleScore": 1,
+    "depsScore": 1,
+    "total": 4
+  },
+  {
+    "component": "T07_ImageGallery",
+    "group": "A",
+    "techScore": 1,
+    "formatScore": 1,
+    "funcScore": 0,
+    "styleScore": 1,
+    "depsScore": 1,
+    "total": 4
+  },
+  {
+    "component": "T07_ImageGallery",
+    "group": "D",
+    "techScore": 1,
+    "formatScore": 1,
+    "funcScore": 0,
+    "styleScore": 1,
+    "depsScore": 1,
+    "total": 4
+  },
+  {
+    "component": "T07_ImageGallery",
+    "group": "F",
+    "techScore": 1,
+    "formatScore": 1,
+    "funcScore": 0,
+    "styleScore": 1,
+    "depsScore": 1,
+    "total": 4
+  },
+  {
+    "component": "T08_ChatInterface",
+    "group": "A",
+    "techScore": 1,
+    "formatScore": 1,
+    "funcScore": 1,
+    "styleScore": 1,
+    "depsScore": 1,
+    "total": 5
+  },
+  {
+    "component": "T08_ChatInterface",
+    "group": "D",
+    "techScore": 1,
+    "formatScore": 1,
+    "funcScore": 1,
+    "styleScore": 1,
+    "depsScore": 1,
+    "total": 5
+  },
+  {
+    "component": "T08_ChatInterface",
+    "group": "F",
+    "techScore": 1,
+    "formatScore": 1,
+    "funcScore": 1,
+    "styleScore": 1,
+    "depsScore": 1,
+    "total": 5
+  },
+  {
+    "component": "T09_DataTable",
+    "group": "A",
+    "techScore": 1,
+    "formatScore": 1,
+    "funcScore": 0,
+    "styleScore": 1,
+    "depsScore": 1,
+    "total": 4
+  },
+  {
+    "component": "T09_DataTable",
+    "group": "D",
+    "techScore": 1,
+    "formatScore": 1,
+    "funcScore": 0,
+    "styleScore": 1,
+    "depsScore": 1,
+    "total": 4
+  },
+  {
+    "component": "T09_DataTable",
+    "group": "F",
+    "techScore": 1,
+    "formatScore": 1,
+    "funcScore": 0,
+    "styleScore": 1,
+    "depsScore": 1,
+    "total": 4
+  },
+  {
+    "component": "T10_SettingsPanel",
+    "group": "A",
+    "techScore": 1,
+    "formatScore": 1,
+    "funcScore": 1,
+    "styleScore": 1,
+    "depsScore": 1,
+    "total": 5
+  },
+  {
+    "component": "T10_SettingsPanel",
+    "group": "D",
+    "techScore": 1,
+    "formatScore": 1,
+    "funcScore": 1,
+    "styleScore": 1,
+    "depsScore": 1,
+    "total": 5
+  },
+  {
+    "component": "T10_SettingsPanel",
+    "group": "F",
+    "techScore": 1,
+    "formatScore": 1,
+    "funcScore": 1,
+    "styleScore": 1,
+    "depsScore": 1,
+    "total": 5
+  }
+]

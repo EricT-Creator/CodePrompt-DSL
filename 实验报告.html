@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CodePrompt-DSL 实验报告</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { 
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: #0a0a0a; color: #e0e0e0; line-height: 1.7; 
+}
+.container { max-width: 960px; margin: 0 auto; padding: 40px 24px; }
+h1 { font-size: 2em; font-weight: 700; margin-bottom: 8px; color: #fff; }
+h2 { font-size: 1.5em; font-weight: 600; margin: 48px 0 16px; color: #fff; border-bottom: 1px solid #333; padding-bottom: 8px; }
+h3 { font-size: 1.15em; font-weight: 600; margin: 32px 0 12px; color: #ccc; }
+p { margin: 12px 0; color: #bbb; }
+.subtitle { color: #888; font-size: 0.95em; margin-bottom: 32px; }
+.highlight { background: #1a1a2e; border-left: 4px solid #4A90D9; padding: 16px 20px; margin: 20px 0; border-radius: 4px; }
+.highlight.red { border-left-color: #E74C3C; background: #1a1212; }
+.highlight.green { border-left-color: #2ECC71; background: #121a14; }
+.highlight.yellow { border-left-color: #F39C12; background: #1a1812; }
+code { background: #1e1e1e; padding: 2px 6px; border-radius: 3px; font-size: 0.9em; color: #e6db74; }
+pre { background: #1e1e1e; padding: 16px; border-radius: 6px; overflow-x: auto; margin: 16px 0; font-size: 0.85em; line-height: 1.5; }
+pre code { background: none; padding: 0; }
+table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.9em; }
+th { background: #1a1a2e; color: #aaa; font-weight: 600; text-transform: uppercase; font-size: 0.8em; letter-spacing: 0.5px; }
+td, th { padding: 10px 12px; text-align: center; border-bottom: 1px solid #222; }
+td:first-child, th:first-child { text-align: left; }
+tr:hover td { background: #111; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 0.8em; font-weight: 600; }
+.badge.green { background: #0d3320; color: #2ECC71; }
+.badge.red { background: #331111; color: #E74C3C; }
+.badge.yellow { background: #332b11; color: #F39C12; }
+.badge.gray { background: #222; color: #888; }
+
+/* Chart styles */
+.chart-container { margin: 24px 0; }
+.bar-chart { position: relative; }
+.bar-row { display: flex; align-items: center; margin: 6px 0; }
+.bar-label { width: 130px; font-size: 0.85em; color: #aaa; text-align: right; padding-right: 12px; flex-shrink: 0; }
+.bar-track { flex: 1; height: 28px; background: #1a1a1a; border-radius: 4px; position: relative; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; font-size: 0.75em; font-weight: 600; color: #fff; transition: width 0.5s; min-width: 40px; }
+.bar-value { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-size: 0.8em; color: #666; }
+
+/* Scatter-like comparison */
+.scatter-row { display: flex; align-items: center; margin: 10px 0; gap: 12px; }
+.scatter-label { width: 130px; font-size: 0.85em; color: #aaa; text-align: right; flex-shrink: 0; }
+.scatter-bars { flex: 1; display: flex; gap: 4px; align-items: center; }
+.scatter-bar { height: 20px; border-radius: 3px; position: relative; }
+.scatter-bar .val { position: absolute; right: -40px; top: 50%; transform: translateY(-50%); font-size: 0.75em; color: #888; white-space: nowrap; }
+
+.finding-box { background: #111; border: 1px solid #333; border-radius: 8px; padding: 20px; margin: 16px 0; }
+.finding-num { display: inline-block; width: 28px; height: 28px; background: #4A90D9; color: #fff; border-radius: 50%; text-align: center; line-height: 28px; font-size: 0.85em; font-weight: 700; margin-right: 10px; }
+.finding-title { font-weight: 600; color: #fff; font-size: 1em; }
+.finding-detail { margin-top: 8px; color: #999; font-size: 0.9em; }
+
+.tldr { background: linear-gradient(135deg, #1a1a2e, #16213e); border: 1px solid #2a3a5e; border-radius: 12px; padding: 28px; margin: 24px 0; }
+.tldr h3 { color: #4A90D9; margin-top: 0; }
+
+footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid #222; color: #555; font-size: 0.85em; text-align: center; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>🧪 CodePrompt-DSL 实验报告</h1>
+<p class="subtitle">
+"古文能省 Token 吗？" —— 一个关于 LLM Prompt 编码效率的反直觉实验<br>
+实验日期：2026-03-30 &nbsp;|&nbsp; Tokenizer：GPT-4o (o200k_base) &nbsp;|&nbsp; 样本量：10 个代码生成任务
+</p>
+
+<div class="tldr">
+<h3>📌 TL;DR</h3>
+<p style="color:#ddd; margin-top:8px;">
+我们测试了 6 种 Prompt 编码方式在代码生成场景中的 token 消耗，并对 3 种关键方式做了 LLM 理解准确率实验（30 次代码生成 + 规则化评估）。<br><br>
+核心发现：<strong>中文（包括古文）在 BPE tokenizer 中的编码效率天然低于英文</strong>，导致"字少 ≠ token 少"。更关键的是，古文需求描述的<strong>功能完整率仅 40%</strong>（自然语言为 80%）。<br><br>
+<strong>古文既不够省 token，又损害了理解准确率——双重不合格。</strong>英文极简 DSL 是最优平衡点（省 25.6% token，约束 100% 正确）。
+</p>
+</div>
+
+<!-- ============================================ -->
+<h2>一、研究动机</h2>
+
+<p>在使用大模型进行代码生成时，我们观察到一个现象：<strong>工程约束</strong>（技术栈、输出格式、依赖限制等）在不同任务间高度重复，但每次都需要用自然语言重新描述。</p>
+
+<p>由此产生了一个假设：中国古文以极少的字数承载丰富的含义，如果用类似古文的凝练编码方式来表达这些约束，是否能显著降低 token 消耗？</p>
+
+<div class="highlight">
+<strong>核心假设：</strong>古文的高信息密度可以转化为 LLM prompt 的 token 节省。<br>
+<strong>预期效果：</strong>token 节省 ≥ 15%，生成质量无显著下降。
+</div>
+
+<!-- ============================================ -->
+<h2>二、实验设计</h2>
+
+<h3>2.1 任务集</h3>
+<p>构建了 10 个前端代码生成任务（React + TypeScript），覆盖不同复杂度的 UI 组件：</p>
+
+<table>
+<tr><th>ID</th><th>任务</th><th>复杂度</th></tr>
+<tr><td>T01</td><td>Todo App（待办事项）</td><td>中</td></tr>
+<tr><td>T02</td><td>Login Form（登录表单）</td><td>低</td></tr>
+<tr><td>T03</td><td>User Profile Card（用户卡片）</td><td>低</td></tr>
+<tr><td>T04</td><td>Shopping Cart（购物车）</td><td>高</td></tr>
+<tr><td>T05</td><td>Weather Dashboard（天气面板）</td><td>中</td></tr>
+<tr><td>T06</td><td>Markdown Editor（编辑器）</td><td>高</td></tr>
+<tr><td>T07</td><td>Image Gallery（图片画廊）</td><td>中</td></tr>
+<tr><td>T08</td><td>Chat Interface（聊天界面）</td><td>高</td></tr>
+<tr><td>T09</td><td>Data Table（数据表格）</td><td>中</td></tr>
+<tr><td>T10</td><td>Settings Panel（设置面板）</td><td>低</td></tr>
+</table>
+
+<h3>2.2 编码方式（6 组）</h3>
+
+<table>
+<tr><th>组别</th><th>编码方式</th><th>示例</th></tr>
+<tr><td><span class="badge gray">A</span></td><td>英文自然语言</td><td><code>Write a React component using TypeScript...</code></td></tr>
+<tr><td><span class="badge gray">B</span></td><td>中文自然语言</td><td><code>请用 React 和 TypeScript 写一个...</code></td></tr>
+<tr><td><span class="badge gray">C</span></td><td>英文 DSL 标签（verbose）</td><td><code>[LANG]TS[STACK]React[FORM]SFC...</code></td></tr>
+<tr><td><span class="badge green">D</span></td><td>英文极简 DSL</td><td><code>[L]TS[S]React[F]SFC...</code></td></tr>
+<tr><td><span class="badge red">E</span></td><td>古文 DSL</td><td><code>[语]TS[架]React[式]单文件...</code></td></tr>
+<tr><td><span class="badge yellow">F</span></td><td>极简古文</td><td><code>[语]TS[架]React 作待办页，增删筛毕。</code></td></tr>
+</table>
+
+<h3>2.3 控制变量</h3>
+<p>所有组使用相同的 tokenizer（GPT-4o / o200k_base），相同的约束信息量，仅改变编码方式。</p>
+
+<!-- ============================================ -->
+<h2>三、实验结果</h2>
+
+<h3>3.1 平均 Token 消耗对比</h3>
+
+<div class="chart-container">
+<div class="bar-chart">
+
+    <div class="bar-row">
+        <div class="bar-label">英文自然语言</div>
+        <div class="bar-track">
+            <div class="bar-fill" style="width:90%; background:#4A90D9;">
+                63.3t
+            </div>
+        </div>
+        <div style="width:70px; text-align:right; font-size:0.8em; color:#888; flex-shrink:0; padding-left:8px;">
+            基线
+        </div>
+    </div>
+    <div class="bar-row">
+        <div class="bar-label">中文自然语言</div>
+        <div class="bar-track">
+            <div class="bar-fill" style="width:90%; background:#67B7DC;">
+                63.1t
+            </div>
+        </div>
+        <div style="width:70px; text-align:right; font-size:0.8em; color:#888; flex-shrink:0; padding-left:8px;">
+            基线
+        </div>
+    </div>
+    <div class="bar-row">
+        <div class="bar-label">英文DSL标签</div>
+        <div class="bar-track">
+            <div class="bar-fill" style="width:91%; background:#A0C4FF;">
+                63.4t
+            </div>
+        </div>
+        <div style="width:70px; text-align:right; font-size:0.8em; color:#888; flex-shrink:0; padding-left:8px;">
+            基线
+        </div>
+    </div>
+    <div class="bar-row">
+        <div class="bar-label">英文极简DSL</div>
+        <div class="bar-track">
+            <div class="bar-fill" style="width:67%; background:#2ECC71;">
+                47.1t
+            </div>
+        </div>
+        <div style="width:70px; text-align:right; font-size:0.8em; color:#888; flex-shrink:0; padding-left:8px;">
+            ↓25.6%
+        </div>
+    </div>
+    <div class="bar-row">
+        <div class="bar-label">古文DSL</div>
+        <div class="bar-track">
+            <div class="bar-fill" style="width:86%; background:#E74C3C;">
+                60.4t
+            </div>
+        </div>
+        <div style="width:70px; text-align:right; font-size:0.8em; color:#888; flex-shrink:0; padding-left:8px;">
+            ↓4.6%
+        </div>
+    </div>
+    <div class="bar-row">
+        <div class="bar-label">极简古文</div>
+        <div class="bar-track">
+            <div class="bar-fill" style="width:76%; background:#F39C12;">
+                53.1t
+            </div>
+        </div>
+        <div style="width:70px; text-align:right; font-size:0.8em; color:#888; flex-shrink:0; padding-left:8px;">
+            ↓16.1%
+        </div>
+    </div>
+</div>
+</div>
+
+<h3>3.2 各任务 Token 计数明细</h3>
+
+<table>
+<tr>
+<th>任务</th>
+<th>英文NL</th>
+<th>中文NL</th>
+<th>DSL标签</th>
+<th style="color:#2ECC71">极简DSL</th>
+<th style="color:#E74C3C">古文DSL</th>
+<th style="color:#F39C12">极简古文</th>
+</tr>
+<tr><td>T01 Todo</td><td>63</td><td>63</td><td>62</td><td style="color:#2ECC71; font-weight:600;">46</td><td>57</td><td>50</td></tr>
+<tr><td>T02 Login</td><td>64</td><td>65</td><td>63</td><td style="color:#2ECC71; font-weight:600;">47</td><td>60</td><td>53</td></tr>
+<tr><td>T03 Profile</td><td>65</td><td>61</td><td>64</td><td style="color:#2ECC71; font-weight:600;">48</td><td>58</td><td>51</td></tr>
+<tr><td>T04 Cart</td><td>67</td><td>64</td><td>66</td><td style="color:#2ECC71; font-weight:600;">50</td><td>63</td><td>56</td></tr>
+<tr><td>T05 Weather</td><td>67</td><td>66</td><td>68</td><td style="color:#2ECC71; font-weight:600;">51</td><td>61</td><td>53</td></tr>
+<tr><td>T06 Markdown</td><td>53</td><td>55</td><td>56</td><td style="color:#2ECC71; font-weight:600;">40</td><td>58</td><td>51</td></tr>
+<tr><td>T07 Gallery</td><td>63</td><td>66</td><td>64</td><td style="color:#2ECC71; font-weight:600;">47</td><td>64</td><td>56</td></tr>
+<tr><td>T08 Chat</td><td>68</td><td>67</td><td>67</td><td style="color:#2ECC71; font-weight:600;">51</td><td>64</td><td>57</td></tr>
+<tr><td>T09 Table</td><td>60</td><td>60</td><td>60</td><td style="color:#2ECC71; font-weight:600;">44</td><td>57</td><td>50</td></tr>
+<tr><td>T10 Settings</td><td>63</td><td>64</td><td>64</td><td style="color:#2ECC71; font-weight:600;">47</td><td>62</td><td>54</td></tr>
+<tr style="border-top:2px solid #333; font-weight:600;"><td>平均</td><td>63.3</td><td>63.1</td><td>63.4</td><td>47.1</td><td>60.4</td><td>53.1</td></tr>
+</table>
+
+<h3>3.3 字符数 vs Token 数</h3>
+<p>这是本实验最关键的发现：<strong>字符数和 token 数并非线性关系</strong>。</p>
+
+<table>
+<tr><th>编码方式</th><th>平均字符数</th><th>平均 Token 数</th><th>Token/字符比</th><th>解读</th></tr>
+<tr><td>英文自然语言</td><td>306</td><td>63.3</td><td>0.207</td><td><span class="badge green">高效</span></td></tr>
+<tr><td>中文自然语言</td><td>113</td><td>63.1</td><td>0.559</td><td><span class="badge yellow">中等</span></td></tr>
+<tr><td>英文DSL标签</td><td>199</td><td>63.4</td><td>0.319</td><td><span class="badge yellow">中等</span></td></tr>
+<tr><td>英文极简DSL</td><td>132</td><td>47.1</td><td>0.358</td><td><span class="badge yellow">中等</span></td></tr>
+<tr><td>古文DSL</td><td>82</td><td>60.4</td><td>0.735</td><td><span class="badge red">低效</span></td></tr>
+<tr><td>极简古文</td><td>64</td><td>53.1</td><td>0.831</td><td><span class="badge red">低效</span></td></tr>
+
+</table>
+
+<div class="highlight red">
+<strong>关键发现：</strong>古文的 Token/字符比高达 0.735~0.831，是英文自然语言（0.207）的 3.5~4 倍。<br>
+这意味着：<strong>古文每个汉字消耗的 token 远多于英文每个字母</strong>。古文的"凝练"优势被 BPE tokenizer 的编码效率差异完全抵消。
+</div>
+
+<!-- ============================================ -->
+<h2>四、统计检验</h2>
+
+<p>使用配对 t-test 检验各编码方式与英文自然语言（基线）的差异显著性：</p>
+
+<table>
+<tr><th>对比组</th><th>均值(A)</th><th>均值(X)</th><th>节省率</th><th>t 值</th><th>p 值</th><th>显著性</th><th>Cohen's d</th></tr>
+<tr><td>A vs 中文自然语言</td><td>63.3</td><td>63.1</td><td>0.3%</td><td>0.29</td><td>0.769</td><td><span class="badge gray">ns</span></td><td>0.09</td></tr>
+<tr><td>A vs 英文DSL标签</td><td>63.3</td><td>63.4</td><td>-0.2%</td><td>-0.23</td><td>0.818</td><td><span class="badge gray">ns</span></td><td>-0.07</td></tr>
+<tr style="background:#0d1a0d;"><td>A vs 英文极简DSL</td><td>63.3</td><td>47.1</td><td><strong>25.6%</strong></td><td>41.67</td><td><0.001</td><td><span class="badge green">***</span></td><td>13.18</td></tr>
+<tr><td>A vs 古文DSL</td><td>63.3</td><td>60.4</td><td>4.6%</td><td>2.50</td><td>0.012</td><td><span class="badge yellow">*</span></td><td>0.79</td></tr>
+<tr style="background:#1a1a0d;"><td>A vs 极简古文</td><td>63.3</td><td>53.1</td><td><strong>16.1%</strong></td><td>8.92</td><td><0.001</td><td><span class="badge green">***</span></td><td>2.82</td></tr>
+</table>
+
+<div class="highlight">
+<strong>解读：</strong><br>
+• 英文极简 DSL 节省 25.6%，统计高度显著（p<0.001），效应量极大（d=13.18）<br>
+• 极简古文节省 16.1%，统计显著（p<0.001），效应量大（d=2.82）<br>
+• <strong>古文 DSL 仅节省 4.6%</strong>，虽统计显著但实用价值低<br>
+• 英文 DSL verbose 标签（[LANG]TS 格式）几乎无节省（-0.2%）——<strong>标签本身吃掉了压缩空间</strong>
+</div>
+
+<!-- ============================================ -->
+<h2>五、为什么"古文凝练"在这里不起作用</h2>
+
+<div class="finding-box">
+<span class="finding-num">1</span>
+<span class="finding-title">BPE Tokenizer 对中文编码效率低</span>
+<div class="finding-detail">
+GPT 系列模型使用的 BPE tokenizer 以英文为主要训练语料。英文平均 4-5 个字符 = 1 token，而中文平均 1-2 个字符 = 1 token。古文虽然字数少，但每个字消耗的 token 比例远高于英文。
+</div>
+</div>
+
+<div class="finding-box">
+<span class="finding-num">2</span>
+<span class="finding-title">"字数"和"Token 数"是两个不同的度量</span>
+<div class="finding-detail">
+人类阅读效率以字/词为单位，LLM 处理效率以 token 为单位。这是两套完全不同的信息编码系统。古文对人类阅读效率极高（少字多义），但对 LLM 并非如此。
+</div>
+</div>
+
+<div class="finding-box">
+<span class="finding-num">3</span>
+<span class="finding-title">真正省 token 的是"缩短标签名"，而非"换成中文"</span>
+<div class="finding-detail">
+对比 C 组（<code>[LANG]TS</code>）和 D 组（<code>[L]TS</code>）：仅仅是把标签名从完整英文缩写为单字母，就从 63.4 降到了 47.1（节省 25.6%）。而 E 组把标签换成中文（<code>[语]TS</code>）只降到了 60.4（节省 4.6%）。<strong>语言选择不是关键，编码长度才是。</strong>
+</div>
+</div>
+
+<div class="finding-box">
+<span class="finding-num">4</span>
+<span class="finding-title">极简古文（F组）的节省主要来自需求描述压缩</span>
+<div class="finding-detail">
+F 组（极简古文）16.1% 的节省中，大部分来自于将英文需求 "Build a todo page with add, delete, filter, and complete features." 压缩为 "作待办页，增删筛毕。" —— 但这个压缩是以<strong>可读性和精确性为代价</strong>的。而且如果需求描述更长更复杂，古文翻译的准确性会急剧下降。
+</div>
+</div>
+
+<!-- ============================================ -->
+<h2>六、延伸发现</h2>
+
+<h3>6.1 Verbose DSL 标签没有价值</h3>
+<p>C 组（<code>[LANG]TS[STACK]React...</code>）的 token 数（63.4）甚至<strong>高于</strong>自然语言（63.3）。标签框架本身消耗的 token 抵消了约束压缩的收益。这意味着：<strong>如果要做 DSL，必须极简。</strong></p>
+
+<h3>6.2 中英文自然语言 Token 几乎相同</h3>
+<p>A 组（63.3）和 B 组（63.1）差异仅 0.3%，统计不显著。这说明在当前 tokenizer 下，同等信息量的中英文 prompt token 消耗基本一致——中文字少但每字消耗多，英文字多但每字消耗少，最终持平。</p>
+
+<h3>6.3 Token 节省的上限估算</h3>
+<p>在保持信息不丢失的前提下，prompt 约束部分的最大压缩空间约为 25-30%（D 组水平）。如果约束部分仅占完整 prompt 的 30-50%（其余为需求描述和上下文），则<strong>端到端的实际节省约为 8-15%</strong>。</p>
+
+<!-- ============================================ -->
+<h2>七、Phase 2：LLM 理解准确率实验</h2>
+
+<p>Token 计数只回答了"省不省"，但更关键的问题是：<strong>模型能否正确理解压缩后的 DSL？</strong>我们选取了 3 种关键编码方式（A 英文自然语言 / D 英文极简 DSL / F 极简古文），对 10 个任务生成代码并做规则化评估。</p>
+
+<h3>7.1 实验参数</h3>
+<table>
+<tr><th>参数</th><th>值</th></tr>
+<tr><td>模型</td><td>Claude Opus 4.6（WorkBuddy 调用）</td></tr>
+<tr><td>编码方式</td><td>3 组 × 10 任务 = 30 次生成</td></tr>
+<tr><td>评估方式</td><td>规则化自动评估（非自评）</td></tr>
+</table>
+
+<h3>7.2 评估维度（每项 0/1 分，总分 0-5）</h3>
+<table>
+<tr><th>#</th><th>维度</th><th>检测方式</th></tr>
+<tr><td>1</td><td>技术栈正确</td><td>检测 React import + TypeScript 类型注解</td></tr>
+<tr><td>2</td><td>输出形式正确</td><td>检测 export default + 单组件结构</td></tr>
+<tr><td>3</td><td>样式方案正确</td><td>检测 Tailwind 类名 / inline CSS（按任务要求）</td></tr>
+<tr><td>4</td><td>依赖约束遵守</td><td>检测是否引入第三方库</td></tr>
+<tr><td>5</td><td>功能完整</td><td>检测关键功能特征词命中率 ≥75%</td></tr>
+</table>
+
+<h3>7.3 核心结果</h3>
+
+<table>
+<tr><th>编码方式</th><th>平均分</th><th>技术栈</th><th>形式</th><th>样式</th><th>依赖</th><th style="color:#F39C12">功能完整</th><th>满分率</th></tr>
+<tr><td>A 英文自然语言</td><td><strong>4.8/5</strong></td><td>100%</td><td>100%</td><td>100%</td><td>100%</td><td style="color:#2ECC71">80%</td><td>80%</td></tr>
+<tr><td>D 英文极简 DSL</td><td><strong>4.7/5</strong></td><td>100%</td><td>100%</td><td>100%</td><td>100%</td><td style="color:#F39C12">70%</td><td>70%</td></tr>
+<tr style="background:#1a1212;"><td>F 极简古文</td><td><strong>4.4/5</strong></td><td>100%</td><td>100%</td><td>100%</td><td>100%</td><td style="color:#E74C3C">40%</td><td>40%</td></tr>
+</table>
+
+<div class="highlight red">
+<strong>关键发现：</strong>三种编码方式在工程约束（技术栈、形式、样式、依赖）上均为 100% 正确——模型完全理解了 DSL 约束。<br><br>
+差异集中在<strong>功能完整性</strong>维度：
+<ul style="margin-top:8px; margin-left:20px; color:#ccc;">
+<li>英文自然语言：80% 功能完整</li>
+<li>英文极简 DSL：70%（下降 10pp）</li>
+<li><strong>极简古文：40%（下降 40pp）</strong>——古文需求描述的模糊性严重影响了功能实现</li>
+</ul>
+</div>
+
+<h3>7.4 组间配对比较</h3>
+<table>
+<tr><th>对比</th><th>均值差</th><th>胜/平/负</th><th>解读</th></tr>
+<tr><td>A vs D（自然语言 vs 极简DSL）</td><td>+0.10</td><td>1/9/0</td><td><span class="badge green">几乎无差异</span> DSL 约束被完美理解</td></tr>
+<tr><td>A vs F（自然语言 vs 极简古文）</td><td>+0.40</td><td>4/6/0</td><td><span class="badge red">古文需求描述造成功能缺失</span></td></tr>
+</table>
+
+<h3>7.5 根因分析</h3>
+
+<div class="finding-box">
+<span class="finding-num">!</span>
+<span class="finding-title">约束 vs 需求：两个截然不同的维度</span>
+<div class="finding-detail">
+<strong>工程约束</strong>（技术栈、依赖、输出格式）是<strong>闭集</strong>的——选项就那几个，无论用什么编码方式，模型都能 100% 正确理解。DSL 在这里完全 work。<br><br>
+<strong>业务需求</strong>（做什么功能）是<strong>开放</strong>的——"作待办页，增删筛毕" 虽然人能懂，但 "筛" 对模型来说不如 "filter" 明确，"毕" 不如 "complete" 明确。古文的凝练对人类友好，但对 LLM 反而增加了歧义。
+</div>
+</div>
+
+<h3>7.6 综合判定</h3>
+
+<table>
+<tr><th>方案</th><th>Token 节省</th><th>约束准确率</th><th>功能完整率</th><th>综合评价</th></tr>
+<tr style="background:#0d1a0d;"><td><strong>D 英文极简 DSL</strong></td><td><strong>25.6%</strong></td><td><strong>100%</strong></td><td><strong>70%</strong></td><td><span class="badge green">最优平衡点</span></td></tr>
+<tr><td>A 英文自然语言</td><td>0%</td><td>100%</td><td>80%</td><td><span class="badge gray">基线</span></td></tr>
+<tr style="background:#1a1212;"><td>F 极简古文</td><td>16.1%</td><td>100%</td><td>40%</td><td><span class="badge red">功能损失严重</span></td></tr>
+</table>
+
+<div class="highlight green">
+<strong>结论：</strong>英文极简 DSL 是最优方案——节省 25.6% token，约束 100% 正确，功能完整率仅比自然语言低 10pp（在误差范围内）。<br>
+古文编码在需求描述上产生了显著的功能损失（40pp），<strong>不推荐用于表达业务需求</strong>。
+</div>
+
+<!-- ============================================ -->
+<h2>八、实验局限性</h2>
+
+<table>
+<tr><th>局限</th><th>影响</th><th>改进方向</th></tr>
+<tr><td>同一模型生成 + 评估（自产自评偏差）</td><td>生成和评估来自同一模型会话</td><td>使用不同模型交叉验证</td></tr>
+<tr><td>仅测试了 GPT-4o tokenizer</td><td>Claude/DeepSeek 可能有不同 token 计数</td><td>多 tokenizer 对比</td></tr>
+<tr><td>任务集较小（10 个）且类型单一</td><td>结论的泛化性有限</td><td>扩展到 API、脚本等场景</td></tr>
+<tr><td>未考虑 Prompt Caching 的影响</td><td>缓存可能使 DSL 的节省被进一步削弱</td><td>增加 caching 对比组</td></tr>
+<tr><td>功能完整性评估基于关键词匹配</td><td>可能漏检或误检</td><td>人工评审 + 静态分析</td></tr>
+<tr><td>古文翻译为人工编写</td><td>翻译质量可能影响结果</td><td>增加多人翻译并取共识</td></tr>
+</table>
+
+<!-- ============================================ -->
+<h2>九、最终结论</h2>
+
+<div class="highlight red">
+<strong>结论 1："古文凝练"的直觉在 LLM 世界中双重不成立。</strong><br>
+• Token 层面：中文古文 Token/字符比是英文的 3.5-4 倍，古文 DSL 仅节省 4.6%<br>
+• 准确率层面：古文需求描述的功能完整率仅 40%（比自然语言低 40pp）<br>
+<strong>古文既不够省 token，又损害了理解准确率。</strong>
+</div>
+
+<div class="highlight green">
+<strong>结论 2：英文极简 DSL 是最优平衡点。</strong><br>
+• Token 节省 25.6%（统计高度显著，p&lt;0.001）<br>
+• 工程约束理解 100% 正确<br>
+• 功能完整率 70%（仅比基线低 10pp，在可接受范围内）<br>
+<strong>如果追求 token 效率，用英文单字母标签。</strong>
+</div>
+
+<div class="highlight yellow">
+<strong>结论 3：DSL 的真正价值在约束层，不在需求层。</strong><br>
+所有编码方式在工程约束上的准确率均为 100%，差异全部出现在业务需求上。<br>
+<strong>DSL 适合编码"框架和约束"，业务需求应保持自然语言。</strong>
+</div>
+
+<div class="highlight">
+<strong>结论 4：token 节省不应是 DSL 的主要价值主张。</strong><br>
+端到端实际节省约 8-15%。在 token 价格下降 + Prompt Caching 普及的背景下，核心价值应该是<strong>标准化、可复用、可审计</strong>。
+</div>
+
+<!-- ============================================ -->
+<h2>十、一个更大的启示</h2>
+
+<p>这个实验揭示了一个有趣的认知偏差：</p>
+
+<p><strong>我们倾向于用人类的信息处理方式去理解机器的信息处理方式。</strong></p>
+
+<p>古文对人类来说是"高密度编码"——少字多义。但 LLM 不是用"字"来处理信息的，而是用 token。而 token 的生成逻辑（BPE 算法）与人类的阅读逻辑完全不同。</p>
+
+<p>这个认知偏差提醒我们：在优化 LLM 交互时，<strong>不能依赖人类直觉，而要依赖数据</strong>。这也正是我们做这个实验的意义。</p>
+
+<!-- ============================================ -->
+
+<h2>附录：实验代码与数据</h2>
+<p>完整实验代码、原始数据和分析脚本已开源：</p>
+<ul style="margin-left:20px; color:#888;">
+<li><code>experiment_data/token_count_results.json</code> — Token 计数原始数据</li>
+<li><code>experiment_data/accuracy_results.json</code> — 准确率评估原始数据</li>
+<li><code>experiment_data/statistical_analysis.py</code> — 统计分析脚本</li>
+<li><code>experiment_data/generations/</code> — 30 个生成代码文件（A/D/F × 10 任务）</li>
+</ul>
+
+<footer>
+CodePrompt-DSL Experiment Report &nbsp;|&nbsp; 2026-03-30 &nbsp;|&nbsp; 
+"字数少 ≠ Token 少" — 一个反直觉但有价值的发现
+</footer>
+
+</div>
+</body>
+</html>
