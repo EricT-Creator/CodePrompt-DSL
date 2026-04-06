@@ -99,9 +99,9 @@ python3 score_s2_binary.py    # Scores all generated code files
 
 The scoring rules are deterministic regex-based checks. See `EXP_C_SCORING_RULES.md` for the constraint definitions and `score_s2_binary.py` for the implementation.
 
-### Multi-Model Audit
+### Human Review Audit
 
-The `Human_review/human_review_sample_v2_all_models.csv` file contains independent reviews by four LLMs (Gemini, GPT-5.4, GLM-5v-Turbo, Claude-Opus) on all 67 flagged failures + 30 random PASS samples. See `MULTI_MODEL_REVIEW_ANALYSIS.md` for the cross-validation analysis.
+The `Human_review/human_review_sample.xlsx` file contains independent reviews by four people on all 67 flagged failures + 30 random PASS samples.
 
 ---
 
@@ -195,9 +195,9 @@ python3 score_s2_binary.py
 
 评分规则为确定性的 Regex 检查。详见 `EXP_C_SCORING_RULES.md`（约束定义）和 `score_s2_binary.py`（实现）。
 
-### 多模型审计
+### 人类审计
 
-`Human_review/human_review_sample_v2_all_models.csv` 包含四个独立 LLM（Gemini、GPT-5.4、GLM-5v-Turbo、Claude-Opus）对全部 67 个标记失败 + 30 个随机 PASS 样本的独立审查。详见 `MULTI_MODEL_REVIEW_ANALYSIS.md`。
+`Human_review/human_review_sample.xlsx` 包含四个人类对全部 67 个标记失败 + 30 个随机 PASS 样本的独立审查。
 
 ---
 
