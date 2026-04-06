@@ -14,7 +14,7 @@ This repository contains the experimental data, scoring scripts, prompt template
 
 > **Compact Constraint Encoding for LLM Code Generation: An Empirical Study of Token Economics and Constraint Compliance**
 >
-> Tang Hanzhang · Independent Researcher, Tencent · April 2026
+> Hanzhang Tang · Independent Researcher, Tencent · April 2026
 
 ### What We Studied
 

@@ -1,7 +1,7 @@
 # EXP-C 实验总结与研讨纪要
 
 > 日期: 2026-04-03  
-> 作者: Tang Hanzhang  
+> 作者: Hanzhang Tang  
 > 状态: 待外部评审
 
 ---
