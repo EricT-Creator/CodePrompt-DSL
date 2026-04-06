@@ -1,0 +1,2 @@
+[语]Python [架]FastAPI [依]fastapi,uvicorn [禁]禁Redis,禁限流库,须实现令牌桶算法,仅标准库 [出]单文件 [格]纯码
+令牌桶限流中间件：可配置速率/突发量，按IP追踪，429响应含Retry-After头，白名单IP跳过限流，GET /status显示请求者当前令牌数。

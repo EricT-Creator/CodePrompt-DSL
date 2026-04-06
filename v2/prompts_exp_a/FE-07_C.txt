@@ -1,0 +1,2 @@
+[L]TS [F]React [S]plain_css [D]none [X]no_canvas_lib,no_fabric,no_konva,useReducer_only,no_useState [O]export_default [OUT]code_only
+Canvas whiteboard: pen, eraser, color picker (5+ colors), brush size, undo/redo, clear. All state via useReducer.

@@ -1,0 +1,2 @@
+[语]Python [架]FastAPI [依]fastapi,uvicorn [禁]禁pandas,须用csv标准库,严格验证,流式响应 [出]单文件 [格]纯码
+CSV批量导入：POST /import接收文件上传，csv解析，逐行验证(姓名非空、邮箱格式、年龄0-150)，StreamingResponse逐行返回处理状态，汇总计数(总数/成功/失败)，GET /data查看全部记录。

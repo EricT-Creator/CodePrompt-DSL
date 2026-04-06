@@ -1,0 +1,2 @@
+[语]Python [依]仅标准库 [禁]须用ast模块和NodeVisitor,结果须用dataclass,禁正则分析 [出]脚本 [格]纯码
+AST代码检查器：check_code(源码字符串)->CheckResults数据类。检测：未使用的import、未使用的变量、超过50行的函数、超过4层的嵌套。

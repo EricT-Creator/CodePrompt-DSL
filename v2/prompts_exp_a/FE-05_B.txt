@@ -1,0 +1,10 @@
+{
+  "language": "TypeScript",
+  "framework": "React",
+  "style": "plain_css",
+  "dependencies": "none",
+  "constraints": ["no_html5_drag_api", "no_dragstart", "no_dragover", "no_drop", "mouse_touch_events_only"],
+  "output": "export_default",
+  "format": "code_only",
+  "task": "Sortable list component with drag-and-drop reordering using mouse/touch events. Render at least 5 items with visual feedback (placeholder/ghost) during drag."
+}

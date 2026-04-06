@@ -1,0 +1,2 @@
+[L]TS [F]React [S]plain_css [D]none [X]no_html5_drag,no_dragstart,no_dragover,no_drop,mouse_touch_only [O]export_default [OUT]code_only
+Sortable list with drag-and-drop reorder via mousedown/mousemove/mouseup and touch events. Min 5 items, visual feedback during drag.

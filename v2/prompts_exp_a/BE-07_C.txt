@@ -1,0 +1,2 @@
+[L]Python [F]FastAPI [D]fastapi,uvicorn [X]no_redis,no_ratelimit_lib,token_bucket_algo,stdlib_only [O]single_file [OUT]code_only
+Token Bucket rate limiter: configurable rate/burst, per-IP, 429 + Retry-After header, IP whitelist bypass, GET /status shows requester's token count.

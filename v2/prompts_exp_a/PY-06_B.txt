@@ -1,0 +1,8 @@
+{
+  "language": "Python",
+  "dependencies": "stdlib_only",
+  "constraints": ["no_networkx", "no_graphlib", "output_class"],
+  "output": "script",
+  "format": "code_only",
+  "task": "DAG scheduler class: add_task(name,func), add_dependency(task,depends_on), validate() with CycleError, get_execution_order() topological sort, get_parallel_groups() sets of parallel tasks, execute() runs all."
+}

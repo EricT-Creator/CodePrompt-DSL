@@ -1,0 +1,2 @@
+[L]Python [F]FastAPI [D]fastapi,uvicorn [X]no_pyjwt,no_jose,manual_jwt_hmac_base64,stdlib_only [O]single_file [OUT]code_only
+JWT auth middleware: POST /login -> token, GET /protected -> require JWT, POST /refresh -> new token. 401 on invalid/expired. 30min expiry. Manual HMAC-SHA256 signing.

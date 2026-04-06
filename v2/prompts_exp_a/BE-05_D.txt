@@ -1,0 +1,2 @@
+[语]Python [架]FastAPI [依]fastapi,uvicorn [禁]禁PyJWT/jose等JWT库,须用hmac+base64手动实现 [出]单文件 [格]纯码
+JWT认证：POST /login签发令牌，GET /protected验证令牌，POST /refresh刷新令牌。无效/过期返回401。有效期30分钟。手动HMAC-SHA256签名。

@@ -1,0 +1,2 @@
+[L]Python [D]stdlib_only [X]no_networkx,no_graphlib,class_output [O]script [OUT]code_only
+DAG scheduler class: add_task(name,func), add_dependency(task,depends_on), validate()->CycleError, get_execution_order()->topo sort, get_parallel_groups()->list of parallel sets, execute().

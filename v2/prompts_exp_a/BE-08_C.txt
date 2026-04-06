@@ -1,0 +1,2 @@
+[L]Python [F]FastAPI [D]fastapi,uvicorn [X]no_pandas,use_csv_stdlib,strict_validation,streaming_response [O]single_file [OUT]code_only
+CSV batch import: POST /import (file upload), csv parsing, validate (name non-empty, email format, age 0-150), StreamingResponse line-by-line, summary counts (total/success/failed), GET /data.

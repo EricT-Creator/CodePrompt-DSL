@@ -1,0 +1,2 @@
+[L]Python [F]FastAPI [D]fastapi,uvicorn [X]no_async_queue,broadcast_via_set [O]single_file [OUT]code_only
+WebSocket chat: multi-room (room in URL), broadcast to room, nicknames (first msg), GET /rooms (active rooms + counts), history (last 50/room), cleanup on disconnect.

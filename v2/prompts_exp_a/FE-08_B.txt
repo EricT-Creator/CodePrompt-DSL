@@ -1,0 +1,10 @@
+{
+  "language": "TypeScript",
+  "framework": "React",
+  "style": "plain_css",
+  "dependencies": "none",
+  "constraints": ["no_form_lib", "no_react_hook_form", "no_formik", "no_zod", "no_yup", "validation_runtime_only"],
+  "output": "export_default",
+  "format": "code_only",
+  "task": "3-step form wizard: Step1=Personal(name,email), Step2=Address(street,city,zip), Step3=Review. Next/back nav, per-step validation, preserve data on back, submit logs to console."
+}

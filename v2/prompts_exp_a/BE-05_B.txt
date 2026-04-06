@@ -1,0 +1,9 @@
+{
+  "language": "Python",
+  "framework": "FastAPI",
+  "output": "single_file",
+  "dependencies": ["fastapi", "uvicorn"],
+  "constraints": ["no_pyjwt", "no_python_jose", "no_jwt_lib", "manual_jwt_via_hmac_base64", "stdlib_crypto_only"],
+  "format": "code_only",
+  "task": "JWT auth: POST /login (username/password -> token), GET /protected (require valid JWT), POST /refresh (renew token), 401 for invalid/expired, 30min expiry."
+}

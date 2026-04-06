@@ -1,0 +1,2 @@
+[L]TS [F]React [S]plain_css [D]none [X]no_form_lib,no_rhf,no_formik,no_zod,no_yup,manual_validation [O]export_default [OUT]code_only
+3-step form wizard: 1)Personal(name+email validation) 2)Address(street+city+zip required) 3)Review+submit. Next/back nav, preserve data, console.log on submit.

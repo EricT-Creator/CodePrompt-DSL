@@ -1,0 +1,2 @@
+[L]TS [F]React [S]css_modules [D]none [X]no_react_window,no_react_virtualized,no_tailwind,no_inline [O]export_default [OUT]code_only
+Virtual scroll table for 10000 rows. Fixed header, 3 sortable columns, only render visible rows + overscan. CSS module as comment block at end.

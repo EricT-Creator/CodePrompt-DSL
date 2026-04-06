@@ -1,0 +1,2 @@
+[L]Python [D]stdlib_only [X]no_jinja,no_mako,no_template_lib,regex_parser,no_ast [O]script [OUT]code_only
+Template engine: {{var}}, {% if cond %}...{% endif %}, {% for x in list %}...{% endfor %}, nested blocks, filters (|upper|lower|title), render(template,context), TemplateSyntaxError.

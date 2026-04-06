@@ -1,0 +1,8 @@
+{
+  "language": "Python",
+  "dependencies": "stdlib_only",
+  "constraints": ["no_requests", "no_httpx", "no_aiohttp", "use_urllib", "use_threading", "no_asyncio"],
+  "output": "script",
+  "format": "code_only",
+  "task": "Concurrent downloader: URL list + output dir, ThreadPoolExecutor (configurable max_workers=4), retry with exponential backoff (max 3), timeout 30s, progress callback, return summary dict."
+}

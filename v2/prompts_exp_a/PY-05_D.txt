@@ -1,0 +1,2 @@
+[语]Python [依]仅标准库 [禁]禁requests/httpx/aiohttp,须用urllib,须用threading,禁asyncio [出]脚本 [格]纯码
+并发下载器：接收URL列表和输出目录，ThreadPoolExecutor(默认4线程)，指数退避重试(最多3次)，超时30秒，进度回调，返回汇总字典(成功/失败数及错误详情)。

@@ -1,0 +1,2 @@
+[语]Python [依]仅标准库 [禁]禁networkx/graphlib,须实现为类 [出]脚本 [格]纯码
+DAG任务调度器类：add_task(名称,函数)注册任务，add_dependency(任务,依赖)声明边，validate()检测环依赖抛CycleError，get_execution_order()拓扑排序，get_parallel_groups()返回可并行执行的任务组，execute()执行全部任务。

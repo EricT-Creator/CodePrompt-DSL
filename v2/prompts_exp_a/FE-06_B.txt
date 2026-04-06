@@ -1,0 +1,10 @@
+{
+  "language": "TypeScript",
+  "framework": "React",
+  "style": "css_modules",
+  "dependencies": "none",
+  "constraints": ["no_react_window", "no_react_virtualized", "no_tailwind", "no_inline_styles"],
+  "output": "export_default",
+  "format": "code_only",
+  "task": "Virtual scrolling table for 10000 rows with fixed header, 3 sortable columns, and overscan buffer. Only render visible rows. Include CSS module content as comment block."
+}

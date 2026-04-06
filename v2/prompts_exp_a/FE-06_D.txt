@@ -1,0 +1,2 @@
+[语]TS [架]React [样]CSS模块 [依]无 [禁]禁react-window/virtualized/Tailwind/内联样式 [出]默认导出 [格]纯码
+万行虚拟滚动表格，固定表头，三列可排序，仅渲染可见行加缓冲区。CSS模块内容以注释块附于文件末尾。

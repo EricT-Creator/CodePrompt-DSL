@@ -18,7 +18,6 @@ __pycache__/
 v2/experiments/EXP_C/instructions/
 v2/experiments/EXP_C2/instructions/
 v2/experiments/EXP_C2/filled_prompts/
-v2/experiments/EXP_A_instructions/
 
 # Process scripts (data pipeline, not needed for scoring replication)
 v2/experiments/EXP_C/merge_master.py
@@ -99,17 +98,9 @@ v2/对话总结_*.md
 v2/analysis/analysis_output.json
 v2/analysis/analyze_v2.py
 v2/analysis/statistical_tests.py
-v2/analysis/EXP_A_review_summary.json
 
 # v2/experiments process files
-v2/experiments/EXP_B/
-v2/experiments/EXP_A_ADVANCED_DIFFICULTY.md
-v2/experiments/EXP_A_RUNBOOK.md
-v2/experiments/EXP_B_CLONE_EXCLUSION.md
 v2/experiments/EXP_C_FINAL_SUMMARY.md
-
-# v2/prompts_exp_a (EXP-A process prompts)
-v2/prompts_exp_a/
 
 # v2 S1/S3 outputs in EXP_C generations (keep only S2)
 # Actually S1 architect docs and S3 auditor reports are part of the pipeline -- keep them

@@ -1,0 +1,2 @@
+[语]TS [架]React [样]原生CSS [依]无 [禁]禁canvas库,禁useState须用useReducer [出]默认导出 [格]纯码
+画布白板：画笔、橡皮擦、颜色选择(至少五色)、笔刷大小、撤销重做、清除画布。所有状态用useReducer管理。

@@ -1,0 +1,9 @@
+{
+  "language": "Python",
+  "framework": "FastAPI",
+  "output": "single_file",
+  "dependencies": ["fastapi", "uvicorn"],
+  "constraints": ["no_pandas", "use_csv_stdlib", "validation_strict", "streaming_response"],
+  "format": "code_only",
+  "task": "CSV batch import: POST /import (file upload), csv.reader parsing, validate name/email/age per row, StreamingResponse for line-by-line results, summary counts, GET /data for all records."
+}

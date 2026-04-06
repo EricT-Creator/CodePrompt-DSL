@@ -1,0 +1,2 @@
+[语]Python [依]仅标准库 [禁]禁jinja2/mako等模板库,须用正则解析,禁ast模块 [出]脚本 [格]纯码
+简易模板引擎：变量替换{{var}}，条件{% if %}...{% endif %}，循环{% for item in list %}...{% endfor %}，支持嵌套，过滤器(|upper|lower|title)，render(模板字符串,上下文字典)函数，格式错误抛TemplateSyntaxError。

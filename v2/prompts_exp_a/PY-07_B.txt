@@ -1,0 +1,8 @@
+{
+  "language": "Python",
+  "dependencies": "stdlib_only",
+  "constraints": ["no_jinja2", "no_mako", "no_template_lib", "parser_regex_only", "no_ast_module"],
+  "output": "script",
+  "format": "code_only",
+  "task": "Template engine: {{var}} substitution, {% if %}...{% endif %}, {% for item in list %}...{% endfor %}, nested blocks, filters (|upper|lower|title), render(template,context), TemplateSyntaxError."
+}

@@ -1,0 +1,2 @@
+[L]Python [D]stdlib_only [X]no_requests,no_httpx,no_aiohttp,use_urllib,use_threading,no_asyncio [O]script [OUT]code_only
+Concurrent downloader: URL list + output dir, ThreadPoolExecutor(max_workers=4), retry with exp backoff(max 3), timeout 30s, progress callback, summary dict(succeeded/failed/errors).

@@ -1,0 +1,10 @@
+{
+  "language": "TypeScript",
+  "framework": "React",
+  "style": "plain_css",
+  "dependencies": "none",
+  "constraints": ["no_canvas_lib", "no_fabric", "no_konva", "state_useReducer_only", "no_useState"],
+  "output": "export_default",
+  "format": "code_only",
+  "task": "Canvas drawing whiteboard with pen, eraser, color picker (5+ colors), brush size control, undo/redo, and clear canvas. All state via useReducer."
+}

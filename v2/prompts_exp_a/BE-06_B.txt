@@ -1,0 +1,9 @@
+{
+  "language": "Python",
+  "framework": "FastAPI",
+  "output": "single_file",
+  "dependencies": ["fastapi", "uvicorn"],
+  "constraints": ["no_async_queue_lib", "broadcast_via_set_iteration"],
+  "format": "code_only",
+  "task": "WebSocket chat server: multi-room, broadcast, nicknames, GET /rooms with user counts, in-memory history (last 50 per room), cleanup on disconnect."
+}
