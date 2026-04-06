@@ -76,6 +76,9 @@ v2/paper/PAPER_DRAFT_v3*.md
 v2/paper/PAPER_DRAFT_v3*.html
 v2/paper/*.pdf
 
+# ICSME RENE submission (double-anonymous, NEVER push)
+v2/paper/icsme-rene/
+
 # Root-level process files
 compare_csvs.py
 evaluate_gemini_3_1_flash_lite_fe.py
