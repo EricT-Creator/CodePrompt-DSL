@@ -14,7 +14,7 @@ This repository contains the experimental data, scoring scripts, prompt template
 
 > **Compact Constraint Encoding for LLM Code Generation: An Empirical Study of Token Economics and Constraint Compliance**
 >
-> Hanzhang Tang · Independent Researcher, Tencent · April 2026
+> Hanzhang Tang · Tencent · April 2026
 
 ### What We Studied
 
@@ -119,7 +119,7 @@ MIT
 
 > **LLM 代码生成中的紧凑约束编码：Token 经济性与约束遵循率的实证研究**
 >
-> 唐含章 · 独立研究者，腾讯 · 2026 年 4 月
+> 唐含章 · 腾讯 · 2026 年 4 月
 
 ### 研究内容
 
