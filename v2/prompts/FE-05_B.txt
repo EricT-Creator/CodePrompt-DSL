@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "TypeScript",
+  "framework": "React",
+  "form": "single file component with export default",
+  "style": "Tailwind CSS",
+  "dependencies": "no external libraries",
+  "layout": "responsive layout",
+  "data": "mock",
+  "output": "code_only"
+}
+
+做一个手风琴组件，包含至少 4 个可折叠的面板。点击面板标题展开内容，再次点击收起。同一时间只允许一个面板展开。

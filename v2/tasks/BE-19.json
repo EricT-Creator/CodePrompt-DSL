@@ -1,0 +1,22 @@
+{
+  "id": "BE-19",
+  "name": "API 版本管理",
+  "type": "backend",
+  "requirements": {
+    "nl": "做一个 FastAPI 应用，同时提供 v1 和 v2 两个版本的接口。GET /v1/users 返回简化的用户列表（只有 id 和 name）。GET /v2/users 返回完整的用户列表（id, name, email, created_at）。GET /v2/users/{id} 返回单个用户详情（v1 没有这个端点）。两个版本共享同一份模拟数据。",
+    "wenyan": "作 FastAPI 应用，同时供 v1 与 v2 二版接口。v1 /users 返简化用户列。v2 /users 返完整列，v2 /users/{id} 返单用户详情。二版共享同一模拟数据。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "FastAPI",
+    "form": "single_module",
+    "style": "not_applicable",
+    "dependencies": "no_external",
+    "layout": "not_applicable",
+    "data": "mock",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "v1 和 v2 响应结构不同，v2 多一个详情端点，数据一致"
+}

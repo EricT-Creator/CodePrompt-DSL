@@ -1,0 +1,3 @@
+Write a TypeScript code using React. It should be a single file component with export default. Use Tailwind CSS for styling but no external libraries. The layout should be mobile-first layout. Use mock data.. Only output code, no explanations.
+
+做一个多步表单（至少 3 步）。第一步填个人信息（姓名、邮箱），第二步填地址信息（城市、邮编），第三步确认并提交。有上一步/下一步按钮，有步骤指示器显示当前在第几步。

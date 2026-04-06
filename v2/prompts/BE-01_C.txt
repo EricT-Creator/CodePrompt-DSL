@@ -1,0 +1,4 @@
+===CODE_SPEC===
+[L]PY[S]FastAPI[F]MOD[Y]NA[D]FA[M]NA[DT]NA[O]CODE
+===REQ===
+做一个 FastAPI 应用，包含一个 GET /health 接口，返回 `{"status": "ok", "timestamp": "<当前时间>"}`。

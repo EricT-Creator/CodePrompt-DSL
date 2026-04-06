@@ -1,0 +1,4 @@
+===码制===
+[语]PY[架]NA[式]函库[样]无[依]标库[排]NA[数]NA[出]纯码
+===需===
+写一函数 parse_args，按 schema 解析命令行参数列表。支持 --key value 与 --key=value 两式。不用 argparse，自行实现。

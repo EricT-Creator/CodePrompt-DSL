@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "TypeScript",
+  "framework": "React",
+  "form": "single file component with export default",
+  "style": "Tailwind CSS",
+  "dependencies": "no external libraries",
+  "layout": "desktop layout",
+  "data": "mock",
+  "output": "code_only"
+}
+
+做一个三列看板（待做、进行中、已完成）。每列中有任务卡片，每个卡片显示标题和描述。可以通过按钮将卡片在相邻列之间移动（如从"待做"移到"进行中"）。可以添加新卡片到"待做"列。

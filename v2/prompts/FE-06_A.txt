@@ -1,0 +1,3 @@
+Write a TypeScript code using React. It should be a single file component with export default. Use Tailwind CSS for styling but no external libraries. The layout should be desktop layout. Use mock data.. Only output code, no explanations.
+
+做一个五星评分组件。鼠标悬停时预览评分（星星高亮），点击后确认评分，显示当前已选分数。

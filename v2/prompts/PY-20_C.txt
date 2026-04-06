@@ -1,0 +1,4 @@
+===CODE_SPEC===
+[L]PY[S]NA[F]LIB[Y]NA[D]STD[M]NA[DT]NA[O]CODE
+===REQ===
+写一个 Python 函数 `check_code(source: str) -> list[dict]`，使用标准库 `ast` 模块分析 Python 源代码，检查并报告以下问题：(1) 函数超过 20 行；(2) 函数参数超过 5 个；(3) 嵌套深度超过 3 层；(4) 使用了 eval() 或 exec()。每个问题返回 `{"line": int, "issue": str, "severity": "warning|error"}`。

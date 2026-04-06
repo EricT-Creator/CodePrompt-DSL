@@ -1,0 +1,4 @@
+===CODE_SPEC===
+[L]TS[S]React[F]SFC[Y]CSS[D]NOX[M]RES[DT]MOCK[O]CODE
+===REQ===
+做一个计数器，包含当前计数显示、加一按钮、减一按钮、重置按钮。计数不能低于零。

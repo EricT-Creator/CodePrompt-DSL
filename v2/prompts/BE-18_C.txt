@@ -1,0 +1,4 @@
+===CODE_SPEC===
+[L]PY[S]FastAPI[F]MOD[Y]NA[D]NOX[M]NA[DT]NA[O]CODE
+===REQ===
+做一个 FastAPI 应用，模拟异步任务队列。POST /tasks 提交一个任务（返回 task_id，状态为 pending）。后台用 asyncio 模拟处理（等 2 秒后变为 completed）。GET /tasks/{id} 查询任务状态。GET /tasks 查看所有任务。

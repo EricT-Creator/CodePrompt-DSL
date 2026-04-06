@@ -1,0 +1,4 @@
+===码制===
+[语]PY[架]FastAPI[式]单模[样]无[依]无外库[排]NA[数]模拟[出]纯码
+===需===
+作 FastAPI 应用，GET /items 支持分页参数。返 items、total、page、page_size、total_pages。以五十条模拟数据。

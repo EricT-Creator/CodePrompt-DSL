@@ -1,0 +1,4 @@
+===CODE_SPEC===
+[L]TS[S]React[F]SFC[Y]TW[D]NOX[M]DES[DT]MOCK[O]CODE
+===REQ===
+做一个五星评分组件。鼠标悬停时预览评分（星星高亮），点击后确认评分，显示当前已选分数。

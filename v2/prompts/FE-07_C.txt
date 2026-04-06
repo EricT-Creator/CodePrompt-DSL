@@ -1,0 +1,4 @@
+===CODE_SPEC===
+[L]TS[S]React[F]SFC[Y]TW[D]NOX[M]RES[DT]MOCK[O]CODE
+===REQ===
+做一个通知提示组件。支持成功、警告、错误三种类型，每种类型有不同的颜色。通知出现后 3 秒自动消失，也可以手动点关闭按钮消失。

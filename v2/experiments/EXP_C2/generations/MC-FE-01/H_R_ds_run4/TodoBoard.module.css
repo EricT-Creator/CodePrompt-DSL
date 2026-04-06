@@ -1,0 +1,211 @@
+/* TodoBoard.module.css - Run4 */
+.board {
+  display: flex;
+  flex-direction: column;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.boardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+}
+
+.boardTitle {
+  font-size: 28px;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.userPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.currentUser {
+  color: #0056cc;
+  font-weight: 600;
+  background-color: #e6f0ff;
+  padding: 4px 10px;
+  border-radius: 16px;
+  display: inline-block;
+}
+
+.connectedUsers {
+  color: #666;
+  font-weight: 500;
+}
+
+.taskCreator {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 32px;
+  padding: 18px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.taskInput {
+  flex: 1;
+  padding: 12px 18px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.2s;
+}
+
+.taskInput:focus {
+  outline: none;
+  border-color: #0056cc;
+  box-shadow: 0 0 0 3px rgba(0, 86, 204, 0.15);
+}
+
+.addButton {
+  padding: 12px 24px;
+  background-color: #0056cc;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.addButton:hover {
+  background-color: #0044a3;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  flex: 1;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 12px;
+  padding: 20px;
+  min-height: 600px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.columnHeader {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #eee;
+  color: #333;
+}
+
+.taskList {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.card {
+  background-color: #f9f9f9;
+  border: 1px solid #e1e1e1;
+  border-radius: 10px;
+  padding: 16px;
+  cursor: grab;
+  transition: all 0.25s ease;
+  user-select: none;
+}
+
+.card:hover {
+  background-color: #f0f7ff;
+  border-color: #cce0ff;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 86, 204, 0.1);
+}
+
+.cardDragging {
+  opacity: 0.4;
+  background-color: #e6f0ff;
+  transform: rotate(2deg);
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.taskText {
+  font-size: 16px;
+  color: #222;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.assignee {
+  font-size: 13px;
+  color: #666;
+  background-color: #f0f0f0;
+  padding: 3px 10px;
+  border-radius: 12px;
+  align-self: flex-start;
+}
+
+.conflictToast {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #fff3e0;
+  border: 1px solid #ffd8a8;
+  border-radius: 10px;
+  padding: 16px 20px;
+  max-width: 320px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 6px 20px rgba(255, 193, 7, 0.2);
+  z-index: 1000;
+}
+
+.conflictMessage {
+  font-size: 14px;
+  color: #856404;
+  font-weight: 500;
+  flex: 1;
+}
+
+.dismissBtn {
+  background-color: #856404;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 12px;
+  transition: background-color 0.2s;
+}
+
+.dismissBtn:hover {
+  background-color: #6c5303;
+}

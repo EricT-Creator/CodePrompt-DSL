@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "TypeScript",
+  "framework": "React",
+  "form": "single file component with export default",
+  "style": "Tailwind CSS",
+  "dependencies": "no external libraries",
+  "layout": "responsive layout",
+  "data": "mock",
+  "output": "code_only"
+}
+
+做一个通知提示组件。支持成功、警告、错误三种类型，每种类型有不同的颜色。通知出现后 3 秒自动消失，也可以手动点关闭按钮消失。

@@ -1,0 +1,4 @@
+===CODE_SPEC===
+[L]PY[S]FastAPI[F]MOD[Y]NA[D]NOX[M]NA[DT]NA[O]CODE
+===REQ===
+做一个 FastAPI 应用。启动时从环境变量或默认值加载配置（APP_NAME 默认 "MyApp"，DEBUG 默认 "false"，MAX_ITEMS 默认 "100"）。GET /config 返回当前配置。PUT /config 允许在运行时动态修改配置值。POST /config/reset 重置为默认值。

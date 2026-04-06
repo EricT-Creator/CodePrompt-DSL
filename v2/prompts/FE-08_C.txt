@@ -1,0 +1,4 @@
+===CODE_SPEC===
+[L]TS[S]React[F]SFC[Y]CSS[D]NOX[M]MOB[DT]MOCK[O]CODE
+===REQ===
+做一个标签页组件，包含至少 3 个标签。点击标签切换显示对应内容区域，当前激活的标签有高亮样式。

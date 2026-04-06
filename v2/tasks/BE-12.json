@@ -1,0 +1,22 @@
+{
+  "id": "BE-12",
+  "name": "多条件搜索接口",
+  "type": "backend",
+  "requirements": {
+    "nl": "做一个 FastAPI 应用，GET /search 支持多个可选查询参数：q(关键词), category(分类), min_price(最低价), max_price(最高价), sort_by(排序字段), order(asc/desc)。在 50 条模拟商品数据中筛选并返回结果。",
+    "wenyan": "作 FastAPI 应用，GET /search 支持关键词、分类、价格范围、排序等多可选参数。于五十条模拟商品中筛选返结果。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "FastAPI",
+    "form": "single_module",
+    "style": "not_applicable",
+    "dependencies": "no_external",
+    "layout": "not_applicable",
+    "data": "mock",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "各筛选参数独立工作，组合筛选正确，排序正确"
+}

@@ -1,0 +1,4 @@
+===CODE_SPEC===
+[L]PY[S]NA[F]LIB[Y]NA[D]STD[M]NA[DT]NA[O]CODE
+===REQ===
+写一组 Python 函数实现基本矩阵运算（不用 numpy）：`matrix_add(a, b)` 矩阵加法，`matrix_multiply(a, b)` 矩阵乘法，`matrix_transpose(a)` 转置，`matrix_determinant(a)` 行列式（支持 2×2 和 3×3）。矩阵用 list[list[float]] 表示。

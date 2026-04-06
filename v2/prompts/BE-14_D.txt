@@ -1,0 +1,4 @@
+===码制===
+[语]PY[架]FastAPI[式]单模[样]无[依]无外库[排]NA[数]NA[出]纯码
+===需===
+作 FastAPI 应用。POST /events 记事件。GET /events 取全部或按类型筛。GET /events/stats 返各类型计数统计。

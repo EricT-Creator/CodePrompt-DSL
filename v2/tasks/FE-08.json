@@ -1,0 +1,22 @@
+{
+  "id": "FE-08",
+  "name": "标签页切换",
+  "type": "frontend",
+  "requirements": {
+    "nl": "做一个标签页组件，包含至少 3 个标签。点击标签切换显示对应内容区域，当前激活的标签有高亮样式。",
+    "wenyan": "作标签页，列三签以上。点签则切示其内容，活签当高亮。"
+  },
+  "constraints": {
+    "language": "TypeScript",
+    "framework": "React",
+    "form": "single_file_component",
+    "style": "plain_css",
+    "dependencies": "no_external",
+    "layout": "mobile_first",
+    "data": "mock",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "有多个标签按钮、有内容切换逻辑、有激活态样式\n\n### 中等难度（FE-09 ~ FE-16）"
+}

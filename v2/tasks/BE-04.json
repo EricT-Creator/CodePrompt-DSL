@@ -1,0 +1,22 @@
+{
+  "id": "BE-04",
+  "name": "简易计算器 API",
+  "type": "backend",
+  "requirements": {
+    "nl": "做一个 FastAPI 应用，POST /calculate 接收 `{\"a\": number, \"b\": number, \"op\": \"add|sub|mul|div\"}`，返回计算结果。除以零时返回 400 和错误信息。",
+    "wenyan": "作 FastAPI 应用，POST /calculate 收二数与运算符，返计算结果。除零则返 400 及误信。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "FastAPI",
+    "form": "single_module",
+    "style": "not_applicable",
+    "dependencies": "no_external",
+    "layout": "not_applicable",
+    "data": "not_applicable",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "四种运算正确，除零返回 400"
+}

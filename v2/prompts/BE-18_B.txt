@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "Python",
+  "framework": "FastAPI",
+  "form": "single module",
+  "style": "no styling",
+  "dependencies": "no external libraries",
+  "layout": "not_applicable",
+  "data": "not_applicable",
+  "output": "code_only"
+}
+
+做一个 FastAPI 应用，模拟异步任务队列。POST /tasks 提交一个任务（返回 task_id，状态为 pending）。后台用 asyncio 模拟处理（等 2 秒后变为 completed）。GET /tasks/{id} 查询任务状态。GET /tasks 查看所有任务。

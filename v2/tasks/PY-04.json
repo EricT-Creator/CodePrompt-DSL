@@ -1,0 +1,22 @@
+{
+  "id": "PY-04",
+  "name": "正则表达式提取器",
+  "type": "python_script",
+  "requirements": {
+    "nl": "写一个 Python 函数 `extract_info(text: str) -> dict`，从给定文本中提取所有邮箱地址、URL、电话号码（中国大陆手机号格式）。返回 `{\"emails\": [...], \"urls\": [...], \"phones\": [...]}`。",
+    "wenyan": "写一函数 extract_info，从文本中提取所有邮箱、URL、手机号（中国大陆格式），返三类列表。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "None",
+    "form": "function_library",
+    "style": "not_applicable",
+    "dependencies": "stdlib_only",
+    "layout": "not_applicable",
+    "data": "not_applicable",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "邮箱提取正确，URL 提取正确，手机号提取正确"
+}

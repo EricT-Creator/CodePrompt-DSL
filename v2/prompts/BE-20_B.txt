@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "Python",
+  "framework": "FastAPI",
+  "form": "single module",
+  "style": "no styling",
+  "dependencies": "no external libraries",
+  "layout": "not_applicable",
+  "data": "not_applicable",
+  "output": "code_only"
+}
+
+做一个 FastAPI 应用，实现三个中间件按顺序执行：(1) 请求日志中间件——记录每个请求的方法、路径、耗时到内存列表；(2) CORS 中间件——手动添加 Access-Control 相关 header；(3) 请求 ID 中间件——给每个请求/响应添加 X-Request-ID header。GET /logs 返回收集到的请求日志。GET /test 是一个普通的测试端点。

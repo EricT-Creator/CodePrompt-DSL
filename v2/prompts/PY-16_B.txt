@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "Python",
+  "framework": "None",
+  "form": "function library",
+  "style": "no styling",
+  "dependencies": "standard library only",
+  "layout": "not_applicable",
+  "data": "not_applicable",
+  "output": "code_only"
+}
+
+写一个 Python 类 `EventBus`。支持 `on(event, callback)` 订阅事件，`off(event, callback)` 取消订阅，`emit(event, *args)` 触发事件（调用所有订阅者），`once(event, callback)` 只触发一次就自动取消。

@@ -1,0 +1,4 @@
+===CODE_SPEC===
+[L]PY[S]NA[F]LIB[Y]NA[D]STD[M]NA[DT]NA[O]CODE
+===REQ===
+写一个 Python 类 `Pipeline`。支持链式调用：`Pipeline(data).filter(fn).map(fn).sort(key).limit(n).execute()`。data 是字典列表。filter 按条件过滤，map 对每项做变换，sort 排序，limit 取前 N 条，execute 返回最终结果。

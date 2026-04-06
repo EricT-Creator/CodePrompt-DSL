@@ -1,0 +1,22 @@
+{
+  "id": "PY-16",
+  "name": "事件发布订阅系统",
+  "type": "python_script",
+  "requirements": {
+    "nl": "写一个 Python 类 `EventBus`。支持 `on(event, callback)` 订阅事件，`off(event, callback)` 取消订阅，`emit(event, *args)` 触发事件（调用所有订阅者），`once(event, callback)` 只触发一次就自动取消。",
+    "wenyan": "写一 Python 类 EventBus，支持 on 订阅、off 退订、emit 触发、once 仅触发一次即退。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "None",
+    "form": "function_library",
+    "style": "not_applicable",
+    "dependencies": "stdlib_only",
+    "layout": "not_applicable",
+    "data": "not_applicable",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "订阅和触发正确，取消订阅有效，once 只触发一次\n\n### 进阶难度（PY-17 ~ PY-20）"
+}

@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "TypeScript",
+  "framework": "React",
+  "form": "single file component with export default",
+  "style": "Tailwind CSS",
+  "dependencies": "no external libraries",
+  "layout": "mobile-first layout",
+  "data": "mock",
+  "output": "code_only"
+}
+
+做一个待办事项应用，可以添加新任务、删除已有任务、标记任务为已完成、按完成状态筛选显示。

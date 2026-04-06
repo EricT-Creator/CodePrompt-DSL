@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "TypeScript",
+  "framework": "React",
+  "form": "single file component with export default",
+  "style": "Tailwind CSS",
+  "dependencies": "no external libraries",
+  "layout": "desktop layout",
+  "data": "mock",
+  "output": "code_only"
+}
+
+做一个数据表格组件，展示至少 10 行模拟数据（姓名、邮箱、角色、状态）。支持点击列头排序（升序/降序切换）、支持搜索框按姓名筛选、支持分页（每页 5 条）。

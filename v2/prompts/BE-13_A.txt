@@ -1,0 +1,3 @@
+Write a Python code using FastAPI. It should be a single module. Use no styling for styling but no external libraries. The layout should be not_applicable. not_applicable. Only output code, no explanations.
+
+做一个 FastAPI 应用。POST /batch 接收一个操作列表 `{"operations": [{"action": "create|update|delete", "data": {...}}]}`，逐条执行并返回每条操作的结果（成功或失败及原因）。用内存存储，单条失败不影响其他。

@@ -1,0 +1,22 @@
+{
+  "id": "FE-20",
+  "name": "主题切换仪表盘",
+  "type": "frontend",
+  "requirements": {
+    "nl": "做一个带主题切换功能的仪表盘页面。包含顶部导航栏（标题+主题切换按钮）、侧边栏导航（至少 4 个菜单项）、主内容区展示一些统计卡片（4 个数字卡片）。支持亮色/暗色主题切换，切换后所有组件的颜色方案同步变化。",
+    "wenyan": "作带主题切换之仪表盘。含顶部导航（题与切换键）、侧栏导航（至少四菜单）、主区四统计卡。支持明暗主题切换，切后全部配色同变。"
+  },
+  "constraints": {
+    "language": "TypeScript",
+    "framework": "React",
+    "form": "single_file_component",
+    "style": "tailwind",
+    "dependencies": "no_external",
+    "layout": "desktop",
+    "data": "mock",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "有导航栏、有侧边栏、有统计卡片、有主题切换功能、有两套配色\n\n---\n\n## 三、Backend 任务（BE-01 ~ BE-20）\n\n**统一技术栈**：Python + FastAPI，单文件模块  \n**验证方式**：`uvicorn` 启动 + `httpx` 请求测试（状态码 + 响应结构）\n\n### 基础难度（BE-01 ~ BE-08）"
+}

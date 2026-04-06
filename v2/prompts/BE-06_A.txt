@@ -1,0 +1,3 @@
+Write a Python code using FastAPI. It should be a single module. Use no styling for styling but no external libraries. The layout should be not_applicable. not_applicable. Only output code, no explanations.
+
+做一个 FastAPI 应用。POST /shorten 接收 `{"url": "https://..."}` 返回一个 6 位随机短码。GET /{code} 重定向到原始 URL。如果短码不存在返回 404。

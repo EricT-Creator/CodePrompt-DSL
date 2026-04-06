@@ -1,0 +1,4 @@
+===CODE_SPEC===
+[L]PY[S]FastAPI[F]MOD[Y]NA[D]NOX[M]NA[DT]NA[O]CODE
+===REQ===
+做一个 FastAPI 应用，实现内存键值存储。PUT /store/{key} 存值（body 为 `{"value": any}`），GET /store/{key} 取值，DELETE /store/{key} 删值。不存在的 key 返回 404。

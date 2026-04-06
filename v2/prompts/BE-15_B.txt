@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "Python",
+  "framework": "FastAPI",
+  "form": "single module",
+  "style": "no styling",
+  "dependencies": "no external libraries",
+  "layout": "not_applicable",
+  "data": "not_applicable",
+  "output": "code_only"
+}
+
+做一个 FastAPI 应用。POST /transform 接收一个 JSON 对象和一组转换规则 `{"data": {...}, "transforms": ["uppercase_keys", "flatten", "remove_nulls"]}`。按顺序执行转换：uppercase_keys 将所有 key 大写，flatten 将嵌套对象拉平（用.连接key），remove_nulls 删除值为 null 的字段。返回转换后的对象。

@@ -1,0 +1,22 @@
+{
+  "id": "PY-09",
+  "name": "CLI 参数解析工具",
+  "type": "python_script",
+  "requirements": {
+    "nl": "写一个 Python 函数 `parse_args(args: list[str], schema: dict) -> dict`。schema 定义参数名、类型、默认值、是否必填。例如 `{\"--name\": {\"type\": \"str\", \"required\": True}, \"--count\": {\"type\": \"int\", \"default\": 1}}`。支持 `--key value` 和 `--key=value` 两种写法。不使用 argparse，自己实现。",
+    "wenyan": "写一函数 parse_args，按 schema 解析命令行参数列表。支持 --key value 与 --key=value 两式。不用 argparse，自行实现。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "None",
+    "form": "function_library",
+    "style": "not_applicable",
+    "dependencies": "stdlib_only",
+    "layout": "not_applicable",
+    "data": "not_applicable",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "两种格式解析正确，类型转换正确，必填检查正确，默认值正确"
+}

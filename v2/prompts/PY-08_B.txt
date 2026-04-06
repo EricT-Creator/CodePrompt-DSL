@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "Python",
+  "framework": "None",
+  "form": "function library",
+  "style": "no styling",
+  "dependencies": "standard library only",
+  "layout": "not_applicable",
+  "data": "not_applicable",
+  "output": "code_only"
+}
+
+写一组 Python 函数实现基本矩阵运算（不用 numpy）：`matrix_add(a, b)` 矩阵加法，`matrix_multiply(a, b)` 矩阵乘法，`matrix_transpose(a)` 转置，`matrix_determinant(a)` 行列式（支持 2×2 和 3×3）。矩阵用 list[list[float]] 表示。

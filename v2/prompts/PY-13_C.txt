@@ -1,0 +1,4 @@
+===CODE_SPEC===
+[L]PY[S]NA[F]LIB[Y]NA[D]STD[M]NA[DT]NA[O]CODE
+===REQ===
+写一个 Python 函数 `md_to_html(markdown: str) -> str`，将 Markdown 文本转换为 HTML。支持：标题（# ~ ###）、粗体（**text**）、斜体（*text*）、无序列表（- item）、有序列表（1. item）、行内代码（\`code\`）、代码块（\`\`\`code\`\`\`）、链接（[text](url)）。不使用任何第三方库。

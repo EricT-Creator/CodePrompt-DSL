@@ -1,0 +1,22 @@
+{
+  "id": "FE-05",
+  "name": "手风琴折叠面板",
+  "type": "frontend",
+  "requirements": {
+    "nl": "做一个手风琴组件，包含至少 4 个可折叠的面板。点击面板标题展开内容，再次点击收起。同一时间只允许一个面板展开。",
+    "wenyan": "作折叠板，列四栏。点其题则展内容，再点则收。同时仅一栏可展。"
+  },
+  "constraints": {
+    "language": "TypeScript",
+    "framework": "React",
+    "form": "single_file_component",
+    "style": "tailwind",
+    "dependencies": "no_external",
+    "layout": "responsive",
+    "data": "mock",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "有多个面板、有展开/收起逻辑、有排他性展开"
+}

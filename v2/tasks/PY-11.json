@@ -1,0 +1,22 @@
+{
+  "id": "PY-11",
+  "name": "简易 HTTP 客户端",
+  "type": "python_script",
+  "requirements": {
+    "nl": "写一个 Python 类 `SimpleHTTPClient`，使用标准库 `urllib.request` 封装常用操作：`get(url)` 发 GET 请求返回响应文本，`post(url, data)` 发 POST 请求（JSON body），`download(url, filepath)` 下载文件到指定路径。所有方法返回 `{\"status\": int, \"body\": str/None, \"headers\": dict}`。处理常见异常（超时、404等）。",
+    "wenyan": "写一 Python 类 SimpleHTTPClient，以标准库封装 get、post、download 三法。返状态码、响应体、头信息。须处理常见异常。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "None",
+    "form": "function_library",
+    "style": "not_applicable",
+    "dependencies": "stdlib_only",
+    "layout": "not_applicable",
+    "data": "not_applicable",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "GET/POST 方法签名正确，异常处理存在，返回结构正确"
+}

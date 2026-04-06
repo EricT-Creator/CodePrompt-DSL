@@ -1,0 +1,22 @@
+{
+  "id": "BE-06",
+  "name": "短链接生成服务",
+  "type": "backend",
+  "requirements": {
+    "nl": "做一个 FastAPI 应用。POST /shorten 接收 `{\"url\": \"https://...\"}` 返回一个 6 位随机短码。GET /{code} 重定向到原始 URL。如果短码不存在返回 404。",
+    "wenyan": "作 FastAPI 应用。POST /shorten 收原始链接返六位短码。GET /{code} 重定向至原址。码不存则返 404。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "FastAPI",
+    "form": "single_module",
+    "style": "not_applicable",
+    "dependencies": "no_external",
+    "layout": "not_applicable",
+    "data": "not_applicable",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "POST 返回短码，GET 重定向（307），无效码返回 404"
+}

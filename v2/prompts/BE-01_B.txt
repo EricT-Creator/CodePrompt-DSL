@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "Python",
+  "framework": "FastAPI",
+  "form": "single module",
+  "style": "no styling",
+  "dependencies": "fastapi and uvicorn only",
+  "layout": "not_applicable",
+  "data": "not_applicable",
+  "output": "code_only"
+}
+
+做一个 FastAPI 应用，包含一个 GET /health 接口，返回 `{"status": "ok", "timestamp": "<当前时间>"}`。

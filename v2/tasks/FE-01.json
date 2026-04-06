@@ -1,0 +1,22 @@
+{
+  "id": "FE-01",
+  "name": "登录表单",
+  "type": "frontend",
+  "requirements": {
+    "nl": "做一个登录表单，包含邮箱输入框、密码输入框、登录按钮。要有基本的输入验证（邮箱格式、密码非空），验证不通过时显示错误提示。",
+    "wenyan": "作登入表，含邮密二栏与登入键。须校邮之格式、验密之非空，不合则示误。"
+  },
+  "constraints": {
+    "language": "TypeScript",
+    "framework": "React",
+    "form": "single_file_component",
+    "style": "tailwind",
+    "dependencies": "no_external",
+    "layout": "mobile_first",
+    "data": "mock",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "有 form 元素、有 email input、有 password input、有 submit button、有错误提示容器"
+}

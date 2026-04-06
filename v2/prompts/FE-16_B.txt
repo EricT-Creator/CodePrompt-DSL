@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "TypeScript",
+  "framework": "React",
+  "form": "single file component with export default",
+  "style": "Tailwind CSS",
+  "dependencies": "no external libraries",
+  "layout": "mobile-first layout",
+  "data": "mock",
+  "output": "code_only"
+}
+
+做一个多步表单（至少 3 步）。第一步填个人信息（姓名、邮箱），第二步填地址信息（城市、邮编），第三步确认并提交。有上一步/下一步按钮，有步骤指示器显示当前在第几步。

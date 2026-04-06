@@ -1,0 +1,4 @@
+===CODE_SPEC===
+[L]PY[S]NA[F]LIB[Y]NA[D]STD[M]NA[DT]NA[O]CODE
+===REQ===
+写一个 Python 函数 `text_stats(text: str) -> dict`，返回统计信息：字符数、单词数、句子数、段落数、最常见的 5 个单词（忽略大小写，排除常见停用词 the/a/an/is/are/was/were/in/on/at/to/for）。

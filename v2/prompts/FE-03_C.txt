@@ -1,0 +1,4 @@
+===CODE_SPEC===
+[L]TS[S]React[F]SFC[Y]TW[D]NOX[M]MOB[DT]MOCK[O]CODE
+===REQ===
+做一个用户资料卡片组件，显示头像、用户名、个人简介、关注按钮。关注按钮点击后在"关注"和"已关注"之间切换。

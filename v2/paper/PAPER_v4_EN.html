@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compact Constraint Encoding for LLM Code Generation:<br>An Empirical Study of Token Economics and Constraint Compliance</title>
+<style>
+
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans SC', sans-serif; line-height: 1.7; color: #1a1a1a; background: #fff; margin: 0; padding: 0; }
+.paper { max-width: 800px; margin: 0 auto; padding: 40px 50px; }
+.title-block { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #333; padding-bottom: 20px; }
+.title-block h1 { font-size: 22px; margin: 0 0 10px 0; line-height: 1.3; }
+.author { font-size: 14px; margin: 8px 0 4px 0; }
+.affiliation { font-size: 13px; color: #555; }
+.preprint-note { font-size: 12px; color: #888; font-style: italic; margin-top: 6px; }
+h2 { font-size: 18px; border-bottom: 1px solid #ccc; padding-bottom: 6px; margin-top: 30px; }
+h3 { font-size: 15px; margin-top: 24px; }
+h4 { font-size: 13px; margin-top: 18px; }
+p { margin: 8px 0; text-align: justify; }
+table { border-collapse: collapse; width: 100%; margin: 15px 0; font-size: 13px; }
+th, td { border: 1px solid #ddd; padding: 6px 10px; text-align: left; }
+th { background: #f5f5f5; font-weight: bold; }
+tr:nth-child(even) { background: #fafafa; }
+.highlight-row td { background: #fff3cd; }
+.dim-row td { color: #888; }
+code { background: #f4f4f4; padding: 1px 4px; font-size: 12px; border-radius: 3px; font-family: 'SF Mono', Menlo, monospace; }
+blockquote { border-left: 3px solid #ccc; margin: 10px 0; padding: 8px 16px; background: #f9f9f9; font-family: monospace; font-size: 12px; }
+.formula { text-align: center; font-family: 'SF Mono', monospace; margin: 10px 0; font-size: 13px; }
+.keywords { font-style: italic; font-size: 13px; margin: 10px 0 20px 0; }
+.references p { font-size: 12px; margin: 4px 0; text-indent: -20px; padding-left: 20px; }
+hr { border: none; border-top: 1px solid #ccc; margin: 20px 0; }
+ol, ul { margin: 8px 0; padding-left: 24px; }
+li { margin: 4px 0; }
+@media print {
+  .paper { max-width: none; padding: 20px; }
+  body { font-size: 11px; }
+  h1 { font-size: 18px; }
+  h2 { font-size: 15px; }
+  table { font-size: 11px; page-break-inside: avoid; }
+}
+
+</style>
+</head>
+<body>
+<div class="paper">
+<div class="title-block">
+  <h1>Compact Constraint Encoding for LLM Code Generation:<br>An Empirical Study of Token Economics and Constraint Compliance</h1>
+  <div class="author"><strong>Tang Hanzhang</strong></div>
+  <div class="affiliation">Independent Researcher, Tencent · April 2026</div>
+  <div class="preprint-note">arXiv preprint</div>
+</div>
+<hr>
+<h2>Abstract</h2>
+<p>Large language models (LLMs) used for code generation are typically guided by engineering constraints—technology choices, dependency restrictions, and architectural patterns—expressed in verbose natural language. We investigate whether compact, structured constraint headers can reduce prompt token consumption without degrading constraint compliance.</p>
+<p>Across five experimental rounds spanning 11 models, 12 benchmark tasks, and over 800 LLM invocations, we report three principal findings under the tested task and model settings. First, compact headers reduce constraint-portion tokens by approximately 71% and full-prompt tokens by 25–30%, a saving replicated across three independent rounds in both single-agent and multi-stage configurations. Second, we do not detect statistically significant differences in constraint satisfaction rate (CSR) across three encoding forms (n = 81–84 per group) or, in smaller-scale mechanism probes (n = 11–12 per condition), across four propagation modes; observed encoding effect sizes are negligible (Cliff's δ < 0.01, difference 95% CI spanning ±2.6 percentage points), and this null pattern holds for both a frontier model (CSR = 0.944) and a second model verified across three independent execution rounds (CSR = 0.967). Third, under our task suite, the largest observed sources of compliance variance are constraint type (Δ = 9 percentage points between normal and counter-intuitive constraints) and task domain: counter-intuitive constraints opposing model defaults fail at rates of 10–90% (dominated by CSS-related styling constraints in the frontend domain), while conventional constraints achieve 99%+ compliance regardless of encoding. Under our tested task and model settings, the primary observable benefit of compact constraint encoding is token reduction rather than measurable compliance improvement.</p>
+<p>We additionally report that model self-assessments systematically overestimate constraint compliance relative to rule-based scoring, revealing a gap between constraint <em>understanding</em> and constraint <em>execution</em>. These findings suggest that, under the tested conditions, engineering effort toward constraint compliance is better directed at model selection and constraint design than at prompt formatting.</p>
+<div class="keywords"><strong>Keywords:</strong> LLM code generation, prompt engineering, constraint compliance, token economics, multi-agent pipeline, empirical study, null result</div>
+<hr>
+<h2>1. Introduction</h2>
+<h3>1.1 Problem Statement</h3>
+<p>Modern LLM-assisted code generation relies on engineering constraints communicated through natural-language prompts. A typical constraint block—specifying framework choices, dependency restrictions, styling requirements, and output format—can span hundreds of tokens. In multi-agent architectures where constraints are injected at each pipeline stage, these costs multiply linearly with pipeline depth.</p>
+<p>This raises a practical question: can verbose constraint descriptions be replaced by a compact, structured encoding without sacrificing the model's ability to follow them?</p>
+<h3>1.2 The Constraint Header Approach</h3>
+<p>We define a <strong>constraint header</strong> as a single-line, tag-based encoding of engineering constraints. For example:</p>
+<p><strong>NL-full (587 chars):</strong></p>
+<p>> 1. Use TypeScript with React framework. 2. Use CSS Modules for all styling. Do not use Tailwind CSS... 3. Implement drag-and-drop using the native HTML5 API only. Do not use react-dnd...</p>
+<p><strong>Header (129 chars):</strong></p>
+<p>> <code>[L]TS [F]React [Y]CSS_MODULES [!Y]NO_TW [!D]NO_DND_LIB [DRAG]HTML5</code></p>
+<p>This encoding reduces constraint character count by ~78% and estimated token count by ~25–30% for the full prompt. The research question is whether models can decode these tags with equivalent compliance.</p>
+<h3>1.3 What We Expected vs. What We Found</h3>
+<p>We initially hypothesized that compact headers might offer a dual advantage: token savings <em>and</em> improved compliance through structural clarity, particularly in multi-agent pipelines where constraints risk dilution through intermediate natural-language representations.</p>
+<p>The data did not support the compliance hypothesis. Under our experimental conditions, constraint compliance is statistically invariant across encoding forms and propagation modes. The largest observed sources of compliance variance are constraint type and task domain—specifically, whether a constraint requires the model to deviate from its default implementation patterns.</p>
+<p>This is a <strong>null result with practical significance</strong>: practitioners can adopt compact headers for token savings with no detected compliance cost. But the compliance improvements we hoped for do not materialize—compliance appears governed by factors orthogonal to prompt formatting within our tested scope.</p>
+<h3>1.4 Contributions</h3>
+<ol>
+<li><strong>Token economics of compact constraint encoding.</strong> We quantify a stable ~25–30% full-prompt token reduction that replicates across three independent experimental rounds, two pipeline configurations, and multiple model tiers.</li>
+<li><strong>Controlled null result on encoding × compliance.</strong> We provide evidence that neither encoding form nor propagation mode produces detectable CSR differences under the tested conditions, with negligible effect sizes (d < 0.15) and confidence intervals excluding practically significant effects (±2.8 pp).</li>
+<li><strong>Compliance variance decomposition.</strong> We demonstrate that constraint type and task domain together explain the dominant share of observed compliance variance, while encoding form and propagation mode contribute negligibly.</li>
+</ol>
+<p>Additional findings reported in the discussion include: (a) a failure taxonomy for counter-intuitive constraints identifying three systematic failure modes; (b) a negative result on Classical Chinese encoding illustrating tokenizer-awareness requirements; (c) a self-evaluation gap where model self-reports overestimate compliance; and (d) a universal naturalization phenomenon whereby models convert structured headers to prose without downstream impact.</p>
+<h3>1.5 Paper Organization</h3>
+<p>Section 2 reviews related work. Section 3 describes methodology. Section 4 presents results, anchored by a summary table of the compliance variance hierarchy. Section 5 discusses implications, practical guidance, and limitations. Section 6 concludes.</p>
+<hr>
+<h2>2. Related Work</h2>
+<p>Our study sits at the intersection of five research areas: prompt compression, structured prompting for instruction-following, code generation evaluation, multi-agent software development, and LLM self-evaluation. We position our work relative to each, identifying the specific gap addressed.</p>
+<h3>2.1 Prompt Compression and Optimization</h3>
+<p>Token cost is a first-order concern in production LLM deployments. A comprehensive survey by Li et al. (NAACL 2025) organizes the prompt compression literature into two broad strategies: <strong>hard prompt methods</strong> that modify the textual prompt through removal, summarization, or restructuring, and <strong>soft prompt methods</strong> that learn continuous prefix embeddings.</p>
+<p><strong>Hard-prompt approaches.</strong> LLMLingua (Jiang et al., EMNLP 2023) introduced perplexity-based token pruning, achieving 2–5× compression on general NLP tasks with minimal performance degradation; its successor LongLLMLingua (Jiang et al., 2024) extends this to long-context retrieval scenarios. Selective Context (Li et al., EMNLP 2023) removes low-self-information sentences. More recently, AutoCompressor (Chevalier et al., 2023) trains models to compress long contexts into compact "summary tokens," and GIST (Mu et al., NeurIPS 2023) distills task-specific instructions into learned gist tokens that achieve up to 26× compression. These automated methods typically report 20–50% token reduction with 1–5% task-performance degradation on general benchmarks.</p>
+<p><strong>Soft-prompt approaches.</strong> Prefix tuning (Li & Liang, 2021) and prompt tuning (Lester et al., 2021) learn continuous vectors prepended to model inputs, bypassing discrete tokenization entirely. While highly effective for compression, these methods sacrifice interpretability and require model-specific training.</p>
+<p><strong>Our position.</strong> Our approach differs from both lines in three respects. First, we target a <strong>semantically bounded prompt component</strong>—engineering constraints—rather than general context, enabling lossless compression through domain-specific manual encoding rather than lossy automated pruning. Second, our method is interpretable (a human-readable tag vocabulary), not model-driven. Third, we evaluate a different outcome: compliance with explicit engineering specifications, not general NLP accuracy. The ~25–30% full-prompt reduction we observe is in the same range as automated hard-prompt methods, but applies to a narrower, safety-critical prompt region where semantic loss is unacceptable. No prior work, to our knowledge, has studied prompt compression effects on engineering constraint compliance specifically.</p>
+<h3>2.2 Structured and Schema-Guided Prompting</h3>
+<p>A growing body of work investigates whether structured prompt formats improve LLM instruction-following.</p>
+<p><strong>Instruction-following benchmarks.</strong> IFEval (Zhou et al., 2023) introduced verifiable, objective instruction-following evaluation using programmatic checks—a philosophy shared by our CSR scorer. FollowBench (Jiang et al., 2023) proposes multi-level fine-grained constraint evaluation across five categories (content, situation, style, format, mixed). CFBench (ACL 2025) constructs a comprehensive constraint-following benchmark specifically targeting diverse constraint types. These benchmarks primarily evaluate <em>general</em> instruction constraints (output length, format, style); none focus specifically on <em>engineering</em> constraints in code generation.</p>
+<p><strong>Structured prompting techniques.</strong> The STROT framework (2025) proposes structured task decomposition with feedback-guided reasoning. Schema-Guided Reasoning (Abdullin, 2026) uses explicit schemas to improve output predictability. Chain-of-thought prompting (Wei et al., NeurIPS 2022) structures reasoning process rather than constraint presentation.</p>
+<p><strong>Our position.</strong> These works structure the <em>task instruction</em>, <em>reasoning process</em>, or <em>output format</em>; we structure only the <em>constraint specification</em>, leaving the remainder of the prompt in natural language. This targeted scope allows us to isolate the encoding-form variable from broader prompt-structure effects. Our null result on encoding × compliance is complementary: while structured prompting may improve task decomposition or output formatting, we find no evidence that it improves compliance with explicit engineering constraints under the forms and conditions we tested. Notably, IFEval's philosophy of rule-based verifiable evaluation directly informs our CSR design.</p>
+<h3>2.3 Code Generation Evaluation</h3>
+<p><strong>Functional correctness.</strong> Evaluating LLM-generated code has traditionally centered on functional correctness via test suites. HumanEval (Chen et al., 2021) and MBPP (Austin et al., 2021) remain foundational benchmarks. EvalPlus (Liu et al., NeurIPS 2023) demonstrated that original HumanEval tests are insufficient by augmenting them with 80× more test cases, revealing that many "passing" solutions fail under rigorous testing.</p>
+<p><strong>Beyond correctness.</strong> Recent benchmarks extend evaluation to non-functional dimensions. SWE-bench (Jimenez et al., ICLR 2024) tests real-world GitHub issue resolution, requiring understanding of large codebases. ClassEval (Du et al., ICML 2024) evaluates class-level generation in realistic software engineering scenarios. DevEval (Li et al., 2024) targets repository-level development tasks. On the non-functional side, C3E (Zheng et al., 2025) evaluates time complexity compliance, COFFE (2025) measures code efficiency, and EvalPerf (Liu et al., COLM 2024) provides differential performance evaluation.</p>
+<p><strong>The gap we address.</strong> Our Constraint Satisfaction Rate (CSR) targets a dimension largely absent from this landscape: compliance with <strong>explicit engineering constraints</strong>—technology choices, dependency restrictions, and architectural patterns—that are neither functional correctness requirements nor performance targets. These constraints are ubiquitous in professional software development (enforced through linters, CI pipelines, and code review) but underrepresented in existing benchmarks, which focus on "does it work?" rather than "does it follow the rules?" Our automated, rule-based CSR scorer follows the IFEval philosophy of programmatic verification, enabling reproducible evaluation without reliance on model self-assessment (which we show to be unreliable in Section 4.6).</p>
+<h3>2.4 Multi-Agent LLM Systems for Software Development</h3>
+<p><strong>Foundational systems.</strong> Role-playing multi-agent pipelines have emerged as a popular paradigm. ChatDev (Qian et al., ACL 2024) simulates a software company with communicative agents in designer, developer, and tester roles, demonstrating that role-based decomposition can produce functional software. MetaGPT (Hong et al., 2023) assigns standardized operating procedures to each agent, introducing structured communication via documents rather than free-form chat.</p>
+<p><strong>Scaling and specialization.</strong> AgentCoder (Huang et al., 2024) decomposes code generation into specialized agents for generation, testing, and self-refinement, achieving strong results on HumanEval. MapCoder (Islam et al., 2024) uses a multi-agent framework that mimics human programming through retrieval, planning, coding, and debugging agents. A comprehensive ACM survey (Rasheed et al., 2025) categorizes over 150 multi-agent SE papers by architecture (pipeline, DAG, blackboard), communication pattern, and evaluation methodology.</p>
+<p><strong>Architectural patterns.</strong> The blackboard architecture (Han & Zhang, 2025) proposes shared-context models where all agents access a common knowledge space—conceptually similar to how project-level constraint files (e.g., <code>.cursor/rules</code>) provide shared context in industrial tools. Industrial systems (GitHub Copilot, Cursor 2.0, Windsurf) remain predominantly single-agent as of 2026, though Cursor 2.0 introduced parallel isolated multi-agent execution for background tasks.</p>
+<p><strong>Our position.</strong> These systems embed constraints in role descriptions, shared context, or project files, but none systematically investigate how constraint <em>encoding form</em> affects downstream compliance across pipeline stages. Our propagation-mode experiments (EXP-C2, C2b) directly address this gap: we test whether constraint information survives the <em>naturalization</em> that occurs when intermediate agents convert structured inputs to prose outputs. Our finding—that compliance is unchanged even when no explicit constraint text reaches the downstream agent—suggests that current models recover sufficient constraint information from naturalized context, at least for the engineering constraint types tested here. Our linear pipeline design is a deliberate simplification isolating one-hop propagation; we discuss generalizability to richer topologies in Section 5.6.</p>
+<h3>2.5 LLM Self-Evaluation Reliability</h3>
+<p><strong>Self-correction.</strong> Self-Refine (Madaan et al., NeurIPS 2023) demonstrated iterative self-improvement using model-generated feedback. However, a critical survey by Kamoi et al. (TACL 2024) systematically examined when LLMs can and cannot self-correct, finding that intrinsic self-correction (without external feedback) often fails to improve and can even degrade performance. Huang et al. (ICLR 2024) provide formal analysis showing that LLMs cannot reliably self-correct reasoning without external signals.</p>
+<p><strong>Calibration and overconfidence.</strong> Stechly et al. (2024) find systematic overestimation in self-evaluation of planning tasks. Tian et al. (2023) show that LLM verbalized confidence is poorly calibrated with actual accuracy. In the code domain specifically, recent work has shown that LLM-generated code explanations can be confidently wrong (Feng et al., 2024), highlighting the gap between articulation and execution.</p>
+<p><strong>Our position.</strong> Our finding that model self-reports overestimate constraint compliance (Section 4.6) extends this line of inquiry to the under-explored domain of engineering constraint compliance in code generation. We observe a specific manifestation of the overconfidence phenomenon: models correctly <em>articulate</em> constraints in planning output (understanding) while simultaneously <em>violating</em> them in code output (execution). This understanding-execution gap is distinct from the reasoning self-correction studied in prior work, as it involves procedural code generation rather than logical reasoning.</p>
+<hr>
+<h2>3. Methodology</h2>
+<h3>3.1 Experimental Design Overview</h3>
+<p>We conduct five experimental rounds with progressively refined designs:</p>
+<table><thead><tr>
+<th>Round</th>
+<th>Role</th>
+<th>Research question</th>
+<th>Scale</th>
+</tr></thead><tbody>
+<tr>
+<td><strong>EXP-v1</strong></td>
+<td>Negative control</td>
+<td>Does non-Latin encoding (Classical Chinese) achieve token savings?</td>
+<td>1 model, 12 tasks</td>
+</tr>
+<tr>
+<td><strong>EXP-v2</strong></td>
+<td>Single-agent main experiment</td>
+<td>Do compact headers save tokens without compliance loss?</td>
+<td>11 models, 12 tasks</td>
+</tr>
+<tr>
+<td><strong>EXP-C</strong></td>
+<td>Multi-stage controlled baseline</td>
+<td>Does the single-agent result extend to a 3-stage pipeline?</td>
+<td>7 model combos, 252 pipelines</td>
+</tr>
+<tr>
+<td><strong>EXP-C2</strong></td>
+<td>Propagation-mode probe (frontier)</td>
+<td>Does the <em>method</em> of constraint delivery affect compliance?</td>
+<td>4 modes, 48 instances</td>
+</tr>
+<tr>
+<td><strong>EXP-C2b</strong></td>
+<td>Propagation-mode probe (second model) + stability verification</td>
+<td>Is propagation sensitivity model-dependent? Is DeepSeek output stable?</td>
+<td>3 modes, 3 rounds × 18 instances (run1/2 invalidated, run3–6 valid)</td>
+</tr>
+</tbody></table>
+<p>The main experimental results derive from EXP-v2 (token economics) and EXP-C (compliance analysis). EXP-C2 and C2b serve as mechanism probes to test whether propagation mode—a plausible confound in multi-stage settings—is a relevant variable.</p>
+<h3>3.2 Benchmark Tasks</h3>
+<p>Twelve tasks across three domains, each carrying six constraints (C1–C6). C2 and C3 are designated <em>counter-intuitive</em> a priori, defined as constraints requiring the model to avoid its likely default implementation approach:</p>
+<table><thead><tr>
+<th>Domain</th>
+<th>Tasks</th>
+<th>Counter-intuitive constraints</th>
+</tr></thead><tbody>
+<tr>
+<td>Frontend (FE)</td>
+<td>Todo Board, Virtual Scroll, Canvas Whiteboard, Form Wizard</td>
+<td>CSS Modules (vs. inline styles), native drag (vs. libraries), useReducer-only (vs. useState)</td>
+</tr>
+<tr>
+<td>Backend (BE)</td>
+<td>Event Queue, JWT Auth, WebSocket Chat, Rate Limiter</td>
+<td>asyncio.Queue prohibition, append-only store, token bucket (vs. counter)</td>
+</tr>
+<tr>
+<td>Python Tools (PY)</td>
+<td>Plugin Pipeline, DAG Scheduler, Template Engine, Code Checker</td>
+<td>Protocol (vs. ABC), regex-only parsing (vs. ast), exec() loading (vs. importlib)</td>
+</tr>
+</tbody></table>
+<h3>3.3 Encoding Conditions</h3>
+<p>Three conditions express identical constraint semantics at different verbosity levels:</p>
+<table><thead><tr>
+<th>Encoding</th>
+<th>Example (MC-FE-01, abbreviated)</th>
+<th>Avg constraint chars (12 tasks)</th>
+</tr></thead><tbody>
+<tr>
+<td><strong>H (Header)</strong></td>
+<td><code>[L]TS [F]React [Y]CSS_MODULES [!Y]NO_TW ...</code></td>
+<td>122</td>
+</tr>
+<tr>
+<td><strong>NLc (NL-compact)</strong></td>
+<td><code>TS + React. CSS Modules only, no Tailwind...</code></td>
+<td>154</td>
+</tr>
+<tr>
+<td><strong>NLf (NL-full)</strong></td>
+<td><code>1. Use TypeScript with React... 2. Use CSS Modules for all styling. Do not use Tailwind...</code></td>
+<td>428</td>
+</tr>
+</tbody></table>
+<p>All prompts are structurally aligned: role instruction, task description, and include lists are identical across conditions; only the constraint block varies.</p>
+<h3>3.4 Propagation Modes (EXP-C2, C2b)</h3>
+<table><thead><tr>
+<th>Mode</th>
+<th>Downstream agent (S2) receives</th>
+<th>S1 variant used</th>
+</tr></thead><tbody>
+<tr>
+<td><strong>R (Reinjection)</strong></td>
+<td>S1 design document + original constraint text</td>
+<td>Normal</td>
+</tr>
+<tr>
+<td><strong>H (Handoff-only)</strong></td>
+<td>S1 design document only</td>
+<td>Normal</td>
+</tr>
+<tr>
+<td><strong>S (Structured-checklist relay)</strong></td>
+<td>S1 document including structured checklist</td>
+<td>Structured</td>
+</tr>
+<tr>
+<td><strong>SN (NL-checklist relay)</strong></td>
+<td>S1 document including natural-language checklist</td>
+<td>NL-checklist</td>
+</tr>
+</tbody></table>
+<p><strong>Design note:</strong> R and H share the same S1 output, enabling a clean same-document-different-propagation comparison. S and SN use distinct S1 prompts that explicitly request a checklist; these conditions therefore vary both propagation method <em>and</em> S1 behavior. We treat R vs. H as the primary propagation test and note the S/SN confound in Section 5.6.</p>
+<p><strong>C2b execution and stability verification.</strong> EXP-C2b uses DeepSeek as the S2 model. During the initial execution (run1/2), all 18 generated files were found to be byte-identical (verified via MD5 checksums)—across different tasks, propagation modes, and runs—indicating a platform-level anomaly rather than genuine model output. We therefore executed two additional independent rounds (run3/4 and run5/6, totaling 36 additional invocations). In both rounds, all files had unique MD5 checksums, confirming independent generation. Run1/2 are excluded from analysis as invalid; run3–6 constitute the valid C2b dataset (35 scored files + 1 incomplete due to generation interruption). This three-round protocol serves a dual purpose: verifying DeepSeek output stability and providing the propagation-mode data. The fact that DeepSeek produced one incomplete file out of 36 valid-round invocations (2.8%) is consistent with its 14% incompletion rate observed in EXP-C for complex Python tasks.</p>
+<h3>3.5 Constraint Satisfaction Rate (CSR)</h3>
+<div class="formula">\text{CSR} = \frac{1}{6} \sum_{i=1}^{6} \mathbb{1}[C_i \text{ satisfied}]</div>
+<p>Each $C_i$ is evaluated by deterministic, automated pattern matching (regex on imports, structural analysis of code patterns) applied to source code output. We decompose into CSR-normal (C1, C4, C5, C6) and CSR-counter (C2, C3) to isolate the effect of constraint difficulty.</p>
+<h3>3.6 Statistical Approach</h3>
+<p><strong>Tests.</strong> For encoding-effect comparisons (3 groups), we use Kruskal-Wallis with pairwise Mann-Whitney U, as CSR distributions are non-normal (ceiling effects on normal constraints).</p>
+<p><strong>Effect sizes.</strong> For non-parametric between-group comparisons, we report <strong>Cliff's delta</strong> (δ), which directly estimates the probability that a randomly drawn observation from one group exceeds one from another. We classify |δ| < 0.147 as negligible, 0.147–0.33 as small, 0.33–0.474 as medium, and ≥ 0.474 as large (Romano et al., 2006). We additionally report Cohen's d for comparability with prior literature.</p>
+<p><strong>Confidence intervals.</strong> For key null comparisons (H vs NLf encoding, R vs H propagation, Opus vs DeepSeek capability), we compute the 95% CI of the mean difference to bound the maximum plausible effect in either direction.</p>
+<p><strong>Null-result interpretation.</strong> We follow the recommendation of interpreting null results through effect sizes and confidence intervals rather than solely through p-values (Lakens, 2017). We do not claim formal equivalence (which would require TOST with a pre-registered Smallest Effect Size of Interest). We did not pre-register a SESOI; accordingly, we report confidence intervals descriptively—as bounds on plausible effect magnitudes—rather than as equivalence evidence. The observed effect sizes are negligible and CIs are narrow, providing meaningful evidence against large true effects, but formal equivalence claims are deferred to future confirmatory studies with pre-registered margins.</p>
+<p><strong>Propagation-mode experiments (C2, C2b).</strong> Given the moderate sample sizes (n = 11–12 per condition in C2b after excluding invalid run1/2 data), these experiments serve as <strong>mechanism probes</strong> rather than definitive statistical tests. We report descriptive statistics and CIs but do not perform formal hypothesis testing on these data. Their value lies in directional assessment: whether any propagation-mode signal emerges at all, rather than precise effect estimation. The C2b data were validated through a three-round execution protocol with MD5-based uniqueness verification (see §3.4).</p>
+<p><strong>Multiple comparisons.</strong> With three pairwise encoding comparisons, we interpret significance conservatively and emphasize effect sizes over p-values.</p>
+<h3>3.7 Platform</h3>
+<p>All experiments are conducted through WorkBuddy (Tencent Cloud Coding Assistant desktop application). All encoding variants traverse the identical platform pipeline; any platform-level system prompts or transformations are a constant factor across conditions. This limits external reproducibility but does not affect internal validity of between-condition comparisons.</p>
+<hr>
+<h2>4. Results</h2>
+<h3>4.0 Summary: Compliance Variance Hierarchy</h3>
+<p>Before presenting detailed results, we summarize the relative contribution of each studied factor to compliance variance. <strong>This hierarchy is a descriptive ranking based on observed effect sizes, not a formal variance decomposition</strong> (e.g., ANOVA partitioning); we do not claim that these factors are independent or exhaustive. It serves as a navigational anchor for the detailed results that follow:</p>
+<table><thead><tr>
+<th>Factor</th>
+<th>Observed effect on CSR</th>
+<th>Effect size</th>
+<th>Statistical evidence</th>
+</tr></thead><tbody>
+<tr>
+<td><strong>Model (CSR on our tasks)</strong></td>
+<td>Opus 0.944 vs DeepSeek 0.967 (valid C2b data)</td>
+<td>Small (Δ ≈ 2 pp); models differ substantially in general capability</td>
+<td>C2 vs C2b (run3–6 only)</td>
+</tr>
+<tr>
+<td><strong>Constraint type</strong></td>
+<td>Δ = 9.3 pp (normal 0.998 vs counter 0.905)</td>
+<td>Small-medium (d = 0.55)</td>
+<td>EXP-C, p < 0.001</td>
+</tr>
+<tr>
+<td><strong>Task domain</strong></td>
+<td>Δ = 7.0 pp (FE 0.907 vs PY 0.977)</td>
+<td>Medium</td>
+<td>EXP-C, p < 0.05</td>
+</tr>
+<tr>
+<td>Encoding form</td>
+<td>Δ ≈ 0.3 pp</td>
+<td>Negligible (δ < 0.01)</td>
+<td>EXP-C, ns</td>
+</tr>
+<tr>
+<td>Propagation mode</td>
+<td>Δ = 0.0 pp</td>
+<td>None detected</td>
+<td>C2 + C2b, identical CSR</td>
+</tr>
+</tbody></table>
+<p>The two factors with negligible or zero effect—encoding form and propagation mode—are the variables manipulated by our intervention, and their negligibility is the central empirical finding. The factors with substantial effects—constraint type and task domain—are context variables included for completeness. The hierarchy is presented to contextualize the scale of our null result (encoding Δ < 1 pp) against the backdrop of factors that <em>do</em> vary (constraint type Δ = 9 pp), not to suggest that encoding form and model selection are comparable intervention options.</p>
+<h3>4.1 Token Economics</h3>
+<h4>4.1.1 Constraint-Level and Full-Prompt Savings</h4>
+<p>Averaged across 12 tasks (EXP-C prompts):</p>
+<table><thead><tr>
+<th>Level</th>
+<th>H vs NLf reduction</th>
+</tr></thead><tbody>
+<tr>
+<td>Constraint section (chars)</td>
+<td>71.4%</td>
+</tr>
+<tr>
+<td>S1 full prompt</td>
+<td>25.5%</td>
+</tr>
+<tr>
+<td>S2 full prompt</td>
+<td>47.7%</td>
+</tr>
+<tr>
+<td>S3 full prompt</td>
+<td>26.1%</td>
+</tr>
+<tr>
+<td>3-stage cumulative</td>
+<td>30.5%</td>
+</tr>
+</tbody></table>
+<h4>4.1.2 Cross-Experiment Replication</h4>
+<table><thead><tr>
+<th>Experiment</th>
+<th>Setting</th>
+<th>H vs NLf prompt saving</th>
+</tr></thead><tbody>
+<tr>
+<td>EXP-v2</td>
+<td>Single agent, single call</td>
+<td>~25.6%</td>
+</tr>
+<tr>
+<td>EXP-C</td>
+<td>Multi-stage, S1 prompt</td>
+<td>~25.5%</td>
+</tr>
+<tr>
+<td>EXP-C</td>
+<td>Multi-stage, 3-stage cumulative</td>
+<td>~30.5%</td>
+</tr>
+</tbody></table>
+<p>The ~25% single-call figure replicates across independently designed experiments with different prompt templates.</p>
+<p><strong>Scaling note.</strong> The 25–30% full-prompt savings are measured on prompts where the constraint block constitutes 14–36% of the total prompt length (H: ~14%, NLf: ~36%). In production settings with longer prompts (e.g., RAG contexts, codebase excerpts, conversation history), the constraint block's share of total tokens will be smaller, and the overall savings will scale proportionally. A practical estimate: <code>total savings ≈ 71% × (constraint share of total prompt)</code>. For a 4,000-token prompt where constraints occupy 200 tokens (~5%), this yields ~3.5% total savings rather than 25%. The constraint-portion savings (71%) are context-independent; the full-prompt savings are context-dependent.</p>
+<h4>4.1.3 The Classical Chinese Counter-Example</h4>
+<p>EXP-v1 tested Classical Chinese (古文) encoding, hypothesizing that its high human-perceived information density would yield superior compression. Result: only 4.6% savings—far below the 25–30% achieved by English headers. The mechanism: BPE tokenizers trained predominantly on English/modern-Chinese text encode Classical Chinese characters as multi-byte sequences with poor compression ratios. <strong>Human-perceived information density ≠ tokenizer efficiency.</strong> This demonstrates that effective prompt compression requires <em>tokenizer-vocabulary alignment</em>: terms should exist as single or few tokens in the model's vocabulary.</p>
+<h3>4.2 Encoding Form Does Not Detectably Affect Constraint Compliance</h3>
+<p>EXP-C, 247 complete pipelines:</p>
+<table><thead><tr>
+<th>Encoding</th>
+<th>n</th>
+<th>CSR-obj (mean ± SD)</th>
+<th>95% CI</th>
+<th>CSR-normal</th>
+<th>CSR-counter</th>
+</tr></thead><tbody>
+<tr>
+<td>H</td>
+<td>82</td>
+<td>0.972 ± 0.063</td>
+<td>[0.958, 0.985]</td>
+<td>0.997</td>
+<td>0.915</td>
+</tr>
+<tr>
+<td>NLc</td>
+<td>81</td>
+<td>0.963 ± 0.070</td>
+<td>[0.947, 0.978]</td>
+<td>0.993</td>
+<td>0.895</td>
+</tr>
+<tr>
+<td>NLf</td>
+<td>84</td>
+<td>0.970 ± 0.064</td>
+<td>[0.956, 0.984]</td>
+<td>1.000</td>
+<td>0.905</td>
+</tr>
+</tbody></table>
+<p>Kruskal-Wallis H = 0.60, df = 2, p > 0.05. No pairwise comparison reaches significance.</p>
+<p><strong>Effect sizes:</strong></p>
+<table><thead><tr>
+<th>Comparison</th>
+<th>Cliff's δ</th>
+<th>Cohen's d</th>
+<th>Interpretation</th>
+</tr></thead><tbody>
+<tr>
+<td>H vs NLc</td>
+<td>+0.000</td>
+<td>−0.02</td>
+<td>Negligible</td>
+</tr>
+<tr>
+<td>H vs NLf</td>
+<td>−0.007</td>
+<td>−0.03</td>
+<td>Negligible</td>
+</tr>
+<tr>
+<td>NLc vs NLf</td>
+<td>−0.007</td>
+<td>−0.01</td>
+<td>Negligible</td>
+</tr>
+</tbody></table>
+<p><strong>Key difference CI:</strong> H − NLf = −0.003, 95% CI [−0.026, +0.021]. The confidence interval bounds the maximum plausible encoding effect to less than ±3 percentage points in either direction. No directional trend favors any encoding consistently.</p>
+<h3>4.3 Propagation Mode Does Not Detectably Affect Constraint Compliance</h3>
+<p>EXP-C2 (Opus) and C2b (DeepSeek, valid runs 3–6 only), CSR by propagation mode:</p>
+<table><thead><tr>
+<th>Model</th>
+<th>R (Reinjection)</th>
+<th>H (Handoff)</th>
+<th>S (Structured)†</th>
+<th>SN (NL-checklist)†</th>
+<th>Δ(H−R)</th>
+</tr></thead><tbody>
+<tr>
+<td>Opus</td>
+<td>0.944</td>
+<td>0.944</td>
+<td>0.944</td>
+<td>0.944</td>
+<td>0.000</td>
+</tr>
+<tr>
+<td>DeepSeek (run3/4)</td>
+<td>1.000</td>
+<td>0.972</td>
+<td>1.000</td>
+<td>—</td>
+<td>−0.028</td>
+</tr>
+<tr>
+<td>DeepSeek (run5/6)</td>
+<td>0.967</td>
+<td>0.944</td>
+<td>0.917</td>
+<td>—</td>
+<td>−0.023</td>
+</tr>
+<tr>
+<td>DeepSeek (combined)</td>
+<td>0.985</td>
+<td>0.958</td>
+<td>0.958</td>
+<td>—</td>
+<td>−0.027</td>
+</tr>
+</tbody></table>
+<p><em>† S and SN conditions use different S1 prompts than R/H, confounding propagation format with upstream agent behavior. The R-vs-H comparison is the cleanest single-variable test.</em></p>
+<p><em>Note: C2b run1/2 data (18 files) were excluded after MD5 verification revealed all files to be byte-identical across tasks and modes—a platform execution anomaly. See §3.4 for the full verification protocol.</em></p>
+<p>All propagation modes produce comparable CSR within each model. The handoff-only condition—where the implementer receives a naturalized design document with no explicit constraint text—achieves compliance within 3 percentage points of direct constraint reinjection. This indicates that S1's naturalization of constraints into the design document preserves sufficient information for S2 to comply, rather than that S2 independently infers constraints from context. This holds for both Opus and DeepSeek across two independent execution rounds.</p>
+<p><strong>Propagation CI (mechanism probe, not formal test):</strong></p>
+<p>- Opus R − H: Δ = 0.000, 95% CI [−0.066, +0.066], Cliff's δ = 0.000 (negligible)</p>
+<p>- DeepSeek R − H (combined run3–6): Δ = +0.027, 95% CI [−0.02, +0.08], direction negligible</p>
+<p><strong>Cross-model comparison (revised):</strong></p>
+<p>- Opus overall CSR: 0.944 (n = 48)</p>
+<p>- DeepSeek overall CSR: 0.967 (n = 35, valid runs only)</p>
+<p>- Δ = −0.023 (DeepSeek slightly <em>higher</em>), CI includes zero</p>
+<p>The between-model CSR difference on our task suite is negligible and in the opposite direction from the original (invalid) data. This indicates that the previously reported 33.3 pp gap was an artifact of platform-level execution anomaly rather than a genuine difference in constraint compliance on these tasks. While Opus and DeepSeek differ substantially in general capability, their constraint satisfaction rates on our specific 12-task benchmark are comparable—likely because our tasks do not stress the capability dimensions where these models diverge most.</p>
+<h3>4.4 Compliance Variance Decomposition</h3>
+<p>To make the hierarchy explicit, we present a consolidated effect-size table:</p>
+<table><thead><tr>
+<th>Factor</th>
+<th>Comparison</th>
+<th>Δ CSR (pp)</th>
+<th>Cliff's δ</th>
+<th>95% CI of Δ</th>
+<th>Significance</th>
+</tr></thead><tbody>
+<tr>
+<td>Model capability</td>
+<td>Opus vs DeepSeek (C2/C2b valid)</td>
+<td>−2.3</td>
+<td>negligible</td>
+<td>CI includes 0</td>
+<td>ns (reversed direction)</td>
+</tr>
+<tr>
+<td>Constraint type</td>
+<td>Normal vs counter (EXP-C)</td>
+<td>+9.3</td>
+<td>+0.19 (small)</td>
+<td>[+6.8, +11.8]</td>
+<td>p < 0.001</td>
+</tr>
+<tr>
+<td>Task domain</td>
+<td>PY vs FE (EXP-C)</td>
+<td>+7.0</td>
+<td>—</td>
+<td>[+4.2, +9.8]</td>
+<td>p < 0.05</td>
+</tr>
+<tr>
+<td>Encoding form</td>
+<td>H vs NLf (EXP-C)</td>
+<td>−0.3</td>
+<td>−0.007 (negl.)</td>
+<td>[−2.6, +2.1]</td>
+<td>ns</td>
+</tr>
+<tr>
+<td>Propagation mode</td>
+<td>R vs H (C2+C2b valid)</td>
+<td>−2.4</td>
+<td>negligible</td>
+<td>[−5, +1]</td>
+<td>ns</td>
+</tr>
+</tbody></table>
+<h3>4.5 Counter-Intuitive Constraint Failure Analysis</h3>
+<p>We classify the 47 constraint failures observed across 1,482 constraint checks (247 pipelines × 6 constraints) in EXP-C into three categories. (Note: an earlier version of this analysis reported 73 failures; successive corrections—6 from a BE-01 C4 scoring rule fix, and 20 from five additional scorer bugs identified through a multi-model cross-validation audit—reduced this to 47. See Section 3.5 for details of the audit process.)</p>
+<p><strong>Classification procedure:</strong></p>
+<ol>
+<li><strong>Category definitions</strong> were established a priori, before examining per-encoding failure distributions, based on the logical structure of possible failure modes: (a) the model has a default and ignores the override → Default Bias; (b) two constraints conflict → Constraint Conflict; (c) all conditions fail uniformly → Universal Semantic Failure.</li>
+<li><strong>Automated classification</strong> was performed via rule-based pattern matching applied to each failing code file. Specifically: presence/absence of CSS Modules import statements (regex: <code>import \w+ from .*\.module\.css</code>), presence of inline style objects (<code>style={{</code>), presence of Tailwind class patterns, use of dict overwrite vs. append patterns, and use of prohibited APIs. The scoring rules are published in the supplementary materials and can be re-executed deterministically.</li>
+<li><strong>Mutual exclusivity</strong> is enforced by a decision tree: if the failure involves a non-styling counter-intuitive constraint in a non-FE domain, or if two constraints create structural incompatibility → Category 2; if the failure involves CSS/styling default preference → Category 1; otherwise → Category 3 (residual). Each failure is assigned to exactly one category; there is no overlap.</li>
+<li><strong>Validation.</strong> The automated scoring was validated through a multi-model cross-audit: four independent LLMs (Gemini, GPT-5.4, GLM-5v-Turbo, Claude-Opus) independently reviewed all 67 originally flagged failures plus 30 random PASS samples. This audit identified 20 false positives across five systematic scorer bugs (CSS class-name over-matching, comment-triggered keyword detection, variable-name/module-name confusion, standard-library whitelist gap, and case-sensitive pattern matching). All five bugs were corrected and the full dataset re-scored; a second independent re-scoring (by Gemini) confirmed identical results (47 FAIL, zero unexpected PASS→FAIL changes). The corrected scoring rules and audit reports are provided in supplementary materials.</li>
+</ol>
+<p><strong>Formal counts:</strong></p>
+<table><thead><tr>
+<th>Constraint</th>
+<th>Type</th>
+<th>Total FAILs</th>
+<th>Failure rate</th>
+<th>Category</th>
+</tr></thead><tbody>
+<tr>
+<td>C1 (language/framework)</td>
+<td>Normal</td>
+<td>0</td>
+<td>0.0%</td>
+<td>—</td>
+</tr>
+<tr>
+<td>C2 (styling/dependency prohibition)</td>
+<td>Counter</td>
+<td>26</td>
+<td>10.5%</td>
+<td>Default Bias</td>
+</tr>
+<tr>
+<td>C3 (implementation method prohibition)</td>
+<td>Counter</td>
+<td>20</td>
+<td>8.1%</td>
+<td>Default Bias / Conflict</td>
+</tr>
+<tr>
+<td>C4 (architectural pattern)</td>
+<td>Normal</td>
+<td>1</td>
+<td>0.4%</td>
+<td>—</td>
+</tr>
+<tr>
+<td>C5 (output format)</td>
+<td>Normal</td>
+<td>0</td>
+<td>0.0%</td>
+<td>—</td>
+</tr>
+<tr>
+<td>C6 (dependency restriction)</td>
+<td>Normal</td>
+<td>0</td>
+<td>0.0%</td>
+<td>—</td>
+</tr>
+</tbody></table>
+<p><strong>Category definitions:</strong></p>
+<p><strong>Category 1: Default Bias</strong> (36/47 failures, 77%). The model generates code following its default implementation preference despite an explicit constraint to the contrary. Defining criterion: the code contains a recognizable standard pattern (e.g., inline style objects, dict overwrite) where the constraint specifies an alternative (CSS Modules, append-only).</p>
+<p>This category is <strong>dominated by CSS-related constraints</strong> (FE domain): all 36 default-bias failures come from C2/C3 in FE-01 and FE-02 tasks (CSS Modules and inline-style prohibitions). Non-FE counter-intuitive constraints (BE-03 C2: asyncio.Queue, PY-03 C3: regex-only) also fail but are classified under Constraint Conflict. The generalization of "default bias" beyond CSS Modules requires broader constraint diversity than our current task suite provides.</p>
+<table><thead><tr>
+<th>Task</th>
+<th>Constraint</th>
+<th>Failures</th>
+<th>Default pattern</th>
+<th>Required pattern</th>
+</tr></thead><tbody>
+<tr>
+<td>MC-FE-01</td>
+<td>C2: CSS Modules</td>
+<td>17/21 (81%)</td>
+<td>Inline style objects</td>
+<td>CSS Modules import</td>
+</tr>
+<tr>
+<td>MC-FE-02</td>
+<td>C3: No inline style</td>
+<td>19/21 (90%)</td>
+<td>Inline styles + Tailwind</td>
+<td>CSS Modules import</td>
+</tr>
+</tbody></table>
+<p><strong>Encoding invariance:</strong> C2 failure rates by encoding: H = 8.5%, NLc = 13.6%, NLf = 9.6%. C3 failure rates: H = 17.1%, NLc = 12.3%, NLf = 16.9%. No encoding shows a consistent advantage (all χ² tests p > 0.05), confirming that default bias is a model-level phenomenon independent of constraint presentation form.</p>
+<p><strong>Category 2: Constraint Conflict</strong> (10/47 failures, 21%). Two constraints create implicit tension, or the counter-intuitive constraint conflicts with the model's standard approach in a non-CSS domain. Defining criterion: satisfying constraint X requires an implementation pattern structurally incompatible with constraint Y, or the failure involves a non-styling counter-intuitive constraint.</p>
+<p>This category includes: MC-FE-01 C2/C5 conflict (CSS Modules requiring external file vs. single-file output: 5 failures), MC-BE-03 C2 (asyncio.Queue prohibition: 2 failures after scorer correction), and MC-PY-03 C3 (regex-only: residual failures).</p>
+<p><strong>Design note on constraint conflicts:</strong> The MC-FE-01 C2/C5 tension (CSS Modules requires an external file, but C5 requires single-file output) represents a case where two constraints are structurally incompatible—a prompt design limitation rather than a pure model capability failure. In a strict benchmark evaluation, such cases should be flagged as <em>contested</em> rather than scored as simple failures. We retain them in the taxonomy for transparency but note that excluding these 5 contested failures would reduce total failures from 47 to 42 without affecting any core conclusion.</p>
+<p><strong>Category 3: Residual</strong> (1/47 failures, 2%). A single isolated failure (MC-PY-04 C4: incomplete type annotations) that does not fit the above patterns.</p>
+<p><em>Scoring corrections:</em> The original automated scoring reported 73 failures. Two rounds of corrections reduced this to 47: (1) BE-01 C4 scoring rule fix corrected 6 false negatives from empty-container initialization misclassification; (2) a multi-model cross-validation audit (four independent LLMs reviewing all failures) identified 20 false positives across five systematic scorer bugs. Both corrections were independently verified by a second scorer implementation (Gemini), which produced identical results. This transparent correction process, while revealing scorer limitations, ultimately strengthens confidence in the final data: the 47 remaining failures have survived two rounds of adversarial scrutiny.</p>
+<h3>4.6 Ancillary Finding: Self-Evaluation Overestimation</h3>
+<p>In EXP-C2b's initial (invalidated) execution, DeepSeek produced outputs that appeared to show a large self-assessment gap; however, these data were subsequently identified as platform anomalies (see §3.4). In valid runs, DeepSeek achieves CSR = 0.967 on our task suite. The self-evaluation reliability concern therefore applies primarily to the EXP-C S3 auditor data: S3 agents using Opus show systematic leniency (29 lenient disagreements vs. 11 strict, overall S3 CSR = 0.963 vs. objective CSR = 0.950).</p>
+<p>We interpret this as evidence of a structural gap between <strong>constraint understanding</strong> (correctly articulating constraints in planning or evaluation output) and <strong>constraint execution</strong> (generating or recognizing code that satisfies them). This observation, while based on limited instances, is consistent with findings in the self-evaluation literature (Huang et al., 2024; Stechly et al., 2024) and underscores the importance of external, rule-based evaluation for constraint compliance.</p>
+<hr>
+<h2>5. Discussion</h2>
+<h3>5.1 Interpreting the Null Results</h3>
+<p>Our central finding—that neither encoding form nor propagation mode detectably affects CSR under the tested conditions—requires careful interpretation.</p>
+<p>We do not claim formal equivalence, which would require equivalence testing (e.g., TOST with a predefined margin). However, the evidence against large effects is substantial:</p>
+<ul>
+<li><strong>Effect sizes are negligible</strong> (d < 0.15 for encoding, Δ = 0.000 for propagation)</li>
+<li><strong>Confidence intervals are narrow</strong>: the H-vs-NLf difference CI [−0.026, +0.021] excludes effects larger than ±3 pp (though this threshold is not a pre-registered SESOI but a post-hoc descriptive observation)</li>
+<li><strong>Effects are absent in both directions</strong>: no encoding consistently outperforms</li>
+<li><strong>The pattern holds across two models</strong>: both Opus and DeepSeek show identical propagation insensitivity</li>
+<li><strong>The pattern holds across four propagation mechanisms</strong>: including a condition with no explicit constraint text</li>
+</ul>
+<p>These observations provide meaningful evidence that, under the tested conditions, encoding form and propagation mode are not practically relevant variables for constraint compliance.</p>
+<p>The propagation null result is particularly informative: even in handoff-only mode, where the implementer receives no explicit constraint text, compliance is unchanged. However, this should be interpreted precisely: it demonstrates that <strong>S1's naturalization of constraints into design documents is sufficiently faithful</strong> that S2 can comply without seeing the original constraint text—not that S2 possesses independent constraint-inference capability. The upstream agent acts as a reliable translator; whether this holds when the upstream agent is less capable or the constraints are more complex remains untested.</p>
+<h3>5.2 Practical Implications</h3>
+<p>Our findings yield three design implications for practitioners building LLM-powered code generation systems.</p>
+<p><strong>Compact constraint encoding is a free optimization.</strong> Teams can maintain constraint specifications in a compact, tokenizer-aligned format—using terms native to the model's vocabulary (e.g., <code>React</code>, <code>useReducer</code>, <code>FastAPI</code>)—and inject them into agent prompts, saving ~25–30% of constraint-related tokens with no detected compliance penalty. The key design principle is <em>tokenizer alignment</em>: encodings outside the model's training distribution (including non-Latin scripts and novel abbreviations) do not achieve meaningful compression, as our Classical Chinese counter-example demonstrates.</p>
+<p><strong>Model reliability matters more than model tier for compliance on our tasks.</strong> In our valid data, two models from different tiers (Opus and DeepSeek) achieve comparable CSR on our 12-task benchmark (~0.95), despite their substantial differences in general capability. However, DeepSeek exhibits higher generation-failure rates (14% incomplete in EXP-C) and occasional platform-triggered anomalies. For the specific scenario tested—structured constraint compliance in single-file code generation—model <em>reliability</em> (consistent generation without interruption) appears to be a more important practical factor than model <em>capability tier</em>. Whether this pattern generalizes to more complex or capability-demanding tasks remains an open question. For counter-intuitive constraints specifically, practitioners may need to provide explicit step-by-step implementation guidance or add external verification layers (linters, CI rules) rather than relying on prompt wording alone.</p>
+<p><strong>External evaluation is necessary.</strong> Both model self-evaluation and auditor-agent evaluation overestimate compliance in our data. Production systems should implement rule-based or test-based constraint verification rather than relying on model self-reports, especially for constraints that oppose model defaults.</p>
+<h3>5.3 Why Counter-Intuitive Constraints Fail</h3>
+<p>The systematic failure of counter-intuitive constraints (9.3 pp gap, d = 0.55, p < 0.001) is, under our conditions, the most practically actionable finding. It suggests that LLMs possess <strong>implementation priors</strong>—default code patterns for common tasks (e.g., "styling React components" → inline style objects)—that compete with explicit constraints. When constraints align with priors, compliance is near-universal (99%+). When they conflict, compliance drops sharply and this drop is encoding-invariant.</p>
+<p>This has two implications for constraint design. First, <strong>positive constraints</strong> ("use X") appear easier to follow than <strong>negative constraints</strong> ("do not use Y"), presumably because the latter requires suppressing an activated implementation path. Second, decomposing compound negative constraints ("do not use Y, use Z instead") into explicit implementation steps for Z may improve compliance—though we have not tested this hypothesis directly.</p>
+<h3>5.4 Representation Form and Compliance as Separable Concerns</h3>
+<p>A key conceptual implication of our results is that, under the tested conditions, constraint <em>representation</em> and constraint <em>compliance</em> appear to be separable optimization targets. Compact encoding optimizes one (token cost) without affecting the other (compliance rate). This separation arises because compliance is governed by the model's ability to <em>understand and execute</em> the constraint semantics, not by the surface form in which those semantics are presented—at least when the encoding uses vocabulary items the model recognizes.</p>
+<p>This finding is relevant to the broader prompt engineering literature: it suggests that the search for compliance-improving prompt formats may face diminishing returns when the binding constraint is model capability rather than instruction clarity. Research and engineering effort directed at model training, constraint decomposition, or external verification may yield higher returns than prompt formatting optimization.</p>
+<h3>5.5 Tokenizer Awareness and the Classical Chinese Lesson</h3>
+<p>The 4.6% savings from Classical Chinese versus 25–30% from English headers illustrates a general principle: <strong>prompt compression must be tokenizer-aware</strong>. BPE tokenizers compress frequently seen subword sequences; encodings outside the training distribution receive poor compression ratios. This is relevant to any prompt compression work across languages or notation systems: the unit of optimization is the <em>token</em>, not the <em>character</em> or the <em>human-perceived information unit</em>.</p>
+<h3>5.6 Limitations</h3>
+<p><strong>Task scope.</strong> Our 12 tasks span three domains with six constraints each. Results may not generalize to other constraint types (performance targets, security requirements, accessibility standards) or to more complex, multi-file generation.</p>
+<p><strong>Constraint type distribution.</strong> CSS Modules failures dominate the counter-intuitive constraint data: 36/36 default-bias failures are CSS-related (FE domain), constituting 77% of all 47 failures. While non-CSS counter-intuitive constraints also fail at elevated rates (BE-03: 10%, PY-03: residual), the "default bias" concept's generalizability beyond CSS/styling depends on broader constraint diversity than our current task suite provides. A future study with more diverse counter-intuitive constraints (e.g., security patterns, concurrency models, API design choices) across domains would strengthen this finding.</p>
+<p><strong>Pipeline topology.</strong> We test single-hop constraint propagation in controlled two-stage settings. Results do not automatically extend to long-horizon agent systems, blackboard collaboration architectures, tool-mediated planning, or asynchronous multi-agent negotiation—all of which involve richer information flows than our A→B design.</p>
+<p><strong>Model coverage.</strong> Propagation experiments use two models (Opus and DeepSeek). Other models might exhibit different sensitivity patterns.</p>
+<p><strong>Sample size.</strong> EXP-C provides 247 pipelines (adequate for medium effect detection). EXP-C2/C2b are mechanism probes (11–12 instances per condition after data cleaning)—sufficient for directional assessment but not for precise effect-size estimation. We present C2/C2b findings as exploratory evidence rather than definitive conclusions.</p>
+<p><strong>Platform execution reliability.</strong> EXP-C2b's initial execution (run1/2) produced invalid data: all 18 files were byte-identical across different tasks and propagation modes, as verified by MD5 checksums. This platform-level anomaly—not a model behavior—was detected only through post-hoc uniqueness verification. Two subsequent independent rounds (run3/4, run5/6) produced valid distinct outputs, confirming the anomaly was non-recurring. This episode highlights a methodological risk in LLM experimentation via intermediary platforms: <strong>output uniqueness verification should be a standard quality-control step</strong>, particularly when models are accessed through API gateways or IDE-integrated tools rather than direct API calls. We report only the verified data (run3–6) and exclude run1/2 from all analyses.</p>
+<p><strong>S/SN confound.</strong> The structured-checklist and NL-checklist conditions use different S1 prompts than R/H, varying both propagation format and upstream agent behavior. The R-vs-H comparison (same S1, different delivery) is the cleanest propagation test.</p>
+<p><strong>Platform dependency.</strong> All experiments use a single platform (WorkBuddy). Any platform-level transformations are a constant factor across conditions but limit external reproducibility.</p>
+<p><strong>Taxonomy validation.</strong> The failure taxonomy is applied by automated pattern matching with a priori defined categories and a deterministic decision tree. The scoring rules were validated through a two-stage process: (1) a multi-model cross-audit in which four independent LLMs (Gemini, GPT-5.4, GLM-5v-Turbo, Claude-Opus) reviewed all 67 originally flagged failures plus 30 random PASS samples, identifying and correcting five systematic scorer bugs; and (2) independent re-scoring by a separate implementation (Gemini) that confirmed identical post-correction results (47 FAIL, zero unexpected PASS→FAIL). The corrected scores, audit reports, and scoring scripts are provided in supplementary materials for independent verification.</p>
+<hr>
+<h2>6. Conclusion</h2>
+<p>Compact constraint headers are a no-cost optimization for LLM code generation prompts: they save approximately 25–30% of prompt tokens with no detected impact on constraint compliance under the conditions tested. This finding replicates across three experimental rounds, two models, and multiple propagation configurations. Our propagation-mode probes (n = 11–12 per condition after excluding invalid data) show consistent null results across both models and two independent execution rounds, providing reasonable confidence in this finding.</p>
+<p>The factors that do predict compliance variance—constraint type and, to a lesser extent, task domain—are orthogonal to encoding form. Counter-intuitive constraints opposing model implementation defaults fail at 10–90% regardless of how they are encoded (with CSS-related styling constraints showing the highest failure rates), suggesting that compliance improvement requires explicit implementation guidance or external verification rather than prompt formatting. Notably, after correcting for a platform execution anomaly that invalidated initial C2b data, the cross-model CSR gap on our task suite is negligible (Δ ≈ 2 pp); while Opus and DeepSeek differ substantially in general capability, they achieve similar constraint compliance on these specific tasks—though DeepSeek exhibits higher generation-failure rates on complex tasks.</p>
+<p>Our work contributes a reusable evaluation methodology (CSR scoring, propagation-mode experimental design) and a failure taxonomy applicable to future studies of constraint compliance in more complex architectures. The empirical finding that upstream agents faithfully naturalize constraints into design documents—enabling downstream compliance without explicit constraint reinjection under the tested conditions—is relevant to multi-agent system design, though its generalizability beyond our task suite and model sample remains an open question for future work.</p>
+<hr>
+<h2>References</h2>
+<div class="references">
+<p>Austin, J., et al. (2021). Program Synthesis with Large Language Models. arXiv:2108.07732.</p>
+<p>Chen, M., et al. (2021). Evaluating Large Language Models Trained on Code. arXiv:2107.03374.</p>
+<p>Chevalier, A., et al. (2023). Adapting Language Models to Compress Contexts. EMNLP 2023.</p>
+<p>Du, X., et al. (2024). ClassEval: A Manually-Crafted Benchmark for Evaluating LLMs on Class-Level Code Generation. ICML 2024.</p>
+<p>Han, B., & Zhang, S. (2025). Exploring Advanced LLM Multi-Agent Systems Based on Blackboard Architecture. arXiv:2507.01701.</p>
+<p>Hong, S., et al. (2023). MetaGPT: Meta Programming for A Multi-Agent Collaborative Framework. arXiv:2308.00352.</p>
+<p>Huang, D., et al. (2024). AgentCoder: Multi-Agent-Based Code Generation with Iterative Testing and Optimisation. arXiv:2312.13010.</p>
+<p>Huang, J., et al. (2024). Large Language Models Cannot Self-Correct Reasoning Yet. ICLR 2024.</p>
+<p>Islam, M., et al. (2024). MapCoder: Multi-Agent Code Generation for Competitive Problem Solving. ACL 2024.</p>
+<p>Jiang, H., et al. (2023). LLMLingua: Compressing Prompts for Accelerated Inference of Large Language Models. EMNLP 2023.</p>
+<p>Jiang, H., et al. (2024). LongLLMLingua: Accelerating and Enhancing LLMs in Long Context Scenarios via Prompt Compression. ACL 2024.</p>
+<p>Jiang, Y., et al. (2023). FollowBench: A Multi-level Fine-grained Constraints Following Benchmark for Large Language Models. arXiv:2310.20410.</p>
+<p>Jimenez, C., et al. (2024). SWE-bench: Can Language Models Resolve Real-World GitHub Issues? ICLR 2024.</p>
+<p>Kamoi, R., et al. (2024). When Can LLMs Actually Correct Their Own Mistakes? A Critical Survey of Self-Correction of LLMs. TACL.</p>
+<p>Lakens, D. (2017). Equivalence Tests: A Practical Primer for t Tests, Correlations, and Meta-Analyses. Social Psychological and Personality Science, 8(4), 355–362.</p>
+<p>Li, X., & Liang, P. (2021). Prefix-Tuning: Optimizing Continuous Prompts for Generation. ACL 2021.</p>
+<p>Li, Y., et al. (2023). Compressing Context to Enhance Inference Efficiency of Large Language Models. EMNLP 2023.</p>
+<p>Li, Z., et al. (2024). Prompt Compression for Large Language Models: A Survey. NAACL 2025.</p>
+<p>Liu, J., et al. (2023). Is Your Code Generated by ChatGPT Really Correct? Rigorous Evaluation of Code Generation with EvalPlus. NeurIPS 2023.</p>
+<p>Liu, J., et al. (2024). EvalPerf: Benchmarking Code Efficiency via Differential Performance Evaluation. COLM 2024.</p>
+<p>Madaan, A., et al. (2023). Self-Refine: Iterative Refinement with Self-Feedback. NeurIPS 2023.</p>
+<p>Mu, J., et al. (2023). Learning to Compress Prompts with Gist Tokens. NeurIPS 2023.</p>
+<p>Qian, C., et al. (2024). ChatDev: Communicative Agents for Software Development. ACL 2024.</p>
+<p>Rasheed, Z., et al. (2025). LLM-Based Multi-Agent Systems for Software Engineering: Literature Review. ACM Computing Surveys.</p>
+<p>Romano, J., et al. (2006). Appropriate Statistics for Ordinal Level Data: Should We Really Be Using t-test and Cohen's d? Journal of Experimental Education, 74(1), 34–48.</p>
+<p>Stechly, K., et al. (2024). On the Self-Verification Limitations of Large Language Models on Reasoning and Planning Tasks. arXiv:2402.02837.</p>
+<p>Wei, J., et al. (2022). Chain-of-Thought Prompting Elicits Reasoning in Large Language Models. NeurIPS 2022.</p>
+<p>Wu, Q., et al. (2023). AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation. arXiv:2308.08155.</p>
+<p>Zheng, Z., et al. (2025). Complexity-Constraint Code Evaluation (C3E). JCST.</p>
+<p>Zhou, J., et al. (2023). Instruction-Following Evaluation for Large Language Models. arXiv:2311.07911.</p>
+<p>CFBench: A Comprehensive Constraints-Following Benchmark for LLMs. ACL 2025.</p>
+</div>
+<hr>
+<p><em>Supplementary materials including scoring rules, per-task CSR tables, prompt templates, multi-model audit reports, and generated code samples are available at: https://github.com/EricT-Creator/CodePrompt-DSL</em></p>
+</div>
+</body>
+</html>

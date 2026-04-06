@@ -1,0 +1,4 @@
+===CODE_SPEC===
+[L]PY[S]FastAPI[F]MOD[Y]NA[D]NOX[M]NA[DT]MOCK[O]CODE
+===REQ===
+做一个 FastAPI 应用，实现待办事项的完整 CRUD。POST /todos 创建，GET /todos 获取全部，GET /todos/{id} 获取单条，PUT /todos/{id} 更新，DELETE /todos/{id} 删除。数据存在内存列表中即可。

@@ -1,0 +1,4 @@
+===CODE_SPEC===
+[L]PY[S]FastAPI[F]MOD[Y]NA[D]NOX[M]NA[DT]NA[O]CODE
+===REQ===
+做一个 FastAPI 应用，POST /calculate 接收 `{"a": number, "b": number, "op": "add|sub|mul|div"}`，返回计算结果。除以零时返回 400 和错误信息。

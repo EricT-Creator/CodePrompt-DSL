@@ -1,0 +1,4 @@
+===CODE_SPEC===
+[L]PY[S]NA[F]LIB[Y]NA[D]STD[M]NA[DT]NA[O]CODE
+===REQ===
+写一个 Python 类 `SimpleHTTPClient`，使用标准库 `urllib.request` 封装常用操作：`get(url)` 发 GET 请求返回响应文本，`post(url, data)` 发 POST 请求（JSON body），`download(url, filepath)` 下载文件到指定路径。所有方法返回 `{"status": int, "body": str/None, "headers": dict}`。处理常见异常（超时、404等）。

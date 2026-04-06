@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "TypeScript",
+  "framework": "React",
+  "form": "single file component with export default",
+  "style": "Tailwind CSS",
+  "dependencies": "no external libraries",
+  "layout": "mobile-first layout",
+  "data": "mock",
+  "output": "code_only"
+}
+
+做一个聊天界面，包含消息气泡列表（区分自己和对方，样式不同）、底部输入框、发送按钮。发送消息后列表自动滚动到底部。用模拟数据预填几条历史消息。

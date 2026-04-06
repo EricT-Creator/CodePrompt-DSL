@@ -1,0 +1,22 @@
+{
+  "id": "BE-11",
+  "name": "限流中间件",
+  "type": "backend",
+  "requirements": {
+    "nl": "做一个 FastAPI 应用，实现一个简易限流中间件。GET /api/data 返回模拟数据。同一 IP 在 60 秒内最多请求 10 次，超过后返回 429 Too Many Requests。用内存字典记录。",
+    "wenyan": "作 FastAPI 应用，加限流中间件。GET /api/data 返模拟数据。同 IP 六十秒内至多十次请求，逾则返 429。以内存字典记录。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "FastAPI",
+    "form": "single_module",
+    "style": "not_applicable",
+    "dependencies": "no_external",
+    "layout": "not_applicable",
+    "data": "mock",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "正常请求返回 200，超限返回 429"
+}

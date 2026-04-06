@@ -1,0 +1,4 @@
+===CODE_SPEC===
+[L]PY[S]NA[F]LIB[Y]NA[D]STD[M]NA[DT]NA[O]CODE
+===REQ===
+写一个 Python 函数 `merge_configs(base: dict, override: dict, strategy: str = "deep") -> dict`。支持两种合并策略：`"shallow"` 只覆盖顶层 key，`"deep"` 递归合并嵌套字典。列表类型的值用追加方式合并（不去重）。

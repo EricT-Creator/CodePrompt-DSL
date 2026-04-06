@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "Python",
+  "framework": "FastAPI",
+  "form": "single module",
+  "style": "no styling",
+  "dependencies": "no external libraries",
+  "layout": "not_applicable",
+  "data": "not_applicable",
+  "output": "code_only"
+}
+
+做一个 FastAPI 应用。POST /events 记录一条事件（type, message, timestamp自动生成）。GET /events 返回全部事件。GET /events?type=error 按类型筛选。GET /events/stats 返回各类型事件的计数统计。

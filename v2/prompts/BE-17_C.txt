@@ -1,0 +1,4 @@
+===CODE_SPEC===
+[L]PY[S]FastAPI[F]MOD[Y]NA[D]NOX[M]NA[DT]NA[O]CODE
+===REQ===
+做一个 FastAPI 应用，实现 WebSocket 聊天室。WS /ws/{username} 连接后可收发消息。一个用户发送的消息应广播给所有其他已连接的用户。用户连接和断开时广播通知。

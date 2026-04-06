@@ -1,0 +1,22 @@
+{
+  "id": "PY-06",
+  "name": "简易密码生成器",
+  "type": "python_script",
+  "requirements": {
+    "nl": "写一个 Python 函数 `generate_password(length: int = 16, uppercase: bool = True, digits: bool = True, special: bool = True) -> str`。生成随机密码，根据参数决定是否包含大写字母、数字、特殊字符。密码必须至少包含每种被要求的字符类型各一个。",
+    "wenyan": "写一函数 generate_password，生成随机密码。按参数决定是否含大写、数字、特殊字符。每类要求之字符至少含一。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "None",
+    "form": "function_library",
+    "style": "not_applicable",
+    "dependencies": "stdlib_only",
+    "layout": "not_applicable",
+    "data": "not_applicable",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "长度正确，包含要求的字符类型，随机性"
+}

@@ -1,209 +1,212 @@
-# CodePrompt-DSL：面向强代码模型的显式工程约束压缩实验
+# Compact Constraint Encoding for LLM Code Generation
 
-> 不是把自然语言变古文，而是把工程约束变成可复用的紧凑 Header。
+**An Empirical Study of Token Economics and Constraint Compliance**
 
-## 🧪 这是什么
+[English](#english) | [中文](#chinese)
 
-每次让 LLM 生成代码时，你几乎都要重复说一遍同样的工程约束：用 TypeScript、用 React、不要引入外部库、Tailwind 做样式……
+---
 
-**这些约束是闭集的、可枚举的、高频重复的。** 能不能把它们压缩成一个标准化的紧凑 Header，从而：
-- 节省 token 成本（约 25%）
-- 让约束更稳定可复用
-- 不损失代码生成准确度
+<a name="english"></a>
 
-这就是 CodePrompt-DSL 要回答的问题。
+## Overview
 
-我们设计了一组对照实验：**6 种 Prompt 编码方式 × 10 个代码生成任务 × 9+ 个大语言模型**，从 token 消耗、约束遵循、功能完整度三个层面做了量化比较。
+This repository contains the experimental data, scoring scripts, prompt templates, and supplementary materials for the paper:
 
-### 一句话结论
+> **Compact Constraint Encoding for LLM Code Generation: An Empirical Study of Token Economics and Constraint Compliance**
+>
+> Tang Hanzhang · Independent Researcher, Tencent · April 2026
 
-> **英文极简 DSL 节省 25% token，且在强模型上基本不损失准确度。**  
-> 古文编码是一个有趣的研究对照，但不适合作为生产默认方案。
+### What We Studied
 
-### 起源故事
+LLM-assisted code generation relies on engineering constraints (framework choices, dependency restrictions, architectural patterns) communicated through natural-language prompts. We investigated whether compact, structured constraint headers can reduce token consumption without degrading constraint compliance.
 
-这个项目源于一个直觉：中国古文字数少、含义凝练——**能否借用古文式的凝练来压缩 LLM Prompt？**
+### Key Findings
 
-实验结果是：古文对人类是高密度表达，但对 LLM 不是。BPE tokenizer 对中文编码效率低，所以"字少"并不等于"token 少"。
+Across 5 experimental rounds, 11 models, 12 benchmark tasks, and 800+ LLM invocations:
 
-但这个反直觉发现反而指出了一条更有价值的路：**真正有效的不是换语言，而是把"闭集工程约束"和"开放业务需求"分开处理——前者用紧凑 Header，后者保留自然语言。**
+1. **Token savings are real.** Compact headers reduce constraint-portion tokens by ~71% and full-prompt tokens by 25–30%.
+2. **Compliance improvement is not.** No statistically significant difference in Constraint Satisfaction Rate (CSR) was detected across three encoding forms (H/NLc/NLf) or four propagation modes. Effect sizes are negligible (Cliff's δ < 0.01).
+3. **What actually matters.** Constraint type (normal vs. counter-intuitive: Δ = 9.3 pp) and task domain are the dominant variance sources—not encoding form.
+4. **A practical null result.** Compact headers are a free optimization: save tokens with no detected compliance cost.
 
-## 📊 核心发现
+### Paper
 
-### Phase 1：Token 计数
+- **arXiv preprint**: `v2/paper/PAPER_v4_EN.html` (English) and `PAPER_v4_CN.html` (Chinese)
 
-| 编码方式 | 平均 Token | 节省率 | 统计显著性 |
-|---------|-----------|-------|-----------|
-| 英文自然语言（基线） | 63.3 | — | — |
-| 中文自然语言 | 63.1 | 0.3% | 不显著 |
-| 英文 DSL 标签 | 63.4 | -0.2% | 不显著 |
-| **英文极简 DSL** | **47.1** | **25.6%** | **p<0.001 ✓** |
-| 古文 DSL | 60.4 | 4.6% | p=0.012 |
-| 极简古文 | 53.1 | 16.1% | p<0.001 |
+---
 
-### Phase 2：单模型准确率基线（Claude Opus 4.6, 30 次生成）
-
-| 编码方式 | 平均分 | 约束遵循 | 功能完整 | 满分率 |
-|---------|--------|---------|---------|-------|
-| 英文自然语言 | 4.8/5 | 100% | 80% | 80% |
-| **英文极简 DSL** | **4.7/5** | **100%** | **70%** | **70%** |
-| 极简古文 | 4.4/5 | 100% | **40%** ❌ | 40% |
-
-### Phase 3：可信多模型结论（2026-03-30 质检后口径）
-
-在当前可信结果中：
-
-- **英文极简 DSL（D 组）是最有现实价值的方案**：在多数可信强模型上，A 组与 D 组几乎无差异，但 D 组仍保留约 25% token 节省
-- **古文（F 组）不是默认优选方案**：它在部分模型上可以工作，但稳定性与可解释性都不如 D 组，不适合当作通用生产默认值
-- **编码方式不会拯救弱模型**：DeepSeek-V3.2、Gemini-3.1-Flash-Lite 在 A/D/F 三组都低分，说明问题主要不在“提示怎么写”，而在模型本身的结构化代码生成能力
-- **当前评估器存在字面关键词偏置**：例如 `lightbox`、`paginat`、`import React`、`: React.FC` 等检测点会影响任务级低分的解释，因此机制层结论需要保持克制
-
-### 这对 CodePrompt-DSL 选题意味着什么
-
-CodePrompt-DSL 最值得成立的方向，不是“把所有 Prompt 都压缩成古文”，而是：
-
-> **把高频、闭集、可枚举的工程约束压缩成紧凑 Header，并交给已经具备较强代码生成能力的模型。**
-
-换句话说，它更像一个：
-- **约束标准化层**
-- **成本优化层**
-- **提示可复用层**
-
-而不是：
-- 弱模型增强器
-- 通用语义压缩语言
-- 古文替代自然语言的生产方案
-
-### 如果真的要用 DSL / 古文，适合用在哪类模型上？
-
-#### 1）最适合做 DSL 主战场的模型
-- **GPT-5.4**
-- **Gemini-3.0-Pro**
-
-这类模型的特点是：
-- A/D/F 三组几乎完全稳定
-- 对结构化工程约束的吸收能力强
-- 适合把 DSL 当作真实生产约束层，而不是实验玩具
-
-#### 2）适合做中文/本地化 DSL 的模型
-- **GLM-5.0-Turbo**
-- **Kimi-K2.5**
-- **MiniMax-M2.7**
-
-这类模型的特点是：
-- A→D 几乎无损
-- 对 F 组也相对更稳
-- 如果你关心中文表达、本地化、成本或国内模型生态，它们是更实际的承接者
-
-#### 3）不适合作为 CodePrompt-DSL 主要承载对象的模型
-- **DeepSeek-V3.2**
-- **Gemini-3.1-Flash-Lite**
-
-原因不是它们“看不懂 DSL”，而是：
-- 它们在自然语言下也没有展现足够强的结构化代码生成能力
-- 因此 DSL 对它们不是“提效层”，而更像“在不稳底座上继续叠格式”
-
-### 为什么古文不该成为主线？
-
-即使个别强模型能扛住古文编码，它也仍然有三个问题：
-
-1. **token 性价比不如英文极简 DSL 稳定**
-2. **开放需求描述更容易变模糊**
-3. **对外讲述时容易把选题带偏**——别人会以为你在做“古文 Prompt”，而不是“显式约束压缩”
-
-所以更合理的定位是：
-
-> **古文可以保留为研究分支或实验对照组，但不应继续充当项目主叙事。项目主线应回到“结构化 DSL Header 对显式工程约束的压缩与标准化”。**
-
-### 为什么古文"字少"但不一定省 token？
-
-**BPE Tokenizer 对中文编码效率低。** 英文平均 4-5 个字符 = 1 token，中文平均 1-2 个字符 = 1 token。
-
-### 为什么古文还可能损害理解准确率？
-
-**工程约束是闭集的**（React/TS/Tailwind），压缩后依然容易保真；但**业务需求是开放的**。像“作待办页，增删筛毕”这类写法，对人类很凝练，对模型却可能比 "Build a todo page with add, delete, filter, and complete features" 更含糊。
-
-因此更稳的实践不是“把所有内容都压缩”，而是：
-- **工程约束用 DSL Header 压缩**
-- **业务需求正文保留自然语言**
-- **避免对开放语义做过度压缩**
-
-## 🔬 实验设计
-
-**Phase 1（Token 计数）：**
-- **任务集：** 10 个前端代码生成任务（React + TypeScript）
-- **编码方式：** 6 组（英文/中文自然语言、DSL verbose/极简、古文 DSL/极简）
-- **Tokenizer：** GPT-4o (o200k_base)
-- **统计方法：** 配对 t-test + Cohen's d 效应量
-
-**Phase 2（单模型准确率基线）：**
-- **模型：** Claude Opus 4.6
-- **编码方式：** 3 组（英文自然语言 / 英文极简 DSL / 极简古文）× 10 任务 = 30 次生成
-- **评估：** 5 维度规则化自动评估（技术栈 / 形式 / 样式 / 依赖 / 功能）
-
-**Phase 3（多模型对比）：**
-- **可信模型：** 9 个（GPT-5.4、Gemini-3.0-Pro、GLM-5.0-Turbo、Kimi-K2.5、MiniMax-M2.7、Gemini-3.0-Flash、DeepSeek-V3.2、Gemini-3.1-Flash-Lite + Claude Opus 4.6 基线）
-- **编码方式：** 3 组 × 10 任务 × 9 模型 = 270 次评估
-- **评估一致性：** 统一 5 维度 0/1 二元评分，经流程质检确认
-
-## 📁 项目结构
+## Repository Structure
 
 ```
 .
-├── README.md                          # 本文件
-├── 实验报告.html                       # Phase 1 完整可视化报告
-├── CodePrompt-DSL_项目说明.md           # 项目设计文档
-├── CodePrompt-DSL_可行性评估报告.md      # 可行性分析
-├── EXPLORATORY_ANALYSIS.md            # 可信模型交叉探索性分析
-├── EXPLORATORY_VALIDATION.md          # 探索性结论验证说明
-└── experiment_data/
-    ├── METHODOLOGY.md                 # 标准化评估方法论
-    ├── FINAL_EXPERIMENT_REPORT.md     # 多模型最终报告（质检修订版）
-    ├── AUDIT_REPORT.md                # 流程一致性质检报告
-    ├── token_count_results.json       # Phase 1 原始数据
-    ├── accuracy_results.json          # Phase 2 原始数据（Claude Opus 基线）
-    ├── all_prompts.json               # 全部 Prompt 模板
-    └── generations/
-        ├── accuracy_results_*.json    # 各模型评分结果
-        └── {model_name}/{A,D,F}/     # 模型生成代码文件
+├── README.md
+│
+├── v1/                          # Pilot experiments (EXP-v1, EXP-v2)
+│   ├── experiment_data/         # Phase 1-3 results (11 models, single-agent)
+│   └── ...                      # Pilot-phase prompts, reports, and data
+│
+├── v2/                          # Main experiments (EXP-C, C2, C2b)
+│   ├── experiments/
+│   │   ├── EXP_C/               # Multi-stage pipeline experiment
+│   │   │   ├── analysis/        # master.csv, statistical results
+│   │   │   ├── generations/     # Generated code files (247 pipelines)
+│   │   │   ├── prompts/         # S1/S2/S3 prompt templates
+│   │   │   ├── score_s2_binary.py  # CSR scoring script
+│   │   │   └── EXP_C_SCORING_RULES.md
+│   │   │
+│   │   ├── EXP_C2/              # Propagation-mode experiments
+│   │   │   ├── analysis/        # exp_c2b_results.csv
+│   │   │   ├── generations/     # C2 (Opus) + C2b (DeepSeek) outputs
+│   │   │   ├── prompts/         # Propagation-mode prompt variants
+│   │   │   └── score_c2.py, score_c2b.py
+│   │   │
+│   │   ├── Human_review/        # Multi-model cross-validation audit
+│   │   │   └── human_review_sample_v2_all_models.csv
+│   │   └── MULTI_MODEL_REVIEW_ANALYSIS.md
+│   │
+│   ├── generations/             # Pilot v2 code outputs (11 models)
+│   ├── prompts/                 # Pilot v2 prompt templates
+│   ├── tasks/                   # 12 benchmark task definitions (JSON)
+│   ├── analysis/                # Pilot-phase analysis scripts and reports
+│   │
+│   └── paper/                   # Paper (HTML, print to PDF for arXiv)
+│       ├── PAPER_v4_EN.html
+│       ├── PAPER_v4_CN.html
+│       ├── PAPER_v4_EN.md
+│       └── PAPER_v4_CN.md
+│
+└── experiment_data/             # Legacy v1 data (kept for reference)
 ```
 
-## 💡 更大的启示
+### What's in v1 vs v2
 
-这个实验揭示了一个认知偏差：**我们倾向于用人类的信息处理方式去理解机器的信息处理方式。**
+| Phase | Directory | Scope | Role in paper |
+|-------|-----------|-------|---------------|
+| **v1** | `v1/`, `experiment_data/` | Pilot: 6 encoding forms × 10 tasks × 9+ models (single-agent) | EXP-v1 (Classical Chinese), EXP-v2 (token economics + single-agent CSR) |
+| **v2** | `v2/experiments/EXP_C/` | Main: 3 encodings × 12 tasks × 7 model combos (3-stage pipeline, 252 pipelines) | EXP-C (core compliance analysis) |
+| **v2** | `v2/experiments/EXP_C2/` | Probe: 4 propagation modes × 2 models × 3 rounds | EXP-C2/C2b (propagation-mode mechanism probes) |
 
-- 古文对**人类**是"高密度编码"（少字多义）
-- 但 LLM 不是用"字"处理信息的，而是用 **token**
-- Token 的生成逻辑（BPE 算法）与人类阅读逻辑完全不同
+---
 
-在优化 LLM 交互时，**不能依赖人类直觉，要依赖数据**。
+## Reproducing Results
 
-更具体地说：
-- **闭集约束**（语言、框架、输出格式）→ 压缩有效，几乎无损
-- **开放需求**（功能描述、交互逻辑）→ 过度压缩会引入歧义
+### CSR Scoring
 
-因此最稳的实践是：**给 Prompt 分层——约束层用 DSL Header 压缩，需求层保留自然语言。**
+```bash
+cd v2/experiments/EXP_C
+python3 score_s2_binary.py    # Scores all generated code files
+```
 
-## 🔮 后续方向
+The scoring rules are deterministic regex-based checks. See `EXP_C_SCORING_RULES.md` for the constraint definitions and `score_s2_binary.py` for the implementation.
 
-1. **评估器改进：** 扩充功能同义词表，减少字面关键词偏置
-2. **中英文混合 Header：** 约束层压缩 + 正文自然语言，两层分离
-3. **更多任务类型：** 后端 API、Python 脚本、多文件项目
-4. **Prompt Caching 影响：** API 层缓存可能进一步改变 DSL 的成本优势
-5. **NL→DSL 自动转换：** 本地规则/模板方式，而非 LLM 实时转换
+### Multi-Model Audit
 
-## ⚠️ 已知局限
+The `Human_review/human_review_sample_v2_all_models.csv` file contains independent reviews by four LLMs (Gemini, GPT-5.4, GLM-5v-Turbo, Claude-Opus) on all 67 flagged failures + 30 random PASS samples. See `MULTI_MODEL_REVIEW_ANALYSIS.md` for the cross-validation analysis.
 
-1. **可信模型源码缺失：** 9 个可信模型的 `.tsx` 源码文件当前不在仓库中，仅保留了评分 JSON。这意味着部分任务级机制解释（如"功能做了但换了词"）仍待源码复核确认
-2. **评估器存在字面关键词偏置：** 例如 `lightbox`、`paginat`、`import React`、`: React.FC` 等检测点可能影响个别任务的评分公平性
-3. **2 个模型结果不可信：** `claude-haiku-4.5` 与 `hunyuan-2.0-thinking` 因流程一致性质检未通过，未纳入正式结论
+---
 
-详见 `experiment_data/AUDIT_REPORT.md` 和 `EXPLORATORY_VALIDATION.md`。
-
-## 📝 License
+## License
 
 MIT
 
 ---
 
-*一个有价值的实验，不在于结论是否好听，而在于你是否知道自己还不知道什么。*
+<a name="chinese"></a>
+
+## 概览
+
+本仓库包含以下论文的实验数据、评分脚本、Prompt 模板和补充材料：
+
+> **LLM 代码生成中的紧凑约束编码：Token 经济性与约束遵循率的实证研究**
+>
+> 唐含章 · 独立研究者，腾讯 · 2026 年 4 月
+
+### 研究内容
+
+LLM 辅助代码生成依赖通过自然语言 Prompt 传达的工程约束（技术选型、依赖限制、架构模式）。我们研究紧凑的结构化约束 Header 是否能在不降低约束遵循率的前提下减少 Token 消耗。
+
+### 核心发现
+
+在 5 轮实验、11 个模型、12 个 Benchmark 任务、800+ 次 LLM 调用中：
+
+1. **Token 节省是真实的。** 紧凑 Header 将约束部分 Token 减少约 71%，完整 Prompt Token 减少 25–30%。
+2. **遵循率提升是不存在的。** 三种编码形式（H/NLc/NLf）和四种传播模式之间均未检测到约束满足率（CSR）的统计显著差异。效应量可忽略（Cliff's δ < 0.01）。
+3. **真正起作用的因素。** 约束类型（普通 vs 反直觉：Δ = 9.3 pp）和任务域是遵循率方差的主要来源——而非编码形式。
+4. **一个有实践意义的零结果。** 紧凑 Header 是免费优化：节省 Token 且无检测到的遵循成本。
+
+### 论文
+
+- **arXiv 预印本**：`v2/paper/PAPER_v4_EN.html`（英文）和 `PAPER_v4_CN.html`（中文）
+
+---
+
+## 仓库结构
+
+```
+.
+├── README.md
+│
+├── v1/                          # 先导实验（EXP-v1, EXP-v2）
+│   ├── experiment_data/         # 第 1-3 阶段结果（11 个模型，单 Agent）
+│   └── ...
+│
+├── v2/                          # 主实验（EXP-C, C2, C2b）
+│   ├── experiments/
+│   │   ├── EXP_C/               # 多阶段管线实验
+│   │   │   ├── analysis/        # master.csv，统计结果
+│   │   │   ├── generations/     # 生成的代码文件（247 条管线）
+│   │   │   ├── prompts/         # S1/S2/S3 Prompt 模板
+│   │   │   ├── score_s2_binary.py  # CSR 评分脚本
+│   │   │   └── EXP_C_SCORING_RULES.md
+│   │   │
+│   │   ├── EXP_C2/              # 传播模式实验
+│   │   │   ├── analysis/        # exp_c2b_results.csv
+│   │   │   ├── generations/     # C2（Opus）+ C2b（DeepSeek）输出
+│   │   │   └── prompts/
+│   │   │
+│   │   ├── Human_review/        # 四模型交叉验证审计
+│   │   │   └── human_review_sample_v2_all_models.csv
+│   │   └── MULTI_MODEL_REVIEW_ANALYSIS.md
+│   │
+│   ├── generations/             # 先导 v2 代码输出（11 个模型）
+│   ├── prompts/                 # 先导 v2 Prompt 模板
+│   ├── tasks/                   # 12 个 Benchmark 任务定义（JSON）
+│   └── paper/                   # 论文（HTML 格式，浏览器打印为 PDF）
+```
+
+### v1 与 v2 的关系
+
+| 阶段 | 目录 | 范围 | 在论文中的角色 |
+|------|------|------|-------------|
+| **v1** | `v1/`, `experiment_data/` | 先导：6 种编码 × 10 任务 × 9+ 模型（单 Agent） | EXP-v1（古文）、EXP-v2（Token 经济性 + 单 Agent CSR） |
+| **v2** | `v2/experiments/EXP_C/` | 主体：3 种编码 × 12 任务 × 7 模型组合（三阶段管线，252 条管线） | EXP-C（核心遵循率分析） |
+| **v2** | `v2/experiments/EXP_C2/` | 探针：4 种传播模式 × 2 模型 × 3 轮 | EXP-C2/C2b（传播模式机制探针） |
+
+---
+
+## 复现
+
+### CSR 评分
+
+```bash
+cd v2/experiments/EXP_C
+python3 score_s2_binary.py
+```
+
+评分规则为确定性的 Regex 检查。详见 `EXP_C_SCORING_RULES.md`（约束定义）和 `score_s2_binary.py`（实现）。
+
+### 多模型审计
+
+`Human_review/human_review_sample_v2_all_models.csv` 包含四个独立 LLM（Gemini、GPT-5.4、GLM-5v-Turbo、Claude-Opus）对全部 67 个标记失败 + 30 个随机 PASS 样本的独立审查。详见 `MULTI_MODEL_REVIEW_ANALYSIS.md`。
+
+---
+
+## License
+
+MIT
+
+---
+
+*A valuable experiment is not one that confirms what you hoped, but one that makes clear what doesn't work—and why.*
+
+*有价值的实验不在于证实了你期望的结论，而在于让人清楚地看到什么不起作用——以及为什么。*

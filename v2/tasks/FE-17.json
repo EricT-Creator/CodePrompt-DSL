@@ -1,0 +1,22 @@
+{
+  "id": "FE-17",
+  "name": "拖拽排序列表",
+  "type": "frontend",
+  "requirements": {
+    "nl": "做一个可拖拽排序的列表，包含至少 5 个项目。用户可以通过拖拽来重新排列项目顺序。不使用任何拖拽库，用原生 HTML5 Drag and Drop API 实现。拖拽过程中要有视觉反馈（如拖拽中的项目半透明）。",
+    "wenyan": "作可拖拽排序之列表，至少五项。以原生拖放 API 实现排序，禁用外库。拖中当有视觉反馈。"
+  },
+  "constraints": {
+    "language": "TypeScript",
+    "framework": "React",
+    "form": "single_file_component",
+    "style": "tailwind",
+    "dependencies": "no_external",
+    "layout": "desktop",
+    "data": "mock",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "有列表项、有 draggable 属性、有 dragover/drop 事件处理、有状态更新"
+}

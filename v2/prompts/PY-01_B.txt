@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "Python",
+  "framework": "None",
+  "form": "function library",
+  "style": "no styling",
+  "dependencies": "standard library only",
+  "layout": "not_applicable",
+  "data": "not_applicable",
+  "output": "code_only"
+}
+
+写一个 Python 函数 `parse_csv(text: str) -> list[dict]`，将 CSV 格式文本（第一行为表头）解析为字典列表。处理引号内的逗号（`"Smith, John"` 不应拆分）。仅用标准库。

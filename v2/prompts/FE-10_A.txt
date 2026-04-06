@@ -1,0 +1,3 @@
+Write a TypeScript code using React. It should be a single file component with export default. Use Tailwind CSS for styling but no external libraries. The layout should be responsive layout. Use mock data.. Only output code, no explanations.
+
+做一个天气仪表盘，显示当前城市名称、温度、湿度、风速，以及未来 5 天的天气预报（每天显示日期、天气图标描述、最高/最低温度）。所有数据使用模拟数据。

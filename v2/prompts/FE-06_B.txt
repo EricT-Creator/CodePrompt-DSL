@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "TypeScript",
+  "framework": "React",
+  "form": "single file component with export default",
+  "style": "Tailwind CSS",
+  "dependencies": "no external libraries",
+  "layout": "desktop layout",
+  "data": "mock",
+  "output": "code_only"
+}
+
+做一个五星评分组件。鼠标悬停时预览评分（星星高亮），点击后确认评分，显示当前已选分数。

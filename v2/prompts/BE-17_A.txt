@@ -1,0 +1,3 @@
+Write a Python code using FastAPI. It should be a single module. Use no styling for styling but no external libraries. The layout should be not_applicable. not_applicable. Only output code, no explanations.
+
+做一个 FastAPI 应用，实现 WebSocket 聊天室。WS /ws/{username} 连接后可收发消息。一个用户发送的消息应广播给所有其他已连接的用户。用户连接和断开时广播通知。

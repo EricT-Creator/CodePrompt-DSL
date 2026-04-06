@@ -1,0 +1,22 @@
+{
+  "id": "BE-14",
+  "name": "事件日志接口",
+  "type": "backend",
+  "requirements": {
+    "nl": "做一个 FastAPI 应用。POST /events 记录一条事件（type, message, timestamp自动生成）。GET /events 返回全部事件。GET /events?type=error 按类型筛选。GET /events/stats 返回各类型事件的计数统计。",
+    "wenyan": "作 FastAPI 应用。POST /events 记事件。GET /events 取全部或按类型筛。GET /events/stats 返各类型计数统计。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "FastAPI",
+    "form": "single_module",
+    "style": "not_applicable",
+    "dependencies": "no_external",
+    "layout": "not_applicable",
+    "data": "not_applicable",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "创建事件成功，筛选正确，统计计数正确"
+}

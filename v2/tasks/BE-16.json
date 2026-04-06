@@ -1,0 +1,22 @@
+{
+  "id": "BE-16",
+  "name": "环境配置接口",
+  "type": "backend",
+  "requirements": {
+    "nl": "做一个 FastAPI 应用。启动时从环境变量或默认值加载配置（APP_NAME 默认 \"MyApp\"，DEBUG 默认 \"false\"，MAX_ITEMS 默认 \"100\"）。GET /config 返回当前配置。PUT /config 允许在运行时动态修改配置值。POST /config/reset 重置为默认值。",
+    "wenyan": "作 FastAPI 应用。启动时从环境变量或默认值加载配置。GET /config 返当前配置，PUT /config 动态改之，POST /config/reset 归默认。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "FastAPI",
+    "form": "single_module",
+    "style": "not_applicable",
+    "dependencies": "no_external",
+    "layout": "not_applicable",
+    "data": "not_applicable",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "默认配置正确，修改后读取正确，重置后恢复默认\n\n### 进阶难度（BE-17 ~ BE-20）"
+}

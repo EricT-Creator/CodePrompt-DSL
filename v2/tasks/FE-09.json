@@ -1,0 +1,22 @@
+{
+  "id": "FE-09",
+  "name": "购物车页面",
+  "type": "frontend",
+  "requirements": {
+    "nl": "做一个购物车页面，展示商品列表（至少 3 件），每件商品有名称、单价、数量调节按钮。底部显示总价，总价随数量变化实时更新。有清空购物车按钮。",
+    "wenyan": "作购物车页，列至少三品，各具名、价、调数之键。底示总价，随量即更。具清空键。"
+  },
+  "constraints": {
+    "language": "TypeScript",
+    "framework": "React",
+    "form": "single_file_component",
+    "style": "tailwind",
+    "dependencies": "no_external",
+    "layout": "mobile_first",
+    "data": "mock",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "有商品列表、有数量加减、有总价计算、有清空功能"
+}

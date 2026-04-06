@@ -1,0 +1,4 @@
+===码制===
+[语]PY[架]FastAPI[式]单模[样]无[依]无外库[排]NA[数]NA[出]纯码
+===需===
+作 FastAPI 应用，模拟异步任务队列。POST /tasks 提交任务（返 task_id，状态 pending）。后台以 asyncio 模拟处理（二秒后变 completed）。GET 可查单任务或全部。

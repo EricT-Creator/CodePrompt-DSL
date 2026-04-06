@@ -1,0 +1,22 @@
+{
+  "id": "FE-12",
+  "name": "聊天界面",
+  "type": "frontend",
+  "requirements": {
+    "nl": "做一个聊天界面，包含消息气泡列表（区分自己和对方，样式不同）、底部输入框、发送按钮。发送消息后列表自动滚动到底部。用模拟数据预填几条历史消息。",
+    "wenyan": "作聊天界面，具消息泡列（己方与对方异式）、底部输入栏、发送键。发后自滚至底。预填数条模拟历史。"
+  },
+  "constraints": {
+    "language": "TypeScript",
+    "framework": "React",
+    "form": "single_file_component",
+    "style": "tailwind",
+    "dependencies": "no_external",
+    "layout": "mobile_first",
+    "data": "mock",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "有消息列表、有两种气泡样式、有输入框和发送按钮、有自动滚动"
+}

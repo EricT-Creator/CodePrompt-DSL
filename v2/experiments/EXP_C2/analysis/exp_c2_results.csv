@@ -1,0 +1,49 @@
+task,encoding,mode,run,C1,C2,C3,C4,C5,C6,CSR_obj,CSR_normal,CSR_counter,notes,status
+MC-FE-01,H,R,1,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-FE-01,H,R,2,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-FE-01,H,H,1,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-FE-01,H,H,2,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-FE-01,H,S,1,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-FE-01,H,S,2,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-FE-01,H,SN,1,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-FE-01,H,SN,2,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-FE-01,NLf,R,1,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-FE-01,NLf,R,2,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-FE-01,NLf,H,1,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-FE-01,NLf,H,2,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-FE-01,NLf,S,1,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-FE-01,NLf,S,2,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-FE-01,NLf,SN,1,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-FE-01,NLf,SN,2,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-BE-03,H,R,1,1,0,1,1,1,1,0.833,1.000,0.500,C2:no set iteration for broadcast found,SCORED
+MC-BE-03,H,R,2,1,0,1,1,1,1,0.833,1.000,0.500,C2:no set iteration for broadcast found,SCORED
+MC-BE-03,H,H,1,1,0,1,1,1,1,0.833,1.000,0.500,C2:no set iteration for broadcast found,SCORED
+MC-BE-03,H,H,2,1,0,1,1,1,1,0.833,1.000,0.500,C2:no set iteration for broadcast found,SCORED
+MC-BE-03,H,S,1,1,0,1,1,1,1,0.833,1.000,0.500,C2:no set iteration for broadcast found,SCORED
+MC-BE-03,H,S,2,1,0,1,1,1,1,0.833,1.000,0.500,C2:no set iteration for broadcast found,SCORED
+MC-BE-03,H,SN,1,1,0,1,1,1,1,0.833,1.000,0.500,C2:no set iteration for broadcast found,SCORED
+MC-BE-03,H,SN,2,1,0,1,1,1,1,0.833,1.000,0.500,C2:no set iteration for broadcast found,SCORED
+MC-BE-03,NLf,R,1,1,0,1,1,1,1,0.833,1.000,0.500,C2:no set iteration for broadcast found,SCORED
+MC-BE-03,NLf,R,2,1,0,1,1,1,1,0.833,1.000,0.500,C2:no set iteration for broadcast found,SCORED
+MC-BE-03,NLf,H,1,1,0,1,1,1,1,0.833,1.000,0.500,C2:no set iteration for broadcast found,SCORED
+MC-BE-03,NLf,H,2,1,0,1,1,1,1,0.833,1.000,0.500,C2:no set iteration for broadcast found,SCORED
+MC-BE-03,NLf,S,1,1,0,1,1,1,1,0.833,1.000,0.500,C2:no set iteration for broadcast found,SCORED
+MC-BE-03,NLf,S,2,1,0,1,1,1,1,0.833,1.000,0.500,C2:no set iteration for broadcast found,SCORED
+MC-BE-03,NLf,SN,1,1,0,1,1,1,1,0.833,1.000,0.500,C2:no set iteration for broadcast found,SCORED
+MC-BE-03,NLf,SN,2,1,0,1,1,1,1,0.833,1.000,0.500,C2:no set iteration for broadcast found,SCORED
+MC-PY-03,H,R,1,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-PY-03,H,R,2,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-PY-03,H,H,1,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-PY-03,H,H,2,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-PY-03,H,S,1,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-PY-03,H,S,2,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-PY-03,H,SN,1,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-PY-03,H,SN,2,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-PY-03,NLf,R,1,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-PY-03,NLf,R,2,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-PY-03,NLf,H,1,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-PY-03,NLf,H,2,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-PY-03,NLf,S,1,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-PY-03,NLf,S,2,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-PY-03,NLf,SN,1,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-PY-03,NLf,SN,2,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED

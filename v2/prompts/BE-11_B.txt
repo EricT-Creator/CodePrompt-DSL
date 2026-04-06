@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "Python",
+  "framework": "FastAPI",
+  "form": "single module",
+  "style": "no styling",
+  "dependencies": "no external libraries",
+  "layout": "not_applicable",
+  "data": "mock",
+  "output": "code_only"
+}
+
+做一个 FastAPI 应用，实现一个简易限流中间件。GET /api/data 返回模拟数据。同一 IP 在 60 秒内最多请求 10 次，超过后返回 429 Too Many Requests。用内存字典记录。

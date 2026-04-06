@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "Python",
+  "framework": "None",
+  "form": "function library",
+  "style": "no styling",
+  "dependencies": "standard library only",
+  "layout": "not_applicable",
+  "data": "not_applicable",
+  "output": "code_only"
+}
+
+写一个 Python 函数 `text_stats(text: str) -> dict`，返回统计信息：字符数、单词数、句子数、段落数、最常见的 5 个单词（忽略大小写，排除常见停用词 the/a/an/is/are/was/were/in/on/at/to/for）。

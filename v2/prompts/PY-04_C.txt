@@ -1,0 +1,4 @@
+===CODE_SPEC===
+[L]PY[S]NA[F]LIB[Y]NA[D]STD[M]NA[DT]NA[O]CODE
+===REQ===
+写一个 Python 函数 `extract_info(text: str) -> dict`，从给定文本中提取所有邮箱地址、URL、电话号码（中国大陆手机号格式）。返回 `{"emails": [...], "urls": [...], "phones": [...]}`。

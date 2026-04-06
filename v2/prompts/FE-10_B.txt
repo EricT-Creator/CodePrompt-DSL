@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "TypeScript",
+  "framework": "React",
+  "form": "single file component with export default",
+  "style": "Tailwind CSS",
+  "dependencies": "no external libraries",
+  "layout": "responsive layout",
+  "data": "mock",
+  "output": "code_only"
+}
+
+做一个天气仪表盘，显示当前城市名称、温度、湿度、风速，以及未来 5 天的天气预报（每天显示日期、天气图标描述、最高/最低温度）。所有数据使用模拟数据。

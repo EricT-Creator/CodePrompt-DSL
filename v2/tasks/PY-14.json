@@ -1,0 +1,22 @@
+{
+  "id": "PY-14",
+  "name": "数据管道处理器",
+  "type": "python_script",
+  "requirements": {
+    "nl": "写一个 Python 类 `Pipeline`。支持链式调用：`Pipeline(data).filter(fn).map(fn).sort(key).limit(n).execute()`。data 是字典列表。filter 按条件过滤，map 对每项做变换，sort 排序，limit 取前 N 条，execute 返回最终结果。",
+    "wenyan": "写一 Python 类 Pipeline，支持链式调用：filter、map、sort、limit、execute。data 为字典列表。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "None",
+    "form": "function_library",
+    "style": "not_applicable",
+    "dependencies": "stdlib_only",
+    "layout": "not_applicable",
+    "data": "not_applicable",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "链式调用正确，各操作独立正确，组合顺序正确"
+}

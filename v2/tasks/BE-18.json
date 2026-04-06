@@ -1,0 +1,22 @@
+{
+  "id": "BE-18",
+  "name": "任务队列模拟",
+  "type": "backend",
+  "requirements": {
+    "nl": "做一个 FastAPI 应用，模拟异步任务队列。POST /tasks 提交一个任务（返回 task_id，状态为 pending）。后台用 asyncio 模拟处理（等 2 秒后变为 completed）。GET /tasks/{id} 查询任务状态。GET /tasks 查看所有任务。",
+    "wenyan": "作 FastAPI 应用，模拟异步任务队列。POST /tasks 提交任务（返 task_id，状态 pending）。后台以 asyncio 模拟处理（二秒后变 completed）。GET 可查单任务或全部。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "FastAPI",
+    "form": "single_module",
+    "style": "not_applicable",
+    "dependencies": "no_external",
+    "layout": "not_applicable",
+    "data": "not_applicable",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "提交返回 pending，等待后查询返回 completed"
+}

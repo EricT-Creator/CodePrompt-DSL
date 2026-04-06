@@ -1,0 +1,22 @@
+{
+  "id": "PY-20",
+  "name": "AST 代码检查器",
+  "type": "python_script",
+  "requirements": {
+    "nl": "写一个 Python 函数 `check_code(source: str) -> list[dict]`，使用标准库 `ast` 模块分析 Python 源代码，检查并报告以下问题：(1) 函数超过 20 行；(2) 函数参数超过 5 个；(3) 嵌套深度超过 3 层；(4) 使用了 eval() 或 exec()。每个问题返回 `{\"line\": int, \"issue\": str, \"severity\": \"warning|error\"}`。",
+    "wenyan": "写一函数 check_code，以标准库 ast 模块分析 Python 源码，检查并报告：函数超二十行、参数超五个、嵌套超三层、使用 eval/exec。每问题返行号、描述与严重度。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "None",
+    "form": "function_library",
+    "style": "not_applicable",
+    "dependencies": "stdlib_only",
+    "layout": "not_applicable",
+    "data": "not_applicable",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "各检查项检出正确，行号正确，严重度正确\n\n---\n\n## 五、Pilot 子集（12 个任务）\n\nPhase B 先跑以下 12 个任务验证 pipeline：\n\n| 类型 | 任务 | 难度 |\n|------|------|------|\n| Frontend | FE-01 登录表单 | 基础 |\n| Frontend | FE-09 购物车页面 | 中等 |\n| Frontend | FE-13 数据表格 | 中等 |\n| Frontend | FE-17 拖拽排序列表 | 进阶 |\n| Backend | BE-02 待办事项 CRUD | 基础 |\n| Backend | BE-05 分页查询 | 基础 |\n| Backend | BE-09 JWT 认证 | 中等 |\n| Backend | BE-17 WebSocket 聊天 | 进阶 |\n| Python | PY-01 CSV 解析器 | 基础 |\n| Python | PY-05 文本统计器 | 基础 |\n| Python | PY-14 数据管道处理器 | 中等 |\n| Python | PY-18 DAG 任务调度器 | 进阶 |\n\n---\n\n*任务定义完成时间：2026-03-31 12:01*"
+}

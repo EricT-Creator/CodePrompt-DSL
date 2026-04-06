@@ -1,0 +1,22 @@
+{
+  "id": "PY-18",
+  "name": "DAG 任务调度器",
+  "type": "python_script",
+  "requirements": {
+    "nl": "写一个 Python 类 `DAGScheduler`。`add_task(name, fn, depends_on=[])` 添加任务及其依赖。`run()` 按拓扑序执行所有任务（依赖全完成后才执行当前任务）。检测循环依赖并抛出异常。返回每个任务的执行结果和执行顺序。",
+    "wenyan": "写一 Python 类 DAGScheduler。add_task 添加任务及其依赖，run 按拓扑序执行。须检测循环依赖并抛异常。返各任务结果与执行顺序。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "None",
+    "form": "function_library",
+    "style": "not_applicable",
+    "dependencies": "stdlib_only",
+    "layout": "not_applicable",
+    "data": "not_applicable",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "拓扑排序正确，依赖执行顺序正确，循环检测正确"
+}

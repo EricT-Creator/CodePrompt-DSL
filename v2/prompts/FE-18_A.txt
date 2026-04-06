@@ -1,0 +1,3 @@
+Write a TypeScript code using React. It should be a single file component with export default. Use Tailwind CSS for styling but no external libraries. The layout should be responsive layout. Use mock data.. Only output code, no explanations.
+
+做一个搜索组件，包含搜索输入框和结果列表。列表中有至少 20 条模拟数据（标题+描述）。输入时实时过滤匹配项，并在匹配的文字上加高亮显示。支持防抖（输入后 300ms 才触发过滤）。

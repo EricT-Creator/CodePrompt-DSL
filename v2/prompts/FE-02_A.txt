@@ -1,0 +1,3 @@
+Write a TypeScript code using React. It should be a single file component with export default. Use Tailwind CSS for styling but no external libraries. The layout should be mobile-first layout. Use mock data.. Only output code, no explanations.
+
+做一个待办事项应用，可以添加新任务、删除已有任务、标记任务为已完成、按完成状态筛选显示。

@@ -1,0 +1,22 @@
+{
+  "id": "BE-15",
+  "name": "数据转换接口",
+  "type": "backend",
+  "requirements": {
+    "nl": "做一个 FastAPI 应用。POST /transform 接收一个 JSON 对象和一组转换规则 `{\"data\": {...}, \"transforms\": [\"uppercase_keys\", \"flatten\", \"remove_nulls\"]}`。按顺序执行转换：uppercase_keys 将所有 key 大写，flatten 将嵌套对象拉平（用.连接key），remove_nulls 删除值为 null 的字段。返回转换后的对象。",
+    "wenyan": "作 FastAPI 应用。POST /transform 收 JSON 对象与转换规则列表，按序执行：大写键名、拉平嵌套（以.连key）、移除空值。返转换后之对象。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "FastAPI",
+    "form": "single_module",
+    "style": "not_applicable",
+    "dependencies": "no_external",
+    "layout": "not_applicable",
+    "data": "not_applicable",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "三种转换各自正确，组合应用顺序正确"
+}

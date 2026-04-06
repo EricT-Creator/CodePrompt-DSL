@@ -1,0 +1,3 @@
+Write a Python code using FastAPI. It should be a single module. Use no styling for styling but no external libraries. The layout should be not_applicable. not_applicable. Only output code, no explanations.
+
+做一个 FastAPI 应用，POST /calculate 接收 `{"a": number, "b": number, "op": "add|sub|mul|div"}`，返回计算结果。除以零时返回 400 和错误信息。

@@ -1,0 +1,22 @@
+{
+  "id": "BE-13",
+  "name": "批量操作接口",
+  "type": "backend",
+  "requirements": {
+    "nl": "做一个 FastAPI 应用。POST /batch 接收一个操作列表 `{\"operations\": [{\"action\": \"create|update|delete\", \"data\": {...}}]}`，逐条执行并返回每条操作的结果（成功或失败及原因）。用内存存储，单条失败不影响其他。",
+    "wenyan": "作 FastAPI 应用。POST /batch 收操作列表，逐条执行增、改、删，返每条结果。以内存存储，单条败不影响他。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "FastAPI",
+    "form": "single_module",
+    "style": "not_applicable",
+    "dependencies": "no_external",
+    "layout": "not_applicable",
+    "data": "not_applicable",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "批量操作各自独立，返回每条结果，单条失败不阻塞"
+}

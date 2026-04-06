@@ -1,0 +1,22 @@
+{
+  "id": "PY-13",
+  "name": "Markdown 转 HTML",
+  "type": "python_script",
+  "requirements": {
+    "nl": "写一个 Python 函数 `md_to_html(markdown: str) -> str`，将 Markdown 文本转换为 HTML。支持：标题（# ~ ###）、粗体（**text**）、斜体（*text*）、无序列表（- item）、有序列表（1. item）、行内代码（\\`code\\`）、代码块（\\`\\`\\`code\\`\\`\\`）、链接（[text](url)）。不使用任何第三方库。",
+    "wenyan": "写一函数 md_to_html，将 Markdown 转 HTML。支持标题、粗体、斜体、有序与无序列表、行内代码、代码块、链接。不用外库。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "None",
+    "form": "function_library",
+    "style": "not_applicable",
+    "dependencies": "stdlib_only",
+    "layout": "not_applicable",
+    "data": "not_applicable",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "各 Markdown 元素转换正确"
+}

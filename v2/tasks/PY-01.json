@@ -1,0 +1,22 @@
+{
+  "id": "PY-01",
+  "name": "CSV 解析器",
+  "type": "python_script",
+  "requirements": {
+    "nl": "写一个 Python 函数 `parse_csv(text: str) -> list[dict]`，将 CSV 格式文本（第一行为表头）解析为字典列表。处理引号内的逗号（`\"Smith, John\"` 不应拆分）。仅用标准库。",
+    "wenyan": "写一 Python 函数 parse_csv，将 CSV 文本（首行为表头）解析为字典列表。须正确处理引号内之逗号。仅用标准库。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "None",
+    "form": "function_library",
+    "style": "not_applicable",
+    "dependencies": "stdlib_only",
+    "layout": "not_applicable",
+    "data": "not_applicable",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "基本解析正确，引号内逗号不拆分，空值处理"
+}

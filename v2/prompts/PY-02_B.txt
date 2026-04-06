@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "Python",
+  "framework": "None",
+  "form": "function library",
+  "style": "no styling",
+  "dependencies": "standard library only",
+  "layout": "not_applicable",
+  "data": "not_applicable",
+  "output": "code_only"
+}
+
+写一个 Python 函数 `flatten_json(nested: dict, separator: str = ".") -> dict`，将嵌套 JSON 对象拉平为单层字典。例如 `{"a": {"b": 1}}` → `{"a.b": 1}`。支持嵌套列表（`{"a": [1,2]}` → `{"a.0": 1, "a.1": 2}`）。

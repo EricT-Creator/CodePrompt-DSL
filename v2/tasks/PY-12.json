@@ -1,0 +1,22 @@
+{
+  "id": "PY-12",
+  "name": "配置文件合并器",
+  "type": "python_script",
+  "requirements": {
+    "nl": "写一个 Python 函数 `merge_configs(base: dict, override: dict, strategy: str = \"deep\") -> dict`。支持两种合并策略：`\"shallow\"` 只覆盖顶层 key，`\"deep\"` 递归合并嵌套字典。列表类型的值用追加方式合并（不去重）。",
+    "wenyan": "写一函数 merge_configs，以 base 与 override 二字典合并。支持浅合并与深合并二策。列表值以追加方式合并。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "None",
+    "form": "function_library",
+    "style": "not_applicable",
+    "dependencies": "stdlib_only",
+    "layout": "not_applicable",
+    "data": "not_applicable",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "浅合并只覆盖顶层，深合并递归正确，列表追加正确"
+}

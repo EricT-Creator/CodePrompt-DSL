@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "Python",
+  "framework": "FastAPI",
+  "form": "single module",
+  "style": "no styling",
+  "dependencies": "no external libraries",
+  "layout": "not_applicable",
+  "data": "mock",
+  "output": "code_only"
+}
+
+做一个 FastAPI 应用，实现待办事项的完整 CRUD。POST /todos 创建，GET /todos 获取全部，GET /todos/{id} 获取单条，PUT /todos/{id} 更新，DELETE /todos/{id} 删除。数据存在内存列表中即可。

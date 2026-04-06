@@ -1,0 +1,55 @@
+task,mode,run,model,C1,C2,C3,C4,C5,C6,CSR_obj,CSR_normal,CSR_counter,notes,status
+MC-FE-01,R,1,deepseek,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,MD5-identical across all tasks/modes/runs; platform execution anomaly,INVALID_PLATFORM_ANOMALY
+MC-FE-01,R,2,deepseek,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,MD5-identical across all tasks/modes/runs; platform execution anomaly,INVALID_PLATFORM_ANOMALY
+MC-FE-01,R,3,deepseek,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-FE-01,R,4,deepseek,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-FE-01,R,5,deepseek,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-FE-01,R,6,deepseek,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-FE-01,H,1,deepseek,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,MD5-identical across all tasks/modes/runs; platform execution anomaly,INVALID_PLATFORM_ANOMALY
+MC-FE-01,H,2,deepseek,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,MD5-identical across all tasks/modes/runs; platform execution anomaly,INVALID_PLATFORM_ANOMALY
+MC-FE-01,H,3,deepseek,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-FE-01,H,4,deepseek,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-FE-01,H,5,deepseek,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-FE-01,H,6,deepseek,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-FE-01,S,1,deepseek,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,MD5-identical across all tasks/modes/runs; platform execution anomaly,INVALID_PLATFORM_ANOMALY
+MC-FE-01,S,2,deepseek,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,MD5-identical across all tasks/modes/runs; platform execution anomaly,INVALID_PLATFORM_ANOMALY
+MC-FE-01,S,3,deepseek,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-FE-01,S,4,deepseek,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-FE-01,S,5,deepseek,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-FE-01,S,6,deepseek,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-BE-03,R,1,deepseek,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,MD5-identical across all tasks/modes/runs; platform execution anomaly,INVALID_PLATFORM_ANOMALY
+MC-BE-03,R,2,deepseek,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,MD5-identical across all tasks/modes/runs; platform execution anomaly,INVALID_PLATFORM_ANOMALY
+MC-BE-03,R,3,deepseek,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-BE-03,R,4,deepseek,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-BE-03,R,5,deepseek,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-BE-03,R,6,deepseek,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,file not generated (model interrupted),INCOMPLETE
+MC-BE-03,H,1,deepseek,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,MD5-identical across all tasks/modes/runs; platform execution anomaly,INVALID_PLATFORM_ANOMALY
+MC-BE-03,H,2,deepseek,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,MD5-identical across all tasks/modes/runs; platform execution anomaly,INVALID_PLATFORM_ANOMALY
+MC-BE-03,H,3,deepseek,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-BE-03,H,4,deepseek,1,0,1,1,1,1,0.833,1.000,0.500,C2:no set iteration for broadcast found,SCORED
+MC-BE-03,H,5,deepseek,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-BE-03,H,6,deepseek,1,0,1,1,1,1,0.833,1.000,0.500,C2:no set iteration for broadcast found,SCORED
+MC-BE-03,S,1,deepseek,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,MD5-identical across all tasks/modes/runs; platform execution anomaly,INVALID_PLATFORM_ANOMALY
+MC-BE-03,S,2,deepseek,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,MD5-identical across all tasks/modes/runs; platform execution anomaly,INVALID_PLATFORM_ANOMALY
+MC-BE-03,S,3,deepseek,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-BE-03,S,4,deepseek,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-BE-03,S,5,deepseek,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-BE-03,S,6,deepseek,1,0,1,1,1,1,0.833,1.000,0.500,C2:no set iteration for broadcast found,SCORED
+MC-PY-03,R,1,deepseek,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,MD5-identical across all tasks/modes/runs; platform execution anomaly,INVALID_PLATFORM_ANOMALY
+MC-PY-03,R,2,deepseek,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,MD5-identical across all tasks/modes/runs; platform execution anomaly,INVALID_PLATFORM_ANOMALY
+MC-PY-03,R,3,deepseek,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-PY-03,R,4,deepseek,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-PY-03,R,5,deepseek,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-PY-03,R,6,deepseek,1,1,1,1,0,1,0.833,0.750,1.000,C5:no TemplateSyntaxError class,SCORED
+MC-PY-03,H,1,deepseek,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,MD5-identical across all tasks/modes/runs; platform execution anomaly,INVALID_PLATFORM_ANOMALY
+MC-PY-03,H,2,deepseek,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,MD5-identical across all tasks/modes/runs; platform execution anomaly,INVALID_PLATFORM_ANOMALY
+MC-PY-03,H,3,deepseek,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-PY-03,H,4,deepseek,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-PY-03,H,5,deepseek,1,1,1,1,0,1,0.833,0.750,1.000,C5:no TemplateSyntaxError class,SCORED
+MC-PY-03,H,6,deepseek,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-PY-03,S,1,deepseek,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,MD5-identical across all tasks/modes/runs; platform execution anomaly,INVALID_PLATFORM_ANOMALY
+MC-PY-03,S,2,deepseek,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,MD5-identical across all tasks/modes/runs; platform execution anomaly,INVALID_PLATFORM_ANOMALY
+MC-PY-03,S,3,deepseek,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-PY-03,S,4,deepseek,1,1,1,1,1,1,1.000,1.000,1.000,,SCORED
+MC-PY-03,S,5,deepseek,1,1,1,1,0,1,0.833,0.750,1.000,C5:no TemplateSyntaxError class,SCORED
+MC-PY-03,S,6,deepseek,1,1,1,1,0,1,0.833,0.750,1.000,C5:no TemplateSyntaxError class,SCORED

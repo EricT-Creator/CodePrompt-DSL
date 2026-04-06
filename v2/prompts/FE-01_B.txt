@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "TypeScript",
+  "framework": "React",
+  "form": "single file component with export default",
+  "style": "Tailwind CSS",
+  "dependencies": "no external libraries",
+  "layout": "mobile-first layout",
+  "data": "mock",
+  "output": "code_only"
+}
+
+做一个登录表单，包含邮箱输入框、密码输入框、登录按钮。要有基本的输入验证（邮箱格式、密码非空），验证不通过时显示错误提示。

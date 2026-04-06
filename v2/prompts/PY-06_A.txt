@@ -1,0 +1,3 @@
+Write a Python code using None. It should be a function library. Use no styling for styling but standard library only. The layout should be not_applicable. not_applicable. Only output code, no explanations.
+
+写一个 Python 函数 `generate_password(length: int = 16, uppercase: bool = True, digits: bool = True, special: bool = True) -> str`。生成随机密码，根据参数决定是否包含大写字母、数字、特殊字符。密码必须至少包含每种被要求的字符类型各一个。

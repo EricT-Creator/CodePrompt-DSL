@@ -1,0 +1,3 @@
+Write a Python code using None. It should be a function library. Use no styling for styling but standard library only. The layout should be not_applicable. not_applicable. Only output code, no explanations.
+
+写一个 Python 函数 `simple_match(pattern: str, text: str) -> bool`，实现一个极简的正则匹配引擎（不用 re 模块）。支持：`.` 匹配任意单字符，`*` 表示前一个字符重复 0 次或多次，`^` 匹配开头，`$` 匹配结尾。

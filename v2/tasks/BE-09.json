@@ -1,0 +1,22 @@
+{
+  "id": "BE-09",
+  "name": "JWT 认证流程",
+  "type": "backend",
+  "requirements": {
+    "nl": "做一个 FastAPI 应用。POST /login 接收用户名和密码（硬编码一个用户 admin/password123），验证通过返回一个 JWT token。GET /protected 需要在 Authorization header 中带 Bearer token，验证通过返回用户信息，验证失败返回 401。JWT 用 Python 标准库的 hmac+base64 手动实现，不用 PyJWT。",
+    "wenyan": "作 FastAPI 应用。POST /login 验用户名密码（硬编码 admin/password123），通过则返 JWT token。GET /protected 须带 Bearer token，通过返用户信息，败返 401。以标准库手动实现 JWT。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "FastAPI",
+    "form": "single_module",
+    "style": "not_applicable",
+    "dependencies": "no_external",
+    "layout": "not_applicable",
+    "data": "mock",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "正确登录返回 token，带 token 访问 /protected 成功，不带 token 返回 401"
+}

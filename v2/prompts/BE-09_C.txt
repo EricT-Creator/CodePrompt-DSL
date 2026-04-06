@@ -1,0 +1,4 @@
+===CODE_SPEC===
+[L]PY[S]FastAPI[F]MOD[Y]NA[D]NOX[M]NA[DT]MOCK[O]CODE
+===REQ===
+做一个 FastAPI 应用。POST /login 接收用户名和密码（硬编码一个用户 admin/password123），验证通过返回一个 JWT token。GET /protected 需要在 Authorization header 中带 Bearer token，验证通过返回用户信息，验证失败返回 401。JWT 用 Python 标准库的 hmac+base64 手动实现，不用 PyJWT。

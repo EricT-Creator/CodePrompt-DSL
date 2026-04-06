@@ -1,0 +1,4 @@
+===CODE_SPEC===
+[L]TS[S]React[F]SFC[Y]CSS[D]NOX[M]DES[DT]MOCK[O]CODE
+===REQ===
+做一个左右分栏的 Markdown 编辑器。左侧是文本输入区域，右侧是实时预览区域。支持基本的 Markdown 语法渲染（标题、粗体、斜体、列表、代码块）。不要使用任何第三方 Markdown 解析库，自己用正则实现简单的转换。

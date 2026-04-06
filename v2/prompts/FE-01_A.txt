@@ -1,0 +1,3 @@
+Write a TypeScript code using React. It should be a single file component with export default. Use Tailwind CSS for styling but no external libraries. The layout should be mobile-first layout. Use mock data.. Only output code, no explanations.
+
+做一个登录表单，包含邮箱输入框、密码输入框、登录按钮。要有基本的输入验证（邮箱格式、密码非空），验证不通过时显示错误提示。

@@ -1,0 +1,22 @@
+{
+  "id": "FE-13",
+  "name": "数据表格",
+  "type": "frontend",
+  "requirements": {
+    "nl": "做一个数据表格组件，展示至少 10 行模拟数据（姓名、邮箱、角色、状态）。支持点击列头排序（升序/降序切换）、支持搜索框按姓名筛选、支持分页（每页 5 条）。",
+    "wenyan": "作数据表，列至少十行模拟数据（名、邮、角色、状态）。可点列头排序，可搜名筛选，可分页（每页五条）。"
+  },
+  "constraints": {
+    "language": "TypeScript",
+    "framework": "React",
+    "form": "single_file_component",
+    "style": "tailwind",
+    "dependencies": "no_external",
+    "layout": "desktop",
+    "data": "mock",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "有表格渲染、有排序功能、有搜索输入框、有分页控件"
+}

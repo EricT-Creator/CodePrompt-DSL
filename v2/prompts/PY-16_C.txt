@@ -1,0 +1,4 @@
+===CODE_SPEC===
+[L]PY[S]NA[F]LIB[Y]NA[D]STD[M]NA[DT]NA[O]CODE
+===REQ===
+写一个 Python 类 `EventBus`。支持 `on(event, callback)` 订阅事件，`off(event, callback)` 取消订阅，`emit(event, *args)` 触发事件（调用所有订阅者），`once(event, callback)` 只触发一次就自动取消。

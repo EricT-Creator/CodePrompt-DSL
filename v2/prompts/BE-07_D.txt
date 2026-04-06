@@ -1,0 +1,4 @@
+===码制===
+[语]PY[架]FastAPI[式]单模[样]无[依]无外库[排]NA[数]NA[出]纯码
+===需===
+作 FastAPI 应用，POST /validate 收 JSON，验 name(字串)、age(正整数)、email(含@) 三必填字段。皆合返 valid:true，否则返 valid:false 及 errors。

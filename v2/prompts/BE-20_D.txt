@@ -1,0 +1,4 @@
+===码制===
+[语]PY[架]FastAPI[式]单模[样]无[依]无外库[排]NA[数]NA[出]纯码
+===需===
+作 FastAPI 应用，实现三中间件依次执行：请求日志（记法、路径、耗时）、CORS（手加 Access-Control header）、请求 ID（加 X-Request-ID header）。GET /logs 返请求日志，GET /test 为测试端点。

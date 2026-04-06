@@ -1,0 +1,22 @@
+{
+  "id": "FE-18",
+  "name": "实时搜索与高亮",
+  "type": "frontend",
+  "requirements": {
+    "nl": "做一个搜索组件，包含搜索输入框和结果列表。列表中有至少 20 条模拟数据（标题+描述）。输入时实时过滤匹配项，并在匹配的文字上加高亮显示。支持防抖（输入后 300ms 才触发过滤）。",
+    "wenyan": "作搜索组件，含搜索栏与结果列。列中至少廿条模拟数据。输入时即滤即亮匹配文字。须防抖，输后三百毫秒方滤。"
+  },
+  "constraints": {
+    "language": "TypeScript",
+    "framework": "React",
+    "form": "single_file_component",
+    "style": "tailwind",
+    "dependencies": "no_external",
+    "layout": "responsive",
+    "data": "mock",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "有搜索输入框、有结果列表、有高亮标记、有防抖逻辑"
+}

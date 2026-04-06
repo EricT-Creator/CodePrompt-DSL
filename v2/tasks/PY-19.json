@@ -1,0 +1,22 @@
+{
+  "id": "PY-19",
+  "name": "简易正则引擎",
+  "type": "python_script",
+  "requirements": {
+    "nl": "写一个 Python 函数 `simple_match(pattern: str, text: str) -> bool`，实现一个极简的正则匹配引擎（不用 re 模块）。支持：`.` 匹配任意单字符，`*` 表示前一个字符重复 0 次或多次，`^` 匹配开头，`$` 匹配结尾。",
+    "wenyan": "写一函数 simple_match，实现极简正则匹配（不用 re 模块）。支持 . 匹配任意单字符、* 重复零次或多次、^ 匹配开头、$ 匹配结尾。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "None",
+    "form": "function_library",
+    "style": "not_applicable",
+    "dependencies": "stdlib_only",
+    "layout": "not_applicable",
+    "data": "not_applicable",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "各通配符功能正确，组合使用正确"
+}

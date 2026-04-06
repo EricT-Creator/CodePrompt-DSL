@@ -1,0 +1,3 @@
+Write a Python code using None. It should be a function library. Use no styling for styling but standard library only. The layout should be not_applicable. not_applicable. Only output code, no explanations.
+
+写一个 Python 函数 `generate_rename_plan(filenames: list[str], pattern: str, start: int = 1) -> list[tuple[str, str]]`。输入文件名列表和命名模板（如 "photo_{n:03d}"），返回 (旧名, 新名) 列表。新名保留原始扩展名。不执行实际重命名，只生成计划。

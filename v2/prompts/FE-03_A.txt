@@ -1,0 +1,3 @@
+Write a TypeScript code using React. It should be a single file component with export default. Use Tailwind CSS for styling but no external libraries. The layout should be mobile-first layout. Use mock data.. Only output code, no explanations.
+
+做一个用户资料卡片组件，显示头像、用户名、个人简介、关注按钮。关注按钮点击后在"关注"和"已关注"之间切换。

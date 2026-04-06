@@ -1,0 +1,4 @@
+===CODE_SPEC===
+[L]PY[S]NA[F]LIB[Y]NA[D]STD[M]NA[DT]NA[O]CODE
+===REQ===
+写一个 Python 类 `DAGScheduler`。`add_task(name, fn, depends_on=[])` 添加任务及其依赖。`run()` 按拓扑序执行所有任务（依赖全完成后才执行当前任务）。检测循环依赖并抛出异常。返回每个任务的执行结果和执行顺序。

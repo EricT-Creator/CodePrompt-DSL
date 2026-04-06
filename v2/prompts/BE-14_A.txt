@@ -1,0 +1,3 @@
+Write a Python code using FastAPI. It should be a single module. Use no styling for styling but no external libraries. The layout should be not_applicable. not_applicable. Only output code, no explanations.
+
+做一个 FastAPI 应用。POST /events 记录一条事件（type, message, timestamp自动生成）。GET /events 返回全部事件。GET /events?type=error 按类型筛选。GET /events/stats 返回各类型事件的计数统计。

@@ -1,0 +1,22 @@
+{
+  "id": "BE-10",
+  "name": "文件信息接口",
+  "type": "backend",
+  "requirements": {
+    "nl": "做一个 FastAPI 应用。POST /upload 接收一个文件上传（multipart/form-data），返回文件名、文件大小（字节）、MIME 类型。不需要真正保存文件，只提取信息。",
+    "wenyan": "作 FastAPI 应用。POST /upload 收上传文件，返文件名、大小、MIME 类型。不须真存，仅提取信息。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "FastAPI",
+    "form": "single_module",
+    "style": "not_applicable",
+    "dependencies": "no_external",
+    "layout": "not_applicable",
+    "data": "not_applicable",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "上传文件后返回正确的文件名、大小、类型"
+}

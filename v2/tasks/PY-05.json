@@ -1,0 +1,22 @@
+{
+  "id": "PY-05",
+  "name": "文本统计器",
+  "type": "python_script",
+  "requirements": {
+    "nl": "写一个 Python 函数 `text_stats(text: str) -> dict`，返回统计信息：字符数、单词数、句子数、段落数、最常见的 5 个单词（忽略大小写，排除常见停用词 the/a/an/is/are/was/were/in/on/at/to/for）。",
+    "wenyan": "写一函数 text_stats，返文本统计：字符数、词数、句数、段数、最常见五词（忽略大小写，排除常见停用词）。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "None",
+    "form": "function_library",
+    "style": "not_applicable",
+    "dependencies": "stdlib_only",
+    "layout": "not_applicable",
+    "data": "not_applicable",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "各计数正确，停用词排除正确，词频排序正确"
+}

@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "Python",
+  "framework": "None",
+  "form": "function library",
+  "style": "no styling",
+  "dependencies": "standard library only",
+  "layout": "not_applicable",
+  "data": "not_applicable",
+  "output": "code_only"
+}
+
+写一个 Python 函数 `generate_password(length: int = 16, uppercase: bool = True, digits: bool = True, special: bool = True) -> str`。生成随机密码，根据参数决定是否包含大写字母、数字、特殊字符。密码必须至少包含每种被要求的字符类型各一个。

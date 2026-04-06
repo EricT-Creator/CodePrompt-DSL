@@ -1,0 +1,22 @@
+{
+  "id": "FE-11",
+  "name": "Markdown 编辑器",
+  "type": "frontend",
+  "requirements": {
+    "nl": "做一个左右分栏的 Markdown 编辑器。左侧是文本输入区域，右侧是实时预览区域。支持基本的 Markdown 语法渲染（标题、粗体、斜体、列表、代码块）。不要使用任何第三方 Markdown 解析库，自己用正则实现简单的转换。",
+    "wenyan": "作左右分栏之 Markdown 编辑器。左为输入，右为实时预览。须渲标题、粗体、斜体、列表、代码块。禁用外库，以正则自为转换。"
+  },
+  "constraints": {
+    "language": "TypeScript",
+    "framework": "React",
+    "form": "single_file_component",
+    "style": "plain_css",
+    "dependencies": "no_external",
+    "layout": "desktop",
+    "data": "mock",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "有左右分栏布局、有 textarea 输入、有实时预览渲染、有基本 Markdown 转换"
+}

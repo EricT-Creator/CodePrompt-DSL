@@ -1,0 +1,3 @@
+Write a Python code using FastAPI. It should be a single module. Use no styling for styling but no external libraries. The layout should be not_applicable. Use mock data.. Only output code, no explanations.
+
+做一个 FastAPI 应用，实现一个简易限流中间件。GET /api/data 返回模拟数据。同一 IP 在 60 秒内最多请求 10 次，超过后返回 429 Too Many Requests。用内存字典记录。

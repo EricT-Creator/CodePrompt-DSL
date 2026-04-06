@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "TypeScript",
+  "framework": "React",
+  "form": "single file component with export default",
+  "style": "plain CSS",
+  "dependencies": "no external libraries",
+  "layout": "responsive layout",
+  "data": "mock",
+  "output": "code_only"
+}
+
+做一个计数器，包含当前计数显示、加一按钮、减一按钮、重置按钮。计数不能低于零。

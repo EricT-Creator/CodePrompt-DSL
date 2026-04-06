@@ -1,0 +1,3 @@
+Write a TypeScript code using React. It should be a single file component with export default. Use Tailwind CSS for styling but no external libraries. The layout should be responsive layout. Use mock data.. Only output code, no explanations.
+
+做一个通知提示组件。支持成功、警告、错误三种类型，每种类型有不同的颜色。通知出现后 3 秒自动消失，也可以手动点关闭按钮消失。

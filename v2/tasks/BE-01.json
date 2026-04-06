@@ -1,0 +1,22 @@
+{
+  "id": "BE-01",
+  "name": "健康检查接口",
+  "type": "backend",
+  "requirements": {
+    "nl": "做一个 FastAPI 应用，包含一个 GET /health 接口，返回 `{\"status\": \"ok\", \"timestamp\": \"<当前时间>\"}`。",
+    "wenyan": "作 FastAPI 应用，具 GET /health 接口，返 status 为 ok 及当前时间。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "FastAPI",
+    "form": "single_module",
+    "style": "not_applicable",
+    "dependencies": "no_external(仅fastapi+uvicorn)",
+    "layout": "not_applicable",
+    "data": "not_applicable",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "GET /health 返回 200，响应含 status 和 timestamp 字段"
+}

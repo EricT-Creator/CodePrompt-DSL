@@ -1,0 +1,22 @@
+{
+  "id": "FE-07",
+  "name": "通知消息条",
+  "type": "frontend",
+  "requirements": {
+    "nl": "做一个通知提示组件。支持成功、警告、错误三种类型，每种类型有不同的颜色。通知出现后 3 秒自动消失，也可以手动点关闭按钮消失。",
+    "wenyan": "作通知条，分成功、警示、误报三类，各异色。现后三秒自隐，亦可手动关之。"
+  },
+  "constraints": {
+    "language": "TypeScript",
+    "framework": "React",
+    "form": "single_file_component",
+    "style": "tailwind",
+    "dependencies": "no_external",
+    "layout": "responsive",
+    "data": "mock",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "有三种类型样式、有自动消失定时器、有关闭按钮"
+}

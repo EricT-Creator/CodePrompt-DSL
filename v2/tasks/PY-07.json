@@ -1,0 +1,22 @@
+{
+  "id": "PY-07",
+  "name": "日期计算器",
+  "type": "python_script",
+  "requirements": {
+    "nl": "写一个 Python 函数 `date_calc(date_str: str, operation: str) -> str`。输入日期（YYYY-MM-DD 格式）和操作字符串（如 \"+3d\" 加3天，\"-2w\" 减2周，\"+1m\" 加1月，\"-1y\" 减1年），返回计算后的日期字符串。",
+    "wenyan": "写一函数 date_calc，入日期字符串与操作符（如 +3d 加三天，-2w 减二周，+1m 加一月，-1y 减一年），返计算后之日期。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "None",
+    "form": "function_library",
+    "style": "not_applicable",
+    "dependencies": "stdlib_only",
+    "layout": "not_applicable",
+    "data": "not_applicable",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "天/周/月/年计算正确，跨月/跨年正确"
+}

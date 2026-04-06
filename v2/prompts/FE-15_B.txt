@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "TypeScript",
+  "framework": "React",
+  "form": "single file component with export default",
+  "style": "Tailwind CSS",
+  "dependencies": "no external libraries",
+  "layout": "responsive layout",
+  "data": "mock",
+  "output": "code_only"
+}
+
+做一个设置面板，包含至少 3 个开关切换项（如深色模式、通知、自动保存）、1 个下拉选择器（如语言选择）、1 个保存按钮。点保存后显示"已保存"提示。

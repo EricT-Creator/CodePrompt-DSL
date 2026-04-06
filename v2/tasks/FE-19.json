@@ -1,0 +1,22 @@
+{
+  "id": "FE-19",
+  "name": "看板任务板",
+  "type": "frontend",
+  "requirements": {
+    "nl": "做一个三列看板（待做、进行中、已完成）。每列中有任务卡片，每个卡片显示标题和描述。可以通过按钮将卡片在相邻列之间移动（如从\"待做\"移到\"进行中\"）。可以添加新卡片到\"待做\"列。",
+    "wenyan": "作三列看板（待做、进行、已毕）。各列有任务卡，示题与描述。可按键移卡于相邻列间。可添新卡于待做列。"
+  },
+  "constraints": {
+    "language": "TypeScript",
+    "framework": "React",
+    "form": "single_file_component",
+    "style": "tailwind",
+    "dependencies": "no_external",
+    "layout": "desktop",
+    "data": "mock",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "有三列布局、有卡片渲染、有列间移动功能、有添加功能"
+}

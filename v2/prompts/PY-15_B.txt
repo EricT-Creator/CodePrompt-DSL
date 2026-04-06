@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "Python",
+  "framework": "None",
+  "form": "function library",
+  "style": "no styling",
+  "dependencies": "standard library only",
+  "layout": "not_applicable",
+  "data": "not_applicable",
+  "output": "code_only"
+}
+
+写一个 Python 函数 `render_template(template: str, context: dict) -> str`。支持变量替换 `{{name}}`、条件块 `{% if condition %}...{% endif %}`、循环块 `{% for item in list %}...{% endfor %}`。变量支持点号访问 `{{user.name}}`。

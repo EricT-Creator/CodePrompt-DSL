@@ -1,0 +1,22 @@
+{
+  "id": "FE-03",
+  "name": "用户资料卡片",
+  "type": "frontend",
+  "requirements": {
+    "nl": "做一个用户资料卡片组件，显示头像、用户名、个人简介、关注按钮。关注按钮点击后在\"关注\"和\"已关注\"之间切换。",
+    "wenyan": "作用户卡，示头像、名、简介与关注键。点关注则切\"已关注\"。"
+  },
+  "constraints": {
+    "language": "TypeScript",
+    "framework": "React",
+    "form": "single_file_component",
+    "style": "tailwind",
+    "dependencies": "no_external",
+    "layout": "mobile_first",
+    "data": "mock",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "有头像展示、有用户名、有简介文字、有按钮且可切换状态"
+}

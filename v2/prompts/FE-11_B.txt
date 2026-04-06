@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "TypeScript",
+  "framework": "React",
+  "form": "single file component with export default",
+  "style": "plain CSS",
+  "dependencies": "no external libraries",
+  "layout": "desktop layout",
+  "data": "mock",
+  "output": "code_only"
+}
+
+做一个左右分栏的 Markdown 编辑器。左侧是文本输入区域，右侧是实时预览区域。支持基本的 Markdown 语法渲染（标题、粗体、斜体、列表、代码块）。不要使用任何第三方 Markdown 解析库，自己用正则实现简单的转换。

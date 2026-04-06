@@ -1,0 +1,4 @@
+===码制===
+[语]PY[架]FastAPI[式]单模[样]无[依]无外库[排]NA[数]模拟[出]纯码
+===需===
+作 FastAPI 应用。POST /login 验用户名密码（硬编码 admin/password123），通过则返 JWT token。GET /protected 须带 Bearer token，通过返用户信息，败返 401。以标准库手动实现 JWT。

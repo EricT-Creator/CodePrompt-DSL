@@ -1,0 +1,22 @@
+{
+  "id": "BE-17",
+  "name": "WebSocket 聊天室",
+  "type": "backend",
+  "requirements": {
+    "nl": "做一个 FastAPI 应用，实现 WebSocket 聊天室。WS /ws/{username} 连接后可收发消息。一个用户发送的消息应广播给所有其他已连接的用户。用户连接和断开时广播通知。",
+    "wenyan": "作 FastAPI 应用，实现 WebSocket 聊天室。WS /ws/{username} 连后可收发消息。一人之消息广播于所有他人。连断时均广播通知。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "FastAPI",
+    "form": "single_module",
+    "style": "not_applicable",
+    "dependencies": "no_external",
+    "layout": "not_applicable",
+    "data": "not_applicable",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "WebSocket 连接成功，消息广播正确，断连通知正确"
+}

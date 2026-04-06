@@ -1,0 +1,3 @@
+Write a Python code using None. It should be a function library. Use no styling for styling but standard library only. The layout should be not_applicable. not_applicable. Only output code, no explanations.
+
+写一个 Python 类 `DownloadManager`，使用 `concurrent.futures.ThreadPoolExecutor` 实现并发下载。`add(url, filepath)` 添加下载任务，`start(max_workers=4)` 开始并发下载，`status()` 返回每个任务的状态（pending/downloading/completed/failed）。用标准库 `urllib.request` 做实际下载。

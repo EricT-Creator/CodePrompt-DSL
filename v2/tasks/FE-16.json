@@ -1,0 +1,22 @@
+{
+  "id": "FE-16",
+  "name": "多步表单",
+  "type": "frontend",
+  "requirements": {
+    "nl": "做一个多步表单（至少 3 步）。第一步填个人信息（姓名、邮箱），第二步填地址信息（城市、邮编），第三步确认并提交。有上一步/下一步按钮，有步骤指示器显示当前在第几步。",
+    "wenyan": "作三步表单。首步填名与邮，次步填城与邮编，末步确认提交。具上下步键与步骤指示器。"
+  },
+  "constraints": {
+    "language": "TypeScript",
+    "framework": "React",
+    "form": "single_file_component",
+    "style": "tailwind",
+    "dependencies": "no_external",
+    "layout": "mobile_first",
+    "data": "mock",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "有多步状态管理、有步骤指示器、有上一步/下一步导航、有表单字段\n\n### 进阶难度（FE-17 ~ FE-20）"
+}

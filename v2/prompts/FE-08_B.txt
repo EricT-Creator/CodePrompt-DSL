@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "TypeScript",
+  "framework": "React",
+  "form": "single file component with export default",
+  "style": "plain CSS",
+  "dependencies": "no external libraries",
+  "layout": "mobile-first layout",
+  "data": "mock",
+  "output": "code_only"
+}
+
+做一个标签页组件，包含至少 3 个标签。点击标签切换显示对应内容区域，当前激活的标签有高亮样式。

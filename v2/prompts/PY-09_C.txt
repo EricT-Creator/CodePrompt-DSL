@@ -1,0 +1,4 @@
+===CODE_SPEC===
+[L]PY[S]NA[F]LIB[Y]NA[D]STD[M]NA[DT]NA[O]CODE
+===REQ===
+写一个 Python 函数 `parse_args(args: list[str], schema: dict) -> dict`。schema 定义参数名、类型、默认值、是否必填。例如 `{"--name": {"type": "str", "required": True}, "--count": {"type": "int", "default": 1}}`。支持 `--key value` 和 `--key=value` 两种写法。不使用 argparse，自己实现。

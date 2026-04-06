@@ -1,0 +1,22 @@
+{
+  "id": "BE-08",
+  "name": "简易键值存储 API",
+  "type": "backend",
+  "requirements": {
+    "nl": "做一个 FastAPI 应用，实现内存键值存储。PUT /store/{key} 存值（body 为 `{\"value\": any}`），GET /store/{key} 取值，DELETE /store/{key} 删值。不存在的 key 返回 404。",
+    "wenyan": "作 FastAPI 应用，实现内存键值存储。PUT 存值，GET 取值，DELETE 删值。键不存则返 404。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "FastAPI",
+    "form": "single_module",
+    "style": "not_applicable",
+    "dependencies": "no_external",
+    "layout": "not_applicable",
+    "data": "not_applicable",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "PUT 存值成功，GET 取值正确，DELETE 删值成功，不存在返回 404\n\n### 中等难度（BE-09 ~ BE-16）"
+}

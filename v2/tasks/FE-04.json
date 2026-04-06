@@ -1,0 +1,22 @@
+{
+  "id": "FE-04",
+  "name": "计数器面板",
+  "type": "frontend",
+  "requirements": {
+    "nl": "做一个计数器，包含当前计数显示、加一按钮、减一按钮、重置按钮。计数不能低于零。",
+    "wenyan": "作计数器，示当前数。具增、减、归零三键。数不可负。"
+  },
+  "constraints": {
+    "language": "TypeScript",
+    "framework": "React",
+    "form": "single_file_component",
+    "style": "plain_css",
+    "dependencies": "no_external",
+    "layout": "responsive",
+    "data": "mock",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "有数字显示、有三个按钮、有最小值限制逻辑"
+}

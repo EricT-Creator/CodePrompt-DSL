@@ -1,0 +1,22 @@
+{
+  "id": "FE-15",
+  "name": "设置面板",
+  "type": "frontend",
+  "requirements": {
+    "nl": "做一个设置面板，包含至少 3 个开关切换项（如深色模式、通知、自动保存）、1 个下拉选择器（如语言选择）、1 个保存按钮。点保存后显示\"已保存\"提示。",
+    "wenyan": "作设置板，具至少三开关项（如暗色、通知、自存）、一下拉选（如语言）、一存键。存后示\"已保存\"。"
+  },
+  "constraints": {
+    "language": "TypeScript",
+    "framework": "React",
+    "form": "single_file_component",
+    "style": "tailwind",
+    "dependencies": "no_external",
+    "layout": "responsive",
+    "data": "mock",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "有 toggle 开关、有 select 下拉、有保存按钮、有保存反馈"
+}

@@ -1,0 +1,22 @@
+{
+  "id": "BE-07",
+  "name": "JSON 数据验证接口",
+  "type": "backend",
+  "requirements": {
+    "nl": "做一个 FastAPI 应用，POST /validate 接收任意 JSON 对象，检查是否包含 name(字符串)、age(整数且>0)、email(含@) 三个必填字段。全部合法返回 `{\"valid\": true}`，否则返回 `{\"valid\": false, \"errors\": [...]}`。",
+    "wenyan": "作 FastAPI 应用，POST /validate 收 JSON，验 name(字串)、age(正整数)、email(含@) 三必填字段。皆合返 valid:true，否则返 valid:false 及 errors。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "FastAPI",
+    "form": "single_module",
+    "style": "not_applicable",
+    "dependencies": "no_external",
+    "layout": "not_applicable",
+    "data": "not_applicable",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "合法输入返回 valid:true，各字段缺失/类型错误时返回正确的 errors"
+}

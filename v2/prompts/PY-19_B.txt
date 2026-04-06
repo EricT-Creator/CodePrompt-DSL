@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "Python",
+  "framework": "None",
+  "form": "function library",
+  "style": "no styling",
+  "dependencies": "standard library only",
+  "layout": "not_applicable",
+  "data": "not_applicable",
+  "output": "code_only"
+}
+
+写一个 Python 函数 `simple_match(pattern: str, text: str) -> bool`，实现一个极简的正则匹配引擎（不用 re 模块）。支持：`.` 匹配任意单字符，`*` 表示前一个字符重复 0 次或多次，`^` 匹配开头，`$` 匹配结尾。

@@ -1,0 +1,4 @@
+===码制===
+[语]PY[架]FastAPI[式]单模[样]无[依]仅FA[排]NA[数]NA[出]纯码
+===需===
+作 FastAPI 应用，具 GET /health 接口，返 status 为 ok 及当前时间。

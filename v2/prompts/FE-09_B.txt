@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "TypeScript",
+  "framework": "React",
+  "form": "single file component with export default",
+  "style": "Tailwind CSS",
+  "dependencies": "no external libraries",
+  "layout": "mobile-first layout",
+  "data": "mock",
+  "output": "code_only"
+}
+
+做一个购物车页面，展示商品列表（至少 3 件），每件商品有名称、单价、数量调节按钮。底部显示总价，总价随数量变化实时更新。有清空购物车按钮。

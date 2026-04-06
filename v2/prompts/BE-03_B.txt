@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "Python",
+  "framework": "FastAPI",
+  "form": "single module",
+  "style": "no styling",
+  "dependencies": "no external libraries",
+  "layout": "not_applicable",
+  "data": "not_applicable",
+  "output": "code_only"
+}
+
+做一个 FastAPI 应用，POST /register 接收用户名、邮箱、密码。验证邮箱格式和密码长度（至少 8 位），验证不通过返回 422 和错误信息，通过则返回 201 和用户信息（不含密码）。

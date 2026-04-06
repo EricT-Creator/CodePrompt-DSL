@@ -1,0 +1,22 @@
+{
+  "id": "PY-15",
+  "name": "简易模板引擎",
+  "type": "python_script",
+  "requirements": {
+    "nl": "写一个 Python 函数 `render_template(template: str, context: dict) -> str`。支持变量替换 `{{name}}`、条件块 `{% if condition %}...{% endif %}`、循环块 `{% for item in list %}...{% endfor %}`。变量支持点号访问 `{{user.name}}`。",
+    "wenyan": "写一函数 render_template，支持变量替换 {{name}}、条件块 if/endif、循环块 for/endfor。变量支持点号访问。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "None",
+    "form": "function_library",
+    "style": "not_applicable",
+    "dependencies": "stdlib_only",
+    "layout": "not_applicable",
+    "data": "not_applicable",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "变量替换正确，条件判断正确，循环渲染正确，点号访问正确"
+}

@@ -1,0 +1,22 @@
+{
+  "id": "BE-20",
+  "name": "中间件链",
+  "type": "backend",
+  "requirements": {
+    "nl": "做一个 FastAPI 应用，实现三个中间件按顺序执行：(1) 请求日志中间件——记录每个请求的方法、路径、耗时到内存列表；(2) CORS 中间件——手动添加 Access-Control 相关 header；(3) 请求 ID 中间件——给每个请求/响应添加 X-Request-ID header。GET /logs 返回收集到的请求日志。GET /test 是一个普通的测试端点。",
+    "wenyan": "作 FastAPI 应用，实现三中间件依次执行：请求日志（记法、路径、耗时）、CORS（手加 Access-Control header）、请求 ID（加 X-Request-ID header）。GET /logs 返请求日志，GET /test 为测试端点。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "FastAPI",
+    "form": "single_module",
+    "style": "not_applicable",
+    "dependencies": "no_external",
+    "layout": "not_applicable",
+    "data": "not_applicable",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "响应包含 X-Request-ID 和 CORS header，/logs 记录了请求信息\n\n---\n\n## 四、Python Script 任务（PY-01 ~ PY-20）\n\n**统一技术栈**：Python 3.12+，仅标准库（除非任务明确指定）  \n**验证方式**：`python -m pytest` 跑预写单测\n\n### 基础难度（PY-01 ~ PY-08）"
+}

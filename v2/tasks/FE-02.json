@@ -1,0 +1,22 @@
+{
+  "id": "FE-02",
+  "name": "待办事项列表",
+  "type": "frontend",
+  "requirements": {
+    "nl": "做一个待办事项应用，可以添加新任务、删除已有任务、标记任务为已完成、按完成状态筛选显示。",
+    "wenyan": "作待办页，具增删之能，可标毕，可按状筛示。"
+  },
+  "constraints": {
+    "language": "TypeScript",
+    "framework": "React",
+    "form": "single_file_component",
+    "style": "tailwind",
+    "dependencies": "no_external",
+    "layout": "mobile_first",
+    "data": "mock",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "有输入框、有添加按钮、有列表渲染、有删除功能、有完成切换、有筛选控件"
+}

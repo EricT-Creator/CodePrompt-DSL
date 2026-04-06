@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "Python",
+  "framework": "FastAPI",
+  "form": "single module",
+  "style": "no styling",
+  "dependencies": "no external libraries",
+  "layout": "not_applicable",
+  "data": "not_applicable",
+  "output": "code_only"
+}
+
+做一个 FastAPI 应用，POST /validate 接收任意 JSON 对象，检查是否包含 name(字符串)、age(整数且>0)、email(含@) 三个必填字段。全部合法返回 `{"valid": true}`，否则返回 `{"valid": false, "errors": [...]}`。

@@ -1,0 +1,4 @@
+===CODE_SPEC===
+[L]PY[S]FastAPI[F]MOD[Y]NA[D]NOX[M]NA[DT]MOCK[O]CODE
+===REQ===
+做一个 FastAPI 应用，同时提供 v1 和 v2 两个版本的接口。GET /v1/users 返回简化的用户列表（只有 id 和 name）。GET /v2/users 返回完整的用户列表（id, name, email, created_at）。GET /v2/users/{id} 返回单个用户详情（v1 没有这个端点）。两个版本共享同一份模拟数据。

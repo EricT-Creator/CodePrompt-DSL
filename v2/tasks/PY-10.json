@@ -1,0 +1,22 @@
+{
+  "id": "PY-10",
+  "name": "日志分析器",
+  "type": "python_script",
+  "requirements": {
+    "nl": "写一个 Python 函数 `analyze_logs(log_text: str) -> dict`。输入是多行日志文本，每行格式为 `[TIMESTAMP] [LEVEL] message`（如 `[2026-03-31 10:00:00] [ERROR] Connection failed`）。返回：总行数、各级别（INFO/WARN/ERROR）计数、ERROR 级别的全部消息列表、最早和最晚的时间戳。",
+    "wenyan": "写一函数 analyze_logs，入多行日志文本，返总行数、各级别计数、ERROR 消息列表、最早与最晚时间戳。"
+  },
+  "constraints": {
+    "language": "Python",
+    "framework": "None",
+    "form": "function_library",
+    "style": "not_applicable",
+    "dependencies": "stdlib_only",
+    "layout": "not_applicable",
+    "data": "not_applicable",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "各级别计数正确，ERROR 消息提取正确，时间范围正确"
+}

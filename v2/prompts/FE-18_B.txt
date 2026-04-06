@@ -1,0 +1,14 @@
+Generate code according to this specification:
+
+{
+  "language": "TypeScript",
+  "framework": "React",
+  "form": "single file component with export default",
+  "style": "Tailwind CSS",
+  "dependencies": "no external libraries",
+  "layout": "responsive layout",
+  "data": "mock",
+  "output": "code_only"
+}
+
+做一个搜索组件，包含搜索输入框和结果列表。列表中有至少 20 条模拟数据（标题+描述）。输入时实时过滤匹配项，并在匹配的文字上加高亮显示。支持防抖（输入后 300ms 才触发过滤）。

@@ -1,0 +1,22 @@
+{
+  "id": "FE-06",
+  "name": "星级评分组件",
+  "type": "frontend",
+  "requirements": {
+    "nl": "做一个五星评分组件。鼠标悬停时预览评分（星星高亮），点击后确认评分，显示当前已选分数。",
+    "wenyan": "作五星评分器。悬时预示星亮，点则定分，示已选之数。"
+  },
+  "constraints": {
+    "language": "TypeScript",
+    "framework": "React",
+    "form": "single_file_component",
+    "style": "tailwind",
+    "dependencies": "no_external",
+    "layout": "desktop",
+    "data": "mock",
+    "output": "code_only",
+    "tests": false,
+    "comments": false
+  },
+  "validation": "有 5 个星星元素、有 hover 交互、有 click 确认、有分数显示"
+}

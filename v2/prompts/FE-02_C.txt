@@ -1,0 +1,4 @@
+===CODE_SPEC===
+[L]TS[S]React[F]SFC[Y]TW[D]NOX[M]MOB[DT]MOCK[O]CODE
+===REQ===
+做一个待办事项应用，可以添加新任务、删除已有任务、标记任务为已完成、按完成状态筛选显示。
