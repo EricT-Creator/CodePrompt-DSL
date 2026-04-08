@@ -73,6 +73,16 @@ v2/paper/
 # ICSME RENE submission (double-anonymous, NEVER push)
 # (covered by v2/paper/ above)
 
+# ═══ Root-level process files (v1-era, not needed) ═══
+CLAUDE_HAIKU_REPORT.md
+CodePrompt-DSL_*.md
+EXPLORATORY_*.md
+evaluate_claude_haiku.py
+generate_claude_haiku_codes.py
+generate_hunyuan_instruct_codes.py
+可信模型源码缺失清单.md
+实验报告.html
+
 # Root-level process files
 compare_csvs.py
 evaluate_gemini_3_1_flash_lite_fe.py
@@ -81,6 +91,11 @@ EXP_C_H_RRS_S3_审查总结_2026-04-03.md
 human_code_review-v2/
 
 # v2 root process/temporary files
+v2/EXPERIMENT_V2_DESIGN.md
+v2/PROMPT_TEMPLATES.md
+v2/RELATED_WORK_SURVEY.md
+v2/TASK_DEFINITIONS.md
+v2/generations/DeepSeek-V3.2/生成报告.md
 v2/AUDIT_漏洞审计报告.md
 v2/EXPERIMENT_RUNBOOK.md
 v2/FINAL_VALIDATION_REPORT.md
@@ -92,9 +107,19 @@ v2/generated_files_list.txt
 v2/generate_task_jsons.py
 v2/补跑指令清单.md
 v2/对话总结_*.md
-v2/analysis/analysis_output.json
+v2/analysis/V2_*.md
+v2/analysis/EXP_A_review_summary.json
 v2/analysis/analyze_v2.py
 v2/analysis/statistical_tests.py
+v2/analysis/analysis_output.json
+
+# experiment_data process files (keep only raw data)
+experiment_data/AUDIT_REPORT.md
+experiment_data/FINAL_EXPERIMENT_REPORT.md
+experiment_data/METHODOLOGY.md
+experiment_data/accuracy_experiment_design.md
+experiment_data/audit_check.py
+experiment_data/generate_report.py
 
 # v2/experiments process files
 v2/experiments/EXP_C_FINAL_SUMMARY.md
