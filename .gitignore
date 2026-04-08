@@ -67,17 +67,11 @@ v2/generate_prompts.py
 v2/audit_hunyuan.py
 v2/eval/
 
-# Generated PDF/LaTeX (use HTML instead)
-v2/paper/PAPER_v4_EN.pdf
-v2/paper/PAPER_v4_CN.pdf
-v2/paper/PAPER_v4_EN.tex
-v2/paper/PAPER_v4_CN.tex
-v2/paper/PAPER_DRAFT_v3*.md
-v2/paper/PAPER_DRAFT_v3*.html
-v2/paper/*.pdf
+# ═══ Paper files (NOT in repo — submit to arXiv/ICSME separately) ═══
+v2/paper/
 
 # ICSME RENE submission (double-anonymous, NEVER push)
-v2/paper/icsme-rene/
+# (covered by v2/paper/ above)
 
 # Root-level process files
 compare_csvs.py
@@ -114,3 +108,9 @@ v2/experiments/EXP_C2/EXP_C2b_DeepSeek_S2_完成报告.md
 # EXP_C internal process docs
 v2/experiments/EXP_C/EXP_C_RUNBOOK.md
 v2/experiments/EXP_C/EXP_C_REVIEW_PROTOCOL.md
+
+# Multi-model audit (superseded by human review)
+v2/experiments/MULTI_MODEL_REVIEW_ANALYSIS.md
+
+# Human review v2 report (process file)
+v2/experiments/human_review_report_v2.md
